@@ -16,6 +16,7 @@
 
 #welcome-buttons {
     display: flex;
+    flex-direction: column;
     width: 400px;
     margin: 0 auto 0 auto;
     position: absolute;
