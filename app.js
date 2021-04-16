@@ -7,10 +7,35 @@ var start_time;
 var time_elapsed;
 var interval;
 
+
+
+
 $(document).ready(function() {
-	context = canvas.getContext("2d");
-	Start();
+	$("#welcome").show();
+	// context = canvas.getContext("2d");
+	// Start();
 });
+
+function showRegister() {
+	$("#content").find('*').hide();
+	$("#register").show();
+}
+
+function showLogin() {
+	$("#content").find('*').hide();
+	$("#login").show();
+}
+
+function showSettings() {
+	$("#content").find('*').hide();
+	$("#settings").show();
+}
+
+function showAbout() {
+	$("#content").find('*').hide();
+	$("#about").show();
+}
+
 
 function Start() {
 	board = new Array();

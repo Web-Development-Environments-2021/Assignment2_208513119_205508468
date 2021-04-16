@@ -67,7 +67,7 @@
     margin-left: 200px;
     margin-top: 80px;
     padding: 1px 16px;
-    height: 1000px;
+    height: 800px;
   }
   
   /* On screens that are less than 700px wide, make the sidebar into a topbar */
@@ -88,3 +88,31 @@
       float: none;
     }
   }
+
+  /************ Content Screens *************/
+
+  #register {
+      display: none;
+  }
+
+  #login {
+    display: none;
+}
+
+#setting {
+    display: none;
+}
+
+#about {
+    display: none;
+}
+
+#game {
+    display: none;
+}
+
+
+
+
+
+

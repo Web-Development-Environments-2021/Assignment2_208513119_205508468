@@ -13,11 +13,9 @@
 				<div class="menu-container">
 					<div class="navbar-brand">
 						<div class="navbar-logo">
-							<img src="photos/pac-man-x750.jpg" width="70" height="70">
+							<img src="resources/pac-man-x750.jpg" width="70" height="70">
 						</div>
-						<div class="navbar-game-name">
-							Dr's Pacman
-						</div>
+						<div class="navbar-game-name"> Dr's Pacman </div>
 					</div>
 
 
@@ -34,39 +32,45 @@
 
 		<div id="content">
 			<div id = "welcome">
-				<img src="" alt="">
-				<button class="welcomeBut"></button>
-				<button class="welcomeBut"></button>
+				<div id = "welcome-buttons">
+					<button class="welcomeBut" onClick="showRegister()">Register</button>
+					<button class="welcomeBut" onClick="showLogin()">Login</button>
+				</div>
+				
 			</div>
+
 			<div id = "register">
 				
 			</div>
+
 			<div id = "login">
 				
 			</div>
+
 			<div id = "settings">
 				
 			</div>
+
 			<div id = "about">
 				
 			</div>
+
 			<div id = "game">
-				<div id="score">
-					<label for="lblScore">SCORE:</label>
-					<input id="lblScore" type="text" />
-				</div>
-				<div id="time">
-					<label for="lblTime">TIME:</label>
-					<input id="lblTime" type="text" />
+				<div id = "gameDetails">
+					<div id="score">
+						<label for="lblScore">SCORE:</label>
+						<input id="lblScore" type="text" />
+					</div>
+					<div id="time">
+						<label for="lblTime">TIME:</label>
+						<input id="lblTime" type="text" />
+					</div>
 				</div>
 				<div id="gameBoard">
 					<canvas id="canvas" height="600" width="600"></canvas>
 				</div>
 			</div>
-			
 		</div>
-
-		
 
 		<div id="footer">
 
