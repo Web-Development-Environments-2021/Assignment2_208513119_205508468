@@ -5,6 +5,7 @@
     background: #000000;
     box-shadow: 3.5px 6.1px 30px rgb(0 0 0 / 57%);
     min-height: 80px;
+    left: 0;
 }
 
 .menu-container{
@@ -13,7 +14,8 @@
     transition: all 0.2s;
     letter-spacing: 1px;
     font-family: 'Oswald',sans-serif;
-    font-size: 1.5rem;
+    /* font-family:'Press Start 2P', cursive;  */
+    /* font-size: 1.5rem; */
     line-height: inherit;
     transition: all 0.2s;
     letter-spacing: 1px;
@@ -21,14 +23,24 @@
     flex-direction:row;
     align-items: center;
     justify-content: space-between;
-    margin-left: 5%;
+    margin-left: 0;
     margin-right: 5%;
+}
+
+.navbar-game-name{
+    font-size: 1.8rem;
+    margin-left: 15%;
+}
+
+.our-names{
+    font-size: 0.1rem;
 }
 
 .navbar-brand{
     display: flex;
     flex-direction:row;
     align-items: center;
+    justify-content: flex-start;
 }
 
 
