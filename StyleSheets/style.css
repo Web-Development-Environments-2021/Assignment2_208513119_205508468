@@ -1,14 +1,11 @@
-.navbar{
+#header{
     position: fixed;
     top: 0;
     width: 100%;
-    background: #000000;
+    background: rgb(49, 49, 49);
     box-shadow: 3.5px 6.1px 30px rgb(0 0 0 / 57%);
     min-height: 80px;
     left: 0;
-}
-
-.menu-container{
     font-weight: 700;
     color: #ffffff;
     transition: all 0.2s;
@@ -27,7 +24,8 @@
     margin-right: 5%;
 }
 
-.navbar-game-name{
+
+.header-game-name{
     font-size: 1.8rem;
     margin-left: 15%;
 }
@@ -36,7 +34,7 @@
     font-size: 0.9rem;
 }
 
-.navbar-brand{
+.header-brand{
     display: flex;
     flex-direction:row;
     align-items: center;
@@ -124,29 +122,22 @@
     }
   }
 
+  .footer{
+      height: 15px;
+      font: bold 16px sans-serif;
+  }
+
   /* dana-footer */
   .footer-distributed{
     background: rgb(49, 49, 49);
     box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
     box-sizing: border-box;
-    font: bold 16px sans-serif;
+    
     text-align: left;
     padding: 50px 60px 40px;
     overflow: hidden;
     margin-left: 15%;
   }
-  
-  section {
-    width: 100%;
-    display: inline-block;
-    background: #ccc;
-    height: 60vh;
-    text-align: center;
-    font-size: 22px;
-    font-weight: 700;
-    text-decoration: underline;
-  }
-  
   
   /* Footer left */
   
@@ -184,30 +175,7 @@
     font-weight: normal;
     margin: 0;
   }
-  
-  /* Footer social icons */
-  
-  .footer-distributed .footer-icons{
-    margin-top: 40px;
-  }
-  
-  .footer-distributed .footer-icons a{
-    display: inline-block;
-    width: 35px;
-    height: 35px;
-    cursor: pointer;
-    background-color:  #33383b;
-    border-radius: 2px;
-  
-    font-size: 20px;
-    color: #ffffff;
-    text-align: center;
-    line-height: 35px;
-  
-    margin-right: 3px;
-    margin-bottom: 5px;
-  }
-  
+
   /* Footer Right */
   
   .footer-distributed .footer-right{
@@ -220,6 +188,7 @@
     vertical-align: top;
     margin: 15px 15px 0 0;
     color: #ffffff;
+    margin-bottom: 3%;
   }
   
   /* The contact form */
