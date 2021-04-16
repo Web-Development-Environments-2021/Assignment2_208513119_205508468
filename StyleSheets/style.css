@@ -4,10 +4,10 @@
     width: 100%;
     background: #000000;
     box-shadow: 3.5px 6.1px 30px rgb(0 0 0 / 57%);
-    min-height: 80px;
+    min-height: 10%;
 }
 
-.navbar-game-name{
+.menu-container{
     font-weight: 700;
     color: #ffffff;
     transition: all 0.2s;
@@ -17,6 +17,12 @@
     line-height: inherit;
     transition: all 0.2s;
     letter-spacing: 1px;
+    display: flex;
+    flex-direction:row;
+    align-items: center;
+    justify-content: space-between;
+    margin-left: 5%;
+    margin-right: 5%;
 }
 
 .navbar-brand{
