@@ -54,33 +54,31 @@
 								User Name
 							</div>
 						</label>
-						<input type="text" placeholder="Enter User Name" name="userName" id="username">
+						<input type="text" placeholder="Enter User Name" name="userName" id="usernameReg" required>
 
 						<div id = "registerField">
 							Password
 						</div>
-						<input type="password" placeholder="Enter Password" name="psw" id="psw">
+						<input type="password" placeholder="Enter Password" name="psw" id="pswReg" required>
 
 						<div id = "registerField">
 							Full Name
 						</div>
-						<input type="text" placeholder="Enter your full name" name="fullname" id="name">
+						<input type="text" placeholder="Enter your full name" name="fullname" id="nameReg" required>
 
 						<div id = "registerField">
 							Email
 						</div>
-						<input type="text" placeholder="Enter Email" name="email" id="email">
+						<input type="text" placeholder="Enter Email" name="email" id="emailReg" required> 
 
-						<!-- add date  -->
 						<div id = "registerField">
 							Birth Date
 						</div>
-						<input type="date" name="dateofbirth" id="dateofbirth">
+						<input type="date" name="dateofbirth" id="dateofbirthReg" required>
 
-						<button type="submit" class="registerBtn">
+						<button type="button" class="registerBtn" onclick="registerUser()">
 							Register
 						</button>
-
 					</div>
 				</div>
 	
