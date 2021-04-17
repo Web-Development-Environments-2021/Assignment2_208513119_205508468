@@ -130,31 +130,41 @@ body {
     height: 100%;
     width: calc(100% - 200px);
     margin-left: 200px;
-    background-image: url("/resources/welcome-background.jpg");
+    background-image: url("../resources/welcome-background.jpg");
     background-size: 100%;
     background-repeat: no-repeat;
   }
 
   /************ Content Screens *************/
 
-  #register {
-      display: none;
-  }
-
-  #login {
+#register {
     display: none;
+    height: 100%;
+    width: 100%;
+}
+
+#login {
+  display: none;
+  height: 100%;
+    width: 100%;
 }
 
 #setting {
     display: none;
+    height: 100%;
+    width: 100%;
 }
 
 #about {
     display: none;
+    height: 100%;
+    width: 100%;
 }
 
 #game {
-    display: none;
+    /* display: none; */
+    height: 100%;
+    width: 100%;
 }
 
 
