@@ -162,7 +162,7 @@ body {
 }
 
 #game {
-    /* display: none; */
+    display: none;
     height: 100%;
     width: 100%;
 }
@@ -210,4 +210,3 @@ body {
     font-weight: normal;
     margin-top: 0;
   }
-  
