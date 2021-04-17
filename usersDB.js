@@ -4,32 +4,31 @@ const users = [
         password: "k",
         fullName: "",
         email: "",
-        birthDate:""
+        birthDate: ""
     },
     {
         username: "roy",
         password: "roy123",
         fullName: "",
         email: "",
-        birthDate:""
+        birthDate: ""
     },
     {
         username: "dana",
         password: "dana123",
         fullName: "",
         email: "",
-        birthDate:""
+        birthDate: ""
     }
 ];
 
+function isUserExist(userName) {
+    return users.some((elem) => elem.username === userName);
+}
+
+
 function isUserValid(username, pswrd){
-    // use some
-    for (let i = 0; i < users.length; i++) {
-        if(users[i].username === username && users[i].password === pswrd){
-            return true;
-        }
-    }
-    return false;
+    return users.some((elem) => elem.username === username && elem.password === pswrd);
 }
 
 function signIn() {
