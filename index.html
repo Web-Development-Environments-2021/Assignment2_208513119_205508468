@@ -2,13 +2,13 @@
 <html>
 	<head>
 		<script src="./jquery-3.4.1.slim.min.js"></script>
-		<script type="text/javascript" src="./app.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 		<link rel="stylesheet" href="StyleSheets/style.css" type="text/css">
 		<link rel="stylesheet" href="StyleSheets/welcomeScr.css" type="text/css">
+		<link rel="stylesheet" href="StyleSheets/login.css" type="text/css">
 	</head>
 
 	<body>
-
 		<div id="header">
 			<div class="header-brand">
 				<div class="header-logo">
@@ -24,7 +24,6 @@
 		</div>
 
 		<div id="mainWindow">
-
 			<div id="sidebar">
 				<a href="">Welcome</a>
 				<a href="">Register</a>
@@ -35,8 +34,8 @@
 			<div id="content">
 				<div id = "welcome">
 					<div id = "welcome-buttons">
-						<button class="welcomeBut" onClick="showRegister()">Register</button>
-						<button class="welcomeBut" onClick="showLogin()">Login</button>
+						<button class="welcomeBut" id="registerBut" onClick="showRegister()">Register</button>
+						<button class="welcomeBut" id="loginBut" onClick="showLogin()">Login</button>
 					</div>
 				</div>
 	
@@ -45,7 +44,17 @@
 				</div>
 	
 				<div id = "login">
-					
+					<div id = "loginForm">
+						<form action="">
+							<h1>Login to Continue</h1>
+							<div id="loginInputs">
+								<input type="text" placeholder="Username" required="" id="username" />
+								<input type="text" placeholder="Password" required="" id="password" />
+							</div>
+							<input type="submit" value= "Log In" />
+							<a href="#">Register</a>
+						</form>
+					</div>
 				</div>
 	
 				<div id = "settings">
@@ -87,7 +96,8 @@
 				DR's © 2021
 			</p>
 		</div>
-
 		
+		<script type="text/javascript" src="./app.js"></script>
+		<script type="text/javascript" src="usersDB.js"></script>
 	</body>
 </html>
