@@ -6,6 +6,7 @@
 		<link rel="stylesheet" href="StyleSheets/style.css" type="text/css">
 		<link rel="stylesheet" href="StyleSheets/welcomeScr.css" type="text/css">
 		<link rel="stylesheet" href="StyleSheets/login.css" type="text/css">
+		<link rel="stylesheet" href="StyleSheets/register.css" type="text/css">
 	</head>
 
 	<body>
@@ -40,7 +41,45 @@
 				</div>
 	
 				<div id= "register">
-					
+					<div id="registerForm">
+						<div id="registerFormTitle">
+							Register Here 
+						</div>
+						<div id="regiserInstruction">
+							Please fill in this form to create an account !
+						</div>
+
+						<label for="userName">
+							<div id = "registerField">
+								User Name
+							</div>
+						</label>
+						<input type="text" placeholder="Enter User Name" name="userName" id="usernameReg" required>
+
+						<div id = "registerField">
+							Password
+						</div>
+						<input type="password" placeholder="Enter Password" name="psw" id="pswReg" required>
+
+						<div id = "registerField">
+							Full Name
+						</div>
+						<input type="text" placeholder="Enter your full name" name="fullname" id="nameReg" required>
+
+						<div id = "registerField">
+							Email
+						</div>
+						<input type="text" placeholder="Enter Email" name="email" id="emailReg" required> 
+
+						<div id = "registerField">
+							Birth Date
+						</div>
+						<input type="date" name="dateofbirth" id="dateofbirthReg" required>
+
+						<button type="button" class="registerBtn" onclick="registerUser()">
+							Register
+						</button>
+					</div>
 				</div>
 	
 				<div id = "login">
