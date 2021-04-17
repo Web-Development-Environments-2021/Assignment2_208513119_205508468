@@ -1,4 +1,3 @@
-var context;
 var shape = new Object();
 var board;
 var score;
@@ -11,18 +10,24 @@ const keysDown = {};
 window.onkeydown = (event) => keysDown[event.keyCode] = true;
 window.onkeyup = (event) => keysDown[event.keyCode] = false;
 
+$(document).ready(function(){
+	$('#welcome').show();
+});
 
-
-context = canvas.getContext('2d');
-Start();
+const context = canvas.getContext('2d');
 
 function showRegister() {
 	$("#content").children().hide();
 	$("#register").show();
 }
 
+function showWelcome() {
+	$("#content").children().hide();
+	$("#welcome").show();
+}
+
 function showLogin() {
-	console.log("entered show login");
+	// console.log("entered show login");
 	$("#content").children().hide();
 	$("#login").show();
 }
@@ -35,6 +40,18 @@ function showSettings() {
 function showAbout() {
 	$("#content").children().hide();
 	$("#about").show();
+}
+
+function showGame() {
+	$("#content").children().hide();
+	$('#game').show();
+	
+	Start();
+}
+
+function showContactUs() {
+	$("#content").children().hide();
+	$('#contactUs').show();
 }
 
 
@@ -81,7 +98,7 @@ function Start() {
 		food_remain--;
 	}
 
-	interval = setInterval(UpdatePosition, 250);
+	interval = setInterval(UpdatePosition, 100);
 }
 
 function findRandomEmptyCell(board) {

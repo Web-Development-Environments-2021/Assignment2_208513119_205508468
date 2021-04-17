@@ -1,11 +1,9 @@
 #welcome {
     height: 100%;
     width: 100%;
-    
-    display: flex;
+    /* display: flex; */
+    display: none;
     justify-content: center;
-    /* align-items: center; */
-    /* box-sizing: border-box; */
 }
 
 :root {
@@ -17,12 +15,13 @@
 #welcome-buttons {
     display: flex;
     flex-direction: row;
+    /* display: none; */
     /* justify-content: space-between; */
     /* width: 500px; */
-    margin: 0 auto 0 auto;
+    /* margin: 0 auto 0 auto; */
     flex-wrap: wrap;
-    position: relative;
-    top: 80%;
+    /* position: relative; */
+    /* top: 80%; */
   }
 
 .welcomeBut {

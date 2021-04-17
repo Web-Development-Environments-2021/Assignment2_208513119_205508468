@@ -25,10 +25,10 @@
 
 		<div id="mainWindow">
 			<div id="sidebar">
-				<a href="">Welcome</a>
-				<a href="">Register</a>
-				<a href="">Login</a>
-				<a href="">About</a>
+				<a onclick="showWelcome()">Welcome</a>
+				<a onclick="showRegister()">Register</a>
+				<a onclick="showLogin()">Login</a>
+				<a onclick="showAbout()">About</a>
 			</div>
 	
 			<div id="content">
@@ -45,23 +45,27 @@
 	
 				<div id = "login">
 					<div id = "loginForm">
-						<form action="">
-							<h1>Login to Continue</h1>
-							<div id="loginInputs">
-								<input type="text" placeholder="Username" required="" id="username" />
-								<input type="text" placeholder="Password" required="" id="password" />
-							</div>
-							<input type="submit" value= "Log In" />
-							<a href="#">Register</a>
-						</form>
+						<h1>Login to Continue</h1>
+						<div id="loginInputs">
+							<input id="username" type="text" placeholder="Username" required />
+							<input id="password" type="password" placeholder="Password" required />
+						</div>
+						<!-- <input type="button" value= "Log In" onclick="signIn()"/> -->
+						<button id="login-btn-signIn" class="login-btn" onclick="signIn()">Sign In</button>
+						<button id="login-btn-register" class="login-btn" onclick="showRegister()">Register</button>
+
 					</div>
 				</div>
 	
 				<div id = "settings">
 					
 				</div>
-	
+					
 				<div id = "about">
+					
+				</div>
+
+				<div id = "contactUs">
 					
 				</div>
 	
@@ -86,11 +90,11 @@
 
 		<div class="footer">
 			<p class="footer-links">
-				<a href="#">Home</a>
+				<a onclick="showWelcome()">Home</a>
 				·
-				<a href="#">About</a>
+				<a onclick="showAbout()">About</a>
 				·
-				<a href="#">Contact Us</a>
+				<a onclick="showContactUs()">Contact Us</a>
 			</p>
 			<p class="footer-company-name">
 				DR's © 2021
