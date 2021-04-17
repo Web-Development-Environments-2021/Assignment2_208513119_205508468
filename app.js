@@ -16,9 +16,14 @@ $(document).ready(function() {
 	// Start();
 });
 
+
+
 function showRegister() {
 	$("#content").find('*').hide();
-	$("#register").show();
+	// $("#register").show();
+	$("registerBut").click(function(){
+		$("register").show();
+	});
 }
 
 function showLogin() {
