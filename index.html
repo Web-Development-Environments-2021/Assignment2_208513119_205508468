@@ -103,26 +103,61 @@
 	
 				<div id = "settings">
 					<div id="settingsForm">
-						<h1>Choose Your Settings</h1>
+						<h1 id=set-title>Choose Your Settings</h1>
+						<h3 id=set-instructions>Please Choose Your preferences</h3>
 						<div class="set-item">
-							<label for="set-up-key" class="set-labels">Up: </label>
+							<label for="set-up-key" class="set-labels">Up Key: </label>
 							<input type="text" id="set-up-key" class="set-inputs">
 						</div>
 						<div class="set-item">
-							<label for="set-down-key" class="set-labels">Down: </label>
+							<label for="set-down-key" class="set-labels">Down Key: </label>
 							<input type="text" id="set-down-key" class="set-inputs">
 						</div>
 						<div class="set-item">
-							<label for="set-right-key" class="set-labels">Right: </label>
+							<label for="set-right-key" class="set-labels">Right Key: </label>
 							<input type="text" id="set-right-key" class="set-inputs">
 						</div>
 						<div class="set-item">
-							<label for="set-left-key" class="set-labels">Left: </label>
+							<label for="set-left-key" class="set-labels">Left Key: </label>
 							<input type="text" id="set-left-key" class="set-inputs">
 						</div>
 						<div class="set-item">
 							<label for="set-range-num" class="set-labels">Number of balls: </label>
-							<input type="range" id="set-range-num" class="set-inputs" min="50" max="90">
+							<div id="set-num-slider">
+								50<input type="range" id="set-range-num" name="set-range-num" class="set-inputs" min="50" max="90" onchange="updateRangeValue(this.value)">90 Chosen:
+								<label for="set-range-num" id="numValue"></label>
+							</div>
+						</div>
+						<div class="set-item" id="set-color-picker-item">
+							<label for="" class="set-labels">Color for 60% of the balls:  </label>
+							<input type="color" id="set-color-picker" value="#0000ff">
+							<label for="set-color-picker"> 5 Points each</label>
+						</div>
+						<div class="set-item" id="set-color-picker-item">
+							<label for="" class="set-labels">Color for 30% of the balls:  </label>
+							<input type="color" id="set-color-picker" value="#ffee02">
+							<label for="set-color-picker"> 15 Points each</label>
+						</div>
+						<div class="set-item" id="set-color-picker-item">
+							<label for="" class="set-labels">Color for 10% of the balls:  </label>
+							<input type="color" id="set-color-picker" value="#008000">
+							<label for="set-color-picker"> 25 Points each</label>
+						</div>
+						<div class="set-item" id="set-game-time">
+							<label for="" class="set-labels">Game Time (in seconds - 60 min):</label>
+							<input type="text" class="set-inputs" id="set-game-time-input">
+						</div>
+						<div class="set-item" id="set-monsters-num">
+							<label for="" class="set-labels">Number of Monsters:</label>
+							<select name="set-monsters-num-select" id="set-monsters-num-select">
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+								<option value="4">4</option>
+							</select>
+						</div>
+						<div class="set-item" id="set-random">
+							<button id="set-randBtn" onclick="setRandomSettings()">Random Settings</button>
 						</div>
 					</div>
 				</div>
