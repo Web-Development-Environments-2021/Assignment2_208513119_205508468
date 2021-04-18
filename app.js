@@ -264,3 +264,11 @@ window.onclick = function(event) {
     aboutModal.style.display = "none";
   }
 }
+
+function updateRangeValue(val) {
+  document.getElementById('numValue').innerHTML = val;
+}
+
+function setRandomSettings(){
+  
+}

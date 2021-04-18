@@ -2,32 +2,59 @@
     display: none;
     height: 100%;
     width: 100%;
-    align-content: center;
-    align-items: center;
-    text-align: center;
 }
 
 #settingsForm {
     display: flex;
     flex-direction: column;
-    width: 200px;
+    width: 30%;
     align-content: center;
     margin: auto;
-    background-color: gray;
+    background-color: black;
+}
+
+#set-title {
+    font: normal 18px 'Roboto', cursive;
+    color: #ffee02;
+    text-align: center;
+}
+
+#set-instructions{
+    font: normal 12px 'Roboto', cursive;
+    color: #ffee02;
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 10%;
 }
 
 .set-item {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-
-}
-
-.set-labels {
-
+    font: normal 14px 'Roboto', cursive;
+    color: #ffffff;
 }
 
 .set-inputs {
     width: 50px;
+}
+
+#set-num-slider {
+    display: flex;
+    flex-direction: row;
+}
+
+#set-range-num {
+    width: 50%;
+}
+
+#set-color-picker-item {
+    display: flex;
+    justify-content: flex-start;
+}
+
+#set-random {
+    align-items: center;
+
 }
 
