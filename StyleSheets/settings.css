@@ -31,7 +31,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    font: normal 14px 'Roboto', cursive;
+    font: normal 16px 'Roboto', cursive;
     color: #ffffff;
 }
 
@@ -53,8 +53,9 @@
     justify-content: flex-start;
 }
 
-#set-random {
+#set-randBtn {
     align-items: center;
-
+    text-align: center;
+    align-content: center;
 }
 

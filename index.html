@@ -121,7 +121,7 @@
 						<div class="set-item">
 							<label for="set-range-num" class="set-labels">Number of balls: </label>
 							<div id="set-num-slider">
-								50<input type="range" id="set-range-num" name="set-range-num" class="set-inputs" min="50" max="90" onchange="updateRangeValue(this.value)">90 Chosen:
+								50<input type="range" id="set-range-num" name="set-range-num" class="set-inputs" min="50" max="90" onchange="updateRangeNumOfBallsValue(this.value)">90 Chosen:
 								<label for="set-range-num" id="numValue"></label>
 							</div>
 						</div>
@@ -141,8 +141,8 @@
 							<label for="set-color-picker"> 25 Points each</label>
 						</div>
 						<div class="set-item" id="set-game-time">
-							<label for="" class="set-labels">Game Time (in seconds - 60 min):</label>
-							<input type="text" class="set-inputs" id="set-game-time-input">
+							<label for="" class="set-labels">Game Time in seconds: (minimum 60 sec):</label>
+							<input type="text" class="set-inputs" id="set-game-time-input" min='60'>
 						</div>
 						<div class="set-item" id="set-monsters-num">
 							<label for="" class="set-labels">Number of Monsters:</label>
@@ -153,8 +153,9 @@
 								<option value="4">4</option>
 							</select>
 						</div>
-						<div class="set-item" id="set-random">
+						<div id="set-btns">
 							<button id="set-randBtn" onclick="setRandomSettings()">Random Settings</button>
+							<button id ="applyBtn" onclick="applySettings()">Apply</button>
 						</div>
 					</div>
 				</div>
@@ -206,5 +207,6 @@
 		
 		<script type="text/javascript" src="app.js"></script>
 		<script type="text/javascript" src="usersDB.js"></script>
+		<script type="text/javascript" src="settingsLogic.js"></script>
 	</body>
 </html>
