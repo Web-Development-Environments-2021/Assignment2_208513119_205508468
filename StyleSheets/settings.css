@@ -1,0 +1,33 @@
+#settings {
+    display: none;
+    height: 100%;
+    width: 100%;
+    align-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+#settingsForm {
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    align-content: center;
+    margin: auto;
+    background-color: gray;
+}
+
+.set-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+}
+
+.set-labels {
+
+}
+
+.set-inputs {
+    width: 50px;
+}
+

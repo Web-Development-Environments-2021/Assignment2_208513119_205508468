@@ -136,17 +136,9 @@ body {
 
   /************ Content Screens *************/
 
-#register {
-    display: none;
-    height: 100%;
-    width: 100%;
-}
 
-#setting {
-    display: none;
-    height: 100%;
-    width: 100%;
-}
+
+
 
 #about {
     display: none;

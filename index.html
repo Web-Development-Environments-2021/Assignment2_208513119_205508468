@@ -7,6 +7,7 @@
 		<link rel="stylesheet" href="StyleSheets/welcomeScr.css" type="text/css">
 		<link rel="stylesheet" href="StyleSheets/login.css" type="text/css">
 		<link rel="stylesheet" href="StyleSheets/register.css" type="text/css">
+		<link rel="stylesheet" href="StyleSheets/settings.css" type="text/css">
 	</head>
 
 	<body>
@@ -27,8 +28,9 @@
 		<div id="mainWindow">
 			<div id="sidebar">
 				<a onclick="showWelcome()">Welcome</a>
-				<a onclick="showRegister()">Register</a>
 				<a onclick="showLogin()">Login</a>
+				<a onclick="showRegister()">Register</a>
+				<a onclick="showSettings()">Settings</a>
 				<a onclick="showAbout()">About</a>
 			</div>
 	
@@ -54,27 +56,27 @@
 								User Name
 							</div>
 						</label>
-						<input type="text" placeholder="Enter User Name" name="userName" id="usernameReg" required>
+						<input class="reg-input" type="text" placeholder="Enter User Name" name="userName" id="usernameReg" required>
 
 						<div id = "registerField">
 							Password
 						</div>
-						<input type="password" placeholder="Enter Password" name="psw" id="pswReg" required>
+						<input class="reg-input" type="password" placeholder="Enter Password" name="psw" id="pswReg" required>
 
 						<div id = "registerField">
 							Full Name
 						</div>
-						<input type="text" placeholder="Enter your full name" name="fullname" id="nameReg" required>
+						<input class="reg-input" type="text" placeholder="Enter your full name" name="fullname" id="nameReg" required>
 
 						<div id = "registerField">
 							Email
 						</div>
-						<input type="text" placeholder="Enter Email" name="email" id="emailReg" required> 
+						<input class="reg-input" type="text" placeholder="Enter Email" name="email" id="emailReg" required> 
 
 						<div id = "registerField">
 							Birth Date
 						</div>
-						<input type="date" name="dateofbirth" id="dateofbirthReg" required>
+						<input class="reg-input" type="date" name="dateofbirth" id="dateofbirthReg" required>
 
 						<button type="button" class="registerBtn" onclick="registerUser()">
 							Register
@@ -97,7 +99,29 @@
 				</div>
 	
 				<div id = "settings">
-					
+					<div id="settingsForm">
+						<h1>Choose Your Settings</h1>
+						<div class="set-item">
+							<label for="set-up-key" class="set-labels">Up: </label>
+							<input type="text" id="set-up-key" class="set-inputs">
+						</div>
+						<div class="set-item">
+							<label for="set-down-key" class="set-labels">Down: </label>
+							<input type="text" id="set-down-key" class="set-inputs">
+						</div>
+						<div class="set-item">
+							<label for="set-right-key" class="set-labels">Right: </label>
+							<input type="text" id="set-right-key" class="set-inputs">
+						</div>
+						<div class="set-item">
+							<label for="set-left-key" class="set-labels">Left: </label>
+							<input type="text" id="set-left-key" class="set-inputs">
+						</div>
+						<div class="set-item">
+							<label for="set-range-num" class="set-labels">Number of balls: </label>
+							<input type="range" id="set-range-num" class="set-inputs" min="50" max="90">
+						</div>
+					</div>
 				</div>
 					
 				<div id = "about">

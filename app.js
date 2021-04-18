@@ -29,7 +29,6 @@ function showWelcome() {
 }
 
 function showLogin() {
-	// console.log("entered show login");
 	$("#content").children().hide();
 	$("#login").show();
 }

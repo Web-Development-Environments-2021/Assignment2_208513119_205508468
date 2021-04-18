@@ -1,3 +1,8 @@
+#register {
+  display: none;
+  height: 100%;
+  width: 100%;
+}
 
 #registerForm{
     display: flex;
@@ -25,12 +30,12 @@
     opacity:1;
   }
 
-input[type=text]:focus, input[type=password]:focus {
+.reg-input[type=text]:focus, .reg-input[type=password]:focus {
   background-color: #ddd;
   outline: none;
 }
 
-input[type=text], input[type=password] {
+.reg-input[type=text], .reg-input[type=password] {
     width: 100%;
     padding: 10px;
     margin: 5px 0 12px 0;
@@ -64,7 +69,7 @@ input[type=text], input[type=password] {
   /* label {
     display: block;
   } */
-  input {
+  .reg-input {
     border: 1px solid #c4c4c4;
     border-radius: 5px;
     background-color: #fff;
