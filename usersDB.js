@@ -31,15 +31,15 @@ function isUserValid(username, pswrd){
     return users.some((elem) => elem.username === username && elem.password === pswrd);
 }
 
-function signIn() {
+function logIn() {
     // get input from user
     let username = document.getElementById('username').value;
     let password = document.getElementById('password').value;
+
     // validate details
-    
-    // check if in DB
     if(isUserValid(username,password)){
-        showGame();
+        showSettings();
+        
     }
     else {
         alert("Username or Password is not correct!\nPlease Try Again!")
@@ -79,3 +79,43 @@ function checkValidMail(email){
 	}
 	return true;
 }
+
+function registerUser() {
+    let userName = document.getElementById('usernameReg').value;
+    let existUserName = isUserExist(userName);
+    let psw = document.getElementById('pswReg').value;
+    let fullname = document.getElementById('nameReg').value;
+    let mail = document.getElementById('emailReg').value;
+    let birthdate = document.getElementById('dateofbirthReg').value;
+    let validPassword = checkValidPassword(psw);
+    let validFullName = checkValidFullName(fullname);
+    let validMail = checkValidMail(mail);
+    if (existUserName) {
+      if (confirm('UserName already exist ! Do you want to login ? ')) {
+        // login
+        showLogin();
+      } else {
+        // don't start game!
+        showWelcome();
+      }
+      return;
+    }
+    if (validPassword && validFullName && validMail) {
+      users.push({
+        username: userName,
+        password: psw,
+        fullName: fullname,
+        email: mail,
+        birthDate: birthdate,
+      });
+      if (
+        confirm('Registration Succeed ! Do you want to start a game right now ?')
+      ) {
+        // start game
+        showGame();
+      } else {
+        // don't start game!
+        showWelcome();
+      }
+    }
+  }

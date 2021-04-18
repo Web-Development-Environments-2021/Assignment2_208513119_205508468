@@ -7,10 +7,7 @@ var time_elapsed;
 var interval;
 
 // variables from settings
-let upKey;
-let downKey;
-let leftKey;
-let rightKey;
+let arrowKeys;
 let numOfBalls;
 let color60balls;
 let color30balls;
@@ -18,83 +15,38 @@ let color10balls;
 let gameTime;
 let numOfMonsters;
 
-const context = canvas.getContext("2d");
+const context = canvas.getContext('2d');
 const keysDown = {};
+
+// ENUM DEFINE
+const objEnum = Object.freeze({"Nothing": 0, "Food":1, "Pacman": 2, "Obstacle": 4});
 
 // add and remove keys events
 window.onkeydown = (event) => (keysDown[event.keyCode] = true);
 window.onkeyup = (event) => (keysDown[event.keyCode] = false);
 
 
-// close about by pressing on the window
-let aboutModal = document.getElementById("about");
-window.onclick = function(event) {
-	if (event.target == aboutModal) {
-		aboutModal.style.display = "none";
-	}
-}
-
-document.addEventListener('keydown', (event) => {
-	if (event.key === 'Escape') {
-		aboutModal.style.display = "none";
-	}
-  })
-// first screen 
+// first screen
 $(document).ready(function () {
   showWelcome();
 });
 
-// show and hide divs
-function showRegister() {
-  $("#content").children().hide();
-  $("#register").show();
-}
 
-function showWelcome() {
-  $("#content").children().hide();
-  $("#welcome").show();
-}
-
-function showLogin() {
-	$("#content").children().hide();
-	$("#login").show();
-}
-
-function showSettings() {
-  $("#content").children().hide();
-  $("#settings").show();
-}
-
-function showAbout() {
-  $("#content").children().hide();
-  let modal = document.getElementById("about");
-  modal.style.display = "block";
-}
-
-function showGame() {
-  $("#content").children().hide();
-  $("#game").show();
-  Start();
-}
-
-function closeAbout(){
-	let modal = document.getElementById("about");
-	modal.style.display = "none";
-}
-
-function showContactUs() {
-  $("#content").children().hide();
-  $("#contactUs").show();
-}
-
-function Start() {
+function Start(arrowKeys, numOfBalls, ballColor60, ballColor30, ballColor10, gameTime, numOfMonsters) {
   board = [];
   score = 0;
-  pac_color = "yellow";
+  pac_color = 'yellow';
   var cnt = 100;
-  var food_remain = 50;
+  
   var pacman_remain = 1;
   start_time = new Date();
+
+  let numOfBalls60 = Math.round(0.6 * numOfBalls);
+  let numOfBalls30 = Math.round(0.3 * numOfBalls);
+  let numOfBalls10 = Math.round(0.1 * numOfBalls);
+  var food_remain = numOfBalls60 + numOfBalls30 + numOfBalls10;
+
+  // filling the board
   for (var i = 0; i < 10; i++) {
     board[i] = [];
     //put obstacles in (i=3,j=3) and (i=3,j=4) and (i=3,j=5), (i=6,j=1) and (i=6,j=2)
@@ -106,11 +58,13 @@ function Start() {
         (i == 6 && j == 1) ||
         (i == 6 && j == 2)
       ) {
+        // put 4 for obstacle
         board[i][j] = 4;
       } else {
         var randomNum = Math.random();
         if (randomNum <= (1.0 * food_remain) / cnt) {
           food_remain--;
+          // 1 for food
           board[i][j] = 1;
         } else if (randomNum < (1.0 * (pacman_remain + food_remain)) / cnt) {
           shape.i = i;
@@ -143,18 +97,34 @@ function findRandomEmptyCell(board) {
   return [i, j];
 }
 
-function GetKeyPressed() {
-  if (keysDown[38]) {
-    return 1;
+function GetKeyPressed(typeOfKeys) {
+  if(typeOfKeys === 1){
+    if (keysDown[38]) {
+      return 1;
+    }
+    if (keysDown[40]) {
+      return 2;
+    }
+    if (keysDown[37]) {
+      return 3;
+    }
+    if (keysDown[39]) {
+      return 4;
+    }
   }
-  if (keysDown[40]) {
-    return 2;
-  }
-  if (keysDown[37]) {
-    return 3;
-  }
-  if (keysDown[39]) {
-    return 4;
+  else if(typeOfKeys === 2) {
+    if (keysDown[87]) {
+      return 1;
+    }
+    if (keysDown[83]) {
+      return 2;
+    }
+    if (keysDown[65]) {
+      return 3;
+    }
+    if (keysDown[68]) {
+      return 4;
+    }
   }
 }
 
@@ -173,21 +143,22 @@ function Draw() {
         context.beginPath();
         context.arc(center.x, center.y, 30, 0.15 * Math.PI, 1.85 * Math.PI); // half circle
         context.lineTo(center.x, center.y);
-        context.fillStyle = pac_color; //color
+        context.fillStyle = pac_color; 
         context.fill();
         context.beginPath();
         context.arc(center.x + 5, center.y - 15, 5, 0, 2 * Math.PI); // circle
-        context.fillStyle = "black"; //color
+        context.fillStyle = 'black'; 
         context.fill();
       } else if (board[i][j] === 1) {
         context.beginPath();
         context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle
-        context.fillStyle = "black"; //color
+        context.fillStyle = 'white'; 
         context.fill();
-      } else if (board[i][j] === 4) {
+
+      } else if (board[i][j] === 4) { // obstacle
         context.beginPath();
         context.rect(center.x - 30, center.y - 30, 60, 60);
-        context.fillStyle = "grey"; //color
+        context.fillStyle = 'grey'; 
         context.fill();
       }
     }
@@ -223,52 +194,72 @@ function UpdatePosition() {
   var currentTime = new Date();
   time_elapsed = (currentTime - start_time) / 1000;
   if (score >= 20 && time_elapsed <= 10) {
-    pac_color = "green";
+    pac_color = 'green';
   }
   if (score == 50) {
     window.clearInterval(interval);
-    window.alert("Game completed");
+    window.alert('Game completed');
   } else {
     Draw();
   }
 }
 
-function registerUser() {
-  let userName = document.getElementById("usernameReg").value;
-  let existUserName = isUserExist(userName);
-  let psw = document.getElementById("pswReg").value;
-  let fullname = document.getElementById("nameReg").value;
-  let mail = document.getElementById("emailReg").value;
-  let birthdate = document.getElementById("dateofbirthReg").value;
-  let validPassword = checkValidPassword(psw);
-  let validFullName = checkValidFullName(fullname);
-  let validMail = checkValidMail(mail);
-  if (existUserName) {
-    if (confirm("UserName already exist ! Do you want to login ? ")) {
-      // login
-      showLogin();
-    } else {
-      // don't start game!
-      showWelcome();
-    }
-    return;
-  }
-  if (validPassword && validFullName && validMail) {
-    users.push({
-      username: userName,
-      password: psw,
-      fullName: fullname,
-      email: mail,
-      birthDate: birthdate,
-    });
-    if (
-      confirm("Registration Succeed ! Do you want to start a game right now ?")
-    ) {
-      // start game
-      showGame();
-    } else {
-      // don't start game!
-      showWelcome();
-    }
-  }
+
+
+// show and hide divs
+function showRegister() {
+  $('#content').children().hide();
+  $('#register').show();
 }
+
+function showWelcome() {
+  $('#content').children().hide();
+  $('#welcome').show();
+}
+
+function showLogin() {
+  $('#content').children().hide();
+  $('#login').show();
+}
+
+function showSettings() {
+  $('#content').children().hide();
+  $('#settings').show();
+}
+
+function showAbout() {
+  $('#content').children().hide();
+  let modal = document.getElementById('about');
+  modal.style.display = 'block';
+}
+
+function showGame(arrowKeys, numOfBalls, ballColor60, ballColor30, ballColor10, gameTime, numOfMonsters) {
+  $('#content').children().hide();
+  $('#game').show();
+  Start(arrowKeys, numOfBalls, ballColor60, ballColor30, ballColor10, gameTime, numOfMonsters);
+}
+
+function closeAbout() {
+  let modal = document.getElementById('about');
+  modal.style.display = 'none';
+}
+
+function showContactUs() {
+  $('#content').children().hide();
+  $('#contactUs').show();
+}
+
+
+// close about by pressing on the window
+let aboutModal = document.getElementById('about');
+window.onclick = function (event) {
+  if (event.target == aboutModal) {
+    aboutModal.style.display = 'none';
+  }
+};
+
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape') {
+    aboutModal.style.display = 'none';
+  }
+});

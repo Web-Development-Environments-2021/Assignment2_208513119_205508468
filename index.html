@@ -95,7 +95,7 @@
 							<input id="password" type="password" placeholder="Password" required />
 						</div>
 						<!-- <input type="button" value= "Log In" onclick="signIn()"/> -->
-						<button id="login-btn-signIn" class="login-btn" onclick="signIn()">Sign In</button>
+						<button id="login-btn-signIn" class="login-btn" onclick="logIn()">Sign In</button>
 						<button id="login-btn-register" class="login-btn" onclick="showRegister()">Register</button>
 
 					</div>
@@ -105,21 +105,36 @@
 					<div id="settingsForm">
 						<h1 id=set-title>Choose Your Settings</h1>
 						<h3 id=set-instructions>Please Choose Your preferences</h3>
-						<div class="set-item">
+
+						<!-- <div class="set-item">
 							<label for="set-up-key" class="set-labels">Up Key: </label>
-							<input type="text" id="set-up-key" class="set-inputs">
+							<input type="text" id="set-up-key" class="set-inputs" required>
 						</div>
 						<div class="set-item">
 							<label for="set-down-key" class="set-labels">Down Key: </label>
-							<input type="text" id="set-down-key" class="set-inputs">
+							<input type="text" id="set-down-key" class="set-inputs" required>
 						</div>
 						<div class="set-item">
 							<label for="set-right-key" class="set-labels">Right Key: </label>
-							<input type="text" id="set-right-key" class="set-inputs">
+							<input type="text" id="set-right-key" class="set-inputs" required>
 						</div>
 						<div class="set-item">
 							<label for="set-left-key" class="set-labels">Left Key: </label>
-							<input type="text" id="set-left-key" class="set-inputs">
+							<input type="text" id="set-left-key" class="set-inputs" required>
+						</div> -->
+						<div class="set-item">
+							<label for="set-arrow-keys" class="set-labels">Arrow Keys:</label>
+							<div>
+								<div>
+									<input type="radio" name="set-arrow-keys" id="set-arrow-keys-arrows" value="arrow-keys">
+									<img src="./resources/arrowKeys.jpg" alt="arrowKeys" height="40px" width="60px">
+								</div>
+								<div>
+									<input type="radio" name="set-arrow-keys" id="set-arrow-keys-wasd" value="wasd-keys">
+									<img src="./resources/wasdKeys.png" alt="wasdKeys" height="50px" width="60px">
+								</div>
+							</div>
+
 						</div>
 						<div class="set-item">
 							<label for="set-range-num" class="set-labels">Number of balls: </label>
@@ -130,22 +145,22 @@
 						</div>
 						<div class="set-item" id="set-color-picker-item">
 							<label for="" class="set-labels">Color for 60% of the balls:  </label>
-							<input type="color" id="set-color-picker" value="#0000ff">
+							<input type="color" id="set-color-picker-60" value="#0000ff">
 							<label for="set-color-picker"> 5 Points each</label>
 						</div>
 						<div class="set-item" id="set-color-picker-item">
 							<label for="" class="set-labels">Color for 30% of the balls:  </label>
-							<input type="color" id="set-color-picker" value="#ffee02">
+							<input type="color" id="set-color-picker-30" value="#ffee02">
 							<label for="set-color-picker"> 15 Points each</label>
 						</div>
 						<div class="set-item" id="set-color-picker-item">
 							<label for="" class="set-labels">Color for 10% of the balls:  </label>
-							<input type="color" id="set-color-picker" value="#008000">
+							<input type="color" id="set-color-picker-10" value="#008000">
 							<label for="set-color-picker"> 25 Points each</label>
 						</div>
 						<div class="set-item" id="set-game-time">
 							<label for="" class="set-labels">Game Time in seconds: (minimum 60 sec):</label>
-							<input type="text" class="set-inputs" id="set-game-time-input" min='60'>
+							<input type="text" class="set-inputs" id="set-game-time-input" min='60' required>
 						</div>
 						<div class="set-item" id="set-monsters-num">
 							<label for="" class="set-labels">Number of Monsters:</label>
