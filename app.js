@@ -6,16 +6,31 @@ var start_time;
 var time_elapsed;
 var interval;
 
+// variables from settings
+let upKey;
+let downKey;
+let leftKey;
+let rightKey;
+let numOfBalls;
+let color60balls;
+let color30balls;
+let color10balls;
+let gameTime;
+let numOfMonsters;
+
+const context = canvas.getContext("2d");
 const keysDown = {};
+
+// add and remove keys events
 window.onkeydown = (event) => (keysDown[event.keyCode] = true);
 window.onkeyup = (event) => (keysDown[event.keyCode] = false);
 
+// first screen 
 $(document).ready(function () {
   $("#welcome").show();
 });
 
-const context = canvas.getContext("2d");
-
+// show and hide divs
 function showRegister() {
   $("#content").children().hide();
   $("#register").show();
@@ -44,7 +59,6 @@ function showAbout() {
 function showGame() {
   $("#content").children().hide();
   $("#game").show();
-
   Start();
 }
 
@@ -265,10 +279,3 @@ window.onclick = function(event) {
   }
 }
 
-function updateRangeValue(val) {
-  document.getElementById('numValue').innerHTML = val;
-}
-
-function setRandomSettings(){
-  
-}
