@@ -8,6 +8,7 @@
 		<link rel="stylesheet" href="StyleSheets/login.css" type="text/css">
 		<link rel="stylesheet" href="StyleSheets/register.css" type="text/css">
 		<link rel="stylesheet" href="StyleSheets/settings.css" type="text/css">
+		<link rel="stylesheet" href="StyleSheets/about.css" type="text/css">
 	</head>
 
 	<body>
@@ -31,7 +32,7 @@
 				<a onclick="showLogin()">Login</a>
 				<a onclick="showRegister()">Register</a>
 				<a onclick="showSettings()">Settings</a>
-				<a onclick="showAbout()">About</a>
+				<a id="aboutBtn" onclick="showAbout()">About</a>
 			</div>
 	
 			<div id="content">
@@ -51,36 +52,38 @@
 							Please fill in this form to create an account !
 						</div>
 
-						<label for="userName">
-							<div id = "registerField">
-								User Name
-							</div>
-						</label>
+						<div class = "registerField">
+							User Name
+						</div>
 						<input class="reg-input" type="text" placeholder="Enter User Name" name="userName" id="usernameReg" required>
 
-						<div id = "registerField">
+						<div class = "registerField">
 							Password
 						</div>
 						<input class="reg-input" type="password" placeholder="Enter Password" name="psw" id="pswReg" required>
 
-						<div id = "registerField">
+						<div class = "registerField">
 							Full Name
 						</div>
 						<input class="reg-input" type="text" placeholder="Enter your full name" name="fullname" id="nameReg" required>
 
-						<div id = "registerField">
+						<div class = "registerField">
 							Email
 						</div>
 						<input class="reg-input" type="text" placeholder="Enter Email" name="email" id="emailReg" required> 
-
-						<div id = "registerField">
-							Birth Date
+						
+						<div id="containerDateRegisterBtn">
+							<div id = "dateContainer">
+								<div class="registerField">
+									Birth Date
+								</div>
+								<input class="reg-input" type="date" name="dateofbirth" id="dateofbirthReg" required>
+							</div>
+	
+							<button id="registerbtn" onclick="registerUser()">
+								Register
+							</button>
 						</div>
-						<input class="reg-input" type="date" name="dateofbirth" id="dateofbirthReg" required>
-
-						<button type="button" class="registerBtn" onclick="registerUser()">
-							Register
-						</button>
 					</div>
 				</div>
 	
@@ -124,13 +127,15 @@
 					</div>
 				</div>
 					
-				<div id = "about" class="modal">
-					<span class="close">
-						&times;
-					</span>
-					<p>
-						bla bla bla
-					</p>
+				<div id = "about">
+					<div class="modal-content">
+						<span class="closeAbout" onclick="closeAbout()">
+							&times;
+						</span>
+						<p id=aboutText>Hello to you dear Player ! We are Dana Klimenko and Roy Dor and We are 
+							3rd year students in the System Information Software Engineering Department.
+						</p>
+					</div>
 				</div>
 
 				<div id = "contactUs">
@@ -169,7 +174,7 @@
 			</p>
 		</div>
 		
-		<script type="text/javascript" src="./app.js"></script>
+		<script type="text/javascript" src="app.js"></script>
 		<script type="text/javascript" src="usersDB.js"></script>
 	</body>
 </html>

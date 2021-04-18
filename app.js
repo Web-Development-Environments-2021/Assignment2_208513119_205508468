@@ -10,8 +10,22 @@ const keysDown = {};
 window.onkeydown = (event) => (keysDown[event.keyCode] = true);
 window.onkeyup = (event) => (keysDown[event.keyCode] = false);
 
+// close about by pressing on the window
+let aboutModal = document.getElementById("about");
+window.onclick = function(event) {
+	if (event.target == aboutModal) {
+		aboutModal.style.display = "none";
+	}
+}
+
+document.addEventListener('keydown', (event) => {
+	if (event.key === 'Escape') {
+		aboutModal.style.display = "none";
+	}
+  })
+
 $(document).ready(function () {
-  $("#welcome").show();
+  showWelcome();
 });
 
 const context = canvas.getContext("2d");
@@ -38,7 +52,8 @@ function showSettings() {
 
 function showAbout() {
   $("#content").children().hide();
-  $("#about").show();
+  let modal = document.getElementById("about");
+  modal.style.display = "block";
 }
 
 function showGame() {
@@ -46,6 +61,11 @@ function showGame() {
   $("#game").show();
 
   Start();
+}
+
+function closeAbout(){
+	let modal = document.getElementById("about");
+	modal.style.display = "none";
 }
 
 function showContactUs() {
@@ -236,31 +256,5 @@ function registerUser() {
       // don't start game!
       showWelcome();
     }
-  }
-}
-
-// Get the modal
-let aboutModal = document.getElementById("about");
-
-// Get the button that opens the modal
-let aboutBtn = document.getElementById("aboutButton");
-
-// Get the <span> element that closes the modal
-let span = document.getElementsByClassName("close")[0];
-
-// When the user clicks on the button, open the modal
-aboutBtn.onclick = function() {
-	aboutModal.style.display = "block";
-}
-
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-	aboutModal.style.display = "none";
-}
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == aboutModal) {
-    aboutModal.style.display = "none";
   }
 }
