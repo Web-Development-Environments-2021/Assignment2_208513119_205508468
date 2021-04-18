@@ -14,12 +14,14 @@
 
 #registerFormTitle{
     font: normal 18px 'Roboto', cursive;
-    color: #ffffff;
+    color: #ffee02;
+    text-align: center;
 }
 
 #regiserInstruction{
     font: normal 12px 'Roboto', cursive;
-    color: #ffffff;
+    color: #ffee02;
+    text-align: center;
 }
 
 #registerField{
@@ -50,7 +52,7 @@
     font: normal 18px 'Roboto', cursive;
     border: none;
     cursor: pointer;
-    width: 10%;
+    width: 13px;
   }
 
 /* dateOfBirth */
