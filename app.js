@@ -19,7 +19,7 @@ const context = canvas.getContext('2d');
 const keysDown = {};
 
 // ENUM DEFINE
-const objEnum = Object.freeze({"Nothing": 0, "Food":1, "Pacman": 2, "Obstacle": 4});
+const objEnum = Object.freeze({"Nothing": 0, "Food10" : 1, "Pacman" : 2, "Food30" : 3, "Obstacle" : 4, "Food60" : 6});
 
 // add and remove keys events
 window.onkeydown = (event) => (keysDown[event.keyCode] = true);
@@ -30,15 +30,13 @@ window.onkeyup = (event) => (keysDown[event.keyCode] = false);
 $(document).ready(function () {
   showWelcome();
 });
-
+let is_pacman_on_board;
 
 function Start(arrowKeys, numOfBalls, ballColor60, ballColor30, ballColor10, gameTime, numOfMonsters) {
   board = [];
   score = 0;
   pac_color = 'yellow';
-  var cnt = 100;
-  
-  var pacman_remain = 1;
+  is_pacman_on_board = false;
   start_time = new Date();
 
   let numOfBalls60 = Math.round(0.6 * numOfBalls);
@@ -51,51 +49,58 @@ function Start(arrowKeys, numOfBalls, ballColor60, ballColor30, ballColor10, gam
     board[i] = [];
     //put obstacles in (i=3,j=3) and (i=3,j=4) and (i=3,j=5), (i=6,j=1) and (i=6,j=2)
     for (var j = 0; j < 10; j++) {
-      if (
-        (i == 3 && j == 3) ||
-        (i == 3 && j == 4) ||
-        (i == 3 && j == 5) ||
-        (i == 6 && j == 1) ||
-        (i == 6 && j == 2)
-      ) {
-        // put 4 for obstacle
-        board[i][j] = 4;
+      if ((i == 3 && j == 3) || (i == 3 && j == 4) || (i == 3 && j == 5) || (i == 6 && j == 1) || (i == 6 && j == 2)) {
+        board[i][j] = objEnum.Obstacle;
       } else {
-        var randomNum = Math.random();
-        if (randomNum <= (1.0 * food_remain) / cnt) {
-          food_remain--;
-          // 1 for food
-          board[i][j] = 1;
-        } else if (randomNum < (1.0 * (pacman_remain + food_remain)) / cnt) {
-          shape.i = i;
-          shape.j = j;
-          pacman_remain--;
-          board[i][j] = 2;
-        } else {
-          board[i][j] = 0;
-        }
-        cnt--;
+        board[i][j] = objEnum.Nothing;
       }
     }
   }
-  while (food_remain > 0) {
-    var emptyCell = findRandomEmptyCell(board);
-    board[emptyCell[0]][emptyCell[1]] = 1;
-    food_remain--;
-  }
+
+  placePacmanOnBoard();
+
+  // place all types of food on board
+  placeFoodOnBoard(numOfBalls60, objEnum.Food60);
+  placeFoodOnBoard(numOfBalls30, objEnum.Food30);
+  placeFoodOnBoard(numOfBalls10, objEnum.Food10);
 
   interval = setInterval(UpdatePosition, 100);
 }
 
+
+
 function findRandomEmptyCell(board) {
-  var i = Math.floor(Math.random() * (10 - 1) + 1);
-  var j = Math.floor(Math.random() * 9 + 1);
-  while (board[i][j] != 0) {
-    i = Math.floor(Math.random() * 9 + 1);
-    j = Math.floor(Math.random() * 9 + 1);
+  let i = Math.floor(Math.random() * 10);
+  let j = Math.floor(Math.random() * 10);
+  while(board[i][j] != objEnum.Nothing){
+    i = Math.floor(Math.random() * 10);
+    j = Math.floor(Math.random() * 10);
   }
   return [i, j];
 }
+
+
+
+function placeFoodOnBoard(numOfBalls, type) {
+  while(numOfBalls > 0){
+    let emptyCell = findRandomEmptyCell(board);
+    board[emptyCell[0]][emptyCell[1]] = type;
+    numOfBalls--;
+  }
+}
+
+
+
+function placePacmanOnBoard() {
+  let emptyCell = findRandomEmptyCell(board);
+  shape.i = emptyCell[0];
+  shape.j = emptyCell[1];
+  board[emptyCell[0]][emptyCell[1]] = objEnum.Pacman;
+  is_pacman_on_board = true;
+}
+
+
+
 
 function GetKeyPressed(typeOfKeys) {
   if(typeOfKeys === 1){
