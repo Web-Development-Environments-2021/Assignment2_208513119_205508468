@@ -7,20 +7,21 @@
 #settingsForm {
     display: flex;
     flex-direction: column;
-    width: 600px;
+    width: 760px;
+    height: 80%;
     align-content: center;
     margin: auto;
     background-color: black;
 }
 
 #set-title {
-    font: normal 18px 'Roboto', cursive;
+    font: normal 20px 'Roboto', cursive;
     color: #ffee02;
     text-align: center;
 }
 
 #set-instructions{
-    font: normal 12px 'Roboto', cursive;
+    font: normal 18px 'Roboto', cursive;
     color: #ffee02;
     text-align: center;
     margin-top: 0;
@@ -31,7 +32,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    font: normal 16px 'Roboto', cursive;
+    font: normal 18px 'Roboto', cursive;
     color: #ffffff;
 }
 
@@ -53,9 +54,32 @@
     justify-content: flex-start;
 }
 
+
+#set-btns{
+    align-items: center;
+    text-align: center;
+    align-content: center;
+    margin-bottom: 2px;
+}
+
 #set-randBtn {
     align-items: center;
     text-align: center;
     align-content: center;
 }
 
+.setButtons{
+    background-color: #ffee02;
+    color: rgb(5, 5, 5);
+    font: normal 18px 'Roboto', cursive;
+    cursor: pointer;
+    padding: 10px 32px;
+    margin-top: 15px;
+    width: 30%;
+    box-shadow: 0 2px rgb(247, 232, 168);
+    border-radius: 15px;
+}
+
+  
+.setButtons:hover 
+{background-color: #e7f14d}

@@ -94,7 +94,6 @@
 							<input id="username" type="text" placeholder="Username" required />
 							<input id="password" type="password" placeholder="Password" required />
 						</div>
-						<!-- <input type="button" value= "Log In" onclick="signIn()"/> -->
 						<button id="login-btn-signIn" class="login-btn" onclick="logIn()">Sign In</button>
 						<button id="login-btn-register" class="login-btn" onclick="showRegister()">Register</button>
 
@@ -105,23 +104,6 @@
 					<div id="settingsForm">
 						<h1 id=set-title>Choose Your Settings</h1>
 						<h3 id=set-instructions>Please Choose Your preferences</h3>
-
-						<!-- <div class="set-item">
-							<label for="set-up-key" class="set-labels">Up Key: </label>
-							<input type="text" id="set-up-key" class="set-inputs" required>
-						</div>
-						<div class="set-item">
-							<label for="set-down-key" class="set-labels">Down Key: </label>
-							<input type="text" id="set-down-key" class="set-inputs" required>
-						</div>
-						<div class="set-item">
-							<label for="set-right-key" class="set-labels">Right Key: </label>
-							<input type="text" id="set-right-key" class="set-inputs" required>
-						</div>
-						<div class="set-item">
-							<label for="set-left-key" class="set-labels">Left Key: </label>
-							<input type="text" id="set-left-key" class="set-inputs" required>
-						</div> -->
 						<div class="set-item">
 							<label for="set-arrow-keys" class="set-labels">Arrow Keys:</label>
 							<div>
@@ -172,8 +154,8 @@
 							</select>
 						</div>
 						<div id="set-btns">
-							<button id="set-randBtn" onclick="setRandomSettings()">Random Settings</button>
-							<button id ="applyBtn" onclick="applySettings()">Apply</button>
+							<button id="set-randBtn" class ="setButtons" onclick="setRandomSettings()">Random Settings</button>
+							<button id ="applyBtn" class ="setButtons" onclick="applySettings()">Apply</button>
 						</div>
 					</div>
 				</div>
