@@ -20,7 +20,7 @@ const keysDown = {};
 
 // ENUM DEFINE
 const objEnum = Object.freeze({"Nothing": 0, "Food10" : 1, "Pacman" : 2, "Food30" : 3, "Obstacle" : 4, "Food60" : 6});
-
+// const directionsAngles = Object.freeze({"up": })
 // add and remove keys events
 window.onkeydown = (event) => (keysDown[event.keyCode] = true);
 window.onkeyup = (event) => (keysDown[event.keyCode] = false);
@@ -133,6 +133,11 @@ function Draw(keyPressed) {
   lblScore.value = score;
   lblTime.value = time_elapsed;
 
+
+  let pacman_img = new Image();
+  pacman_img.src = '/resources/pacmanLaugh.png'
+  
+
   for (var i = 0; i < 10; i++) {
     for (var j = 0; j < 10; j++) {
       var center = new Object();
@@ -161,6 +166,11 @@ function Draw(keyPressed) {
         //   context.fillStyle = 'black'; 
         //   context.fill();
         // }
+        
+        // context.rotate(90 * Math.PI / 180);
+        
+       
+        context.drawImage(pacman_img, center.x - 30, center.y - 30, 60, 60);
         
       }
 
