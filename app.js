@@ -67,8 +67,6 @@ function Start(arrowKeys, numOfBalls, ballColor60, ballColor30, ballColor10, gam
   interval = setInterval(UpdatePosition, 100);
 }
 
-
-
 function findRandomEmptyCell(board) {
   let i = Math.floor(Math.random() * 10);
   let j = Math.floor(Math.random() * 10);
@@ -98,8 +96,6 @@ function placePacmanOnBoard() {
   board[emptyCell[0]][emptyCell[1]] = objEnum.Pacman;
   is_pacman_on_board = true;
 }
-
-
 
 
 function GetKeyPressed(typeOfKeys) {
@@ -134,7 +130,8 @@ function GetKeyPressed(typeOfKeys) {
 }
 
 function Draw() {
-  canvas.width = canvas.width; //clean board
+  // canvas.width = canvas.width; //clean board
+  canvas.height = document.getElementById('content').offsetHeight;
   lblScore.value = score;
   lblTime.value = time_elapsed;
 
@@ -144,6 +141,7 @@ function Draw() {
       center.x = i * 60 + 30;
       center.y = j * 60 + 30;
 
+      //pacman
       if (board[i][j] === 2) {
         context.beginPath();
         context.arc(center.x, center.y, 30, 0.15 * Math.PI, 1.85 * Math.PI); // half circle
@@ -154,13 +152,35 @@ function Draw() {
         context.arc(center.x + 5, center.y - 15, 5, 0, 2 * Math.PI); // circle
         context.fillStyle = 'black'; 
         context.fill();
-      } else if (board[i][j] === 1) {
+      }
+      //food10
+      else if (board[i][j] === 1) {
         context.beginPath();
         context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle
-        context.fillStyle = 'white'; 
+        import{ballColor10FromUser} from './settingsLogic';
+        let ballColor10 = ballColor10FromUser;
+        context.fillStyle = ballColor10; 
         context.fill();
-
-      } else if (board[i][j] === 4) { // obstacle
+      } 
+      //food30
+      else if (board[i][j] === 3) {
+        context.beginPath();
+        context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle
+        import{ballColor30FromUser} from './settingsLogic';
+        let ballColor30 = ballColor30FromUser;
+        context.fillStyle = ballColor30; 
+        context.fill();
+      } 
+      //food60
+      else if (board[i][j] === 6) {
+        context.beginPath();
+        context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle
+        import{ballColor60FromUser} from './settingsLogic';
+        let ballColor60 = ballColor60FromUser;
+        context.fillStyle = ballColor60; 
+        context.fill();
+      } 
+      else if (board[i][j] === 4) { // obstacle
         context.beginPath();
         context.rect(center.x - 30, center.y - 30, 60, 60);
         context.fillStyle = 'grey'; 
@@ -208,7 +228,6 @@ function UpdatePosition() {
     Draw();
   }
 }
-
 
 
 // show and hide divs
