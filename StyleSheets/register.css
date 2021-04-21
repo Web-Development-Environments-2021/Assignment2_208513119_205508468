@@ -9,7 +9,7 @@
     flex-direction: column;
     width: 50%;
     margin-left: 25%;
-    background-color: black;
+    background-color: rgba(0, 0, 0, 0.7);
 }
 
 #registerFormTitle{

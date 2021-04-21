@@ -10,24 +10,24 @@
   }
 
   .modal-content {
-    background-color: #fefefe;
+
     margin: 15% auto; /* 15% from the top and centered */
     padding: 20px;
     border: 1px solid #888;
     width: 80%; /* Could be more or less, depending on screen size */
-    background-color: rgba(170, 165, 165, 0.999);
+    background-color: rgba(0, 0, 0, 0.7);
     color:#f5f5f4 ;
   }
 
   .closeAbout {
     color: #ffee02;
     float: right;
-    font-size: 30px;
+    font-size: 50px;
     font-weight: bold;
   }
 
   .closeAbout:hover,.closeAbout:focus {
-  color: rgb(255, 255, 255);
+  color: rgb(131, 113, 12);
   text-decoration: none;
   cursor: pointer;
 }
