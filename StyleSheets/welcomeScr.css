@@ -4,6 +4,7 @@
     /* display: flex; */
     display: none;
     justify-content: center;
+    align-content: center;
 }
 
 :root {
@@ -15,8 +16,9 @@
 #welcome-buttons {
     display: flex;
     flex-direction: row;
+    align-items: center;
     /* display: none; */
-    /* justify-content: space-between; */
+    justify-content: space-around;
     /* width: 500px; */
     /* margin: 0 auto 0 auto; */
     flex-wrap: wrap;
@@ -30,7 +32,7 @@
     outline: none;
     border: none;
     background-color: var(--light);
-    width: 400px;
+    width: 200px;
     height: 70px;
     border-radius: 30px;
     font-size: 1.5rem;
