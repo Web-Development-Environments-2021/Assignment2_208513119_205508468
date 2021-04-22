@@ -2,25 +2,27 @@ const users = [
     {
         user_name: "k",
         password: "k",
-        full_name: "",
+        full_name: "Dvir HaGever",
         email: "",
         birth_date: ""
     },
     {
         user_name: "roy",
         password: "roy123",
-        full_name: "",
+        full_name: "Roy Dor",
         email: "",
         birth_date: ""
     },
     {
         user_name: "dana",
         password: "dana123",
-        full_name: "",
+        full_name: "Dana Klimenko",
         email: "",
         birth_date: ""
     }
 ];
+
+let currentUser = null;
 
 function isUserExist(userName) {
     return users.some((elem) => elem.user_name === userName);
@@ -31,15 +33,36 @@ function isUserValid(userName, pswrd){
     return users.some((elem) => elem.user_name === userName && elem.password === pswrd);
 }
 
+function getUserFullName(username) {
+  return users.find(elem => elem.user_name === username).full_name;
+}
+
+function showUserInHeader(currentUser) {
+  let hello = "Welcome Back, ";
+  document.getElementById('header-current-username').innerHTML = hello.concat(currentUser);
+  document.getElementById('logout-btn').style.display = 'inline';
+}
+
+function logOut() {
+  if(!confirm("Sure you want to say good bye ?")){
+    return;
+  }
+  currentUser = null;
+  document.getElementById('header-current-username').innerHTML = "Hello, Guest!"
+  document.getElementById('logout-btn').style.display = 'none';
+  showWelcome();
+}
+
 function logIn() {
     // get input from user
     let username = document.getElementById('username').value;
     let password = document.getElementById('password').value;
 
     // validate details
-    if(isUserValid(username,password)){
-        showSettings();
-        
+    if(isUserValid(username, password)){
+      currentUser = getUserFullName(username);
+      showUserInHeader(currentUser);
+      showSettings();
     }
     else {
         alert("Username or Password is not correct!\nPlease Try Again!")
