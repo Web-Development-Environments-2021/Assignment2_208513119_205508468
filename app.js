@@ -15,11 +15,14 @@ let color10balls;
 let gameTime;
 let numOfMonsters;
 
+let lastKeyPress;
+
 const context = canvas.getContext('2d');
 const keysDown = {};
 
 // ENUM DEFINE
 const objEnum = Object.freeze({"Nothing": 0, "Food10" : 1, "Pacman" : 2, "Food30" : 3, "Obstacle" : 4, "Food60" : 6});
+const directions = Object.freeze({"up": 1, "down": 2, "left":3, "right": 4});
 // const directionsAngles = Object.freeze({"up": })
 // add and remove keys events
 window.onkeydown = (event) => (keysDown[event.keyCode] = true);
@@ -99,35 +102,43 @@ function placePacmanOnBoard() {
 function GetKeyPressed(typeOfKeys) {
   if(typeOfKeys === 1){
     if (keysDown[38]) {
-      return 1;
+      lastKeyPress = directions.up;
+      return directions.up;
     }
     if (keysDown[40]) {
-      return 2;
+      lastKeyPress = directions.down;
+      return directions.down;
     }
     if (keysDown[37]) {
-      return 3;
+      lastKeyPress = directions.left;
+      return directions.left;
     }
     if (keysDown[39]) {
-      return 4;
+      lastKeyPress = directions.right;
+      return directions.right;
     }
   }
   else if(typeOfKeys === 2) {
     if (keysDown[87]) {
-      return 1;
+      lastKeyPress = directions.up;
+      return directions.up;
     }
     if (keysDown[83]) {
-      return 2;
+      lastKeyPress = directions.down;
+      return directions.down;
     }
     if (keysDown[65]) {
-      return 3;
+      lastKeyPress = directions.left;
+      return directions.left;
     }
     if (keysDown[68]) {
-      return 4;
+      lastKeyPress = directions.right;
+      return directions.right;
     }
   }
 }
 
-function Draw(keyPressed) {
+function Draw() {
   // canvas.width = canvas.width; //clean board
   canvas.height = document.getElementById('content').offsetHeight;
   lblScore.value = score;
@@ -143,6 +154,23 @@ function Draw(keyPressed) {
       var center = new Object();
       center.x = i * 60 + 30;
       center.y = j * 60 + 30;
+
+
+      //pacman
+      // if (board[i][j] === 2) {
+      //   context.beginPath();
+      //   context.arc(center.x, center.y, 30, 0.15 * Math.PI, 1.85 * Math.PI); // half circle
+      //   context.lineTo(center.x, center.y);
+      //   context.fillStyle = pac_color; 
+      //   context.fill();
+
+      //   context.beginPath();
+      //   context.arc(center.x + 5, center.y - 15, 5, 0, 2 * Math.PI); // circle
+      //   context.fillStyle = 'black'; 
+      //   context.fill();
+      // }
+
+
 
       //pacman
       if (board[i][j] === 2) {
@@ -168,11 +196,64 @@ function Draw(keyPressed) {
         // }
         
         // context.rotate(90 * Math.PI / 180);
-        pacman_img.onload = function(){
-          let pattern = context.createPattern(this, "repeat");
-          context.fillStyle = pattern;
-          context.drawImage(pacman_img, center.x - 30, center.y - 30, 60, 60);
-        } 
+
+
+        // pacman_img.onload = function(){
+        //   let pattern = context.createPattern(this, "repeat");
+        //   context.fillStyle = pattern;
+        //   context.drawImage(pacman_img, center.x - 30, center.y - 30, 60, 60);
+        // } 
+
+        
+        if (lastKeyPress === directions.up) {
+          context.beginPath();
+          context.arc(center.x, center.y, 30, 0.15 * Math.PI, 1.85 * Math.PI); // half circle
+          context.lineTo(center.x, center.y);
+          context.fillStyle = pac_color; 
+          context.fill();
+
+          context.beginPath();
+          context.arc(center.x + 5, center.y - 15, 5, 0, 2 * Math.PI); // circle
+          context.fillStyle = 'black'; 
+          context.fill();
+        }
+        else if (lastKeyPress === directions.down){
+          context.beginPath();
+          context.arc(center.x, center.y, 30, 0.15 * Math.PI, 1.85 * Math.PI); // half circle
+          context.lineTo(center.x, center.y);
+          context.fillStyle = pac_color; 
+          context.fill();
+
+          context.beginPath();
+          context.arc(center.x + 5, center.y - 15, 5, 0, 2 * Math.PI); // circle
+          context.fillStyle = 'black'; 
+          context.fill();
+        }
+        else if (lastKeyPress === directions.right) {
+          // do not change
+          context.beginPath();
+          context.arc(center.x, center.y, 30, 0.15 * Math.PI, 1.85 * Math.PI); // half circle
+          context.lineTo(center.x, center.y);
+          context.fillStyle = pac_color; 
+          context.fill();
+
+          context.beginPath();
+          context.arc(center.x + 5, center.y - 15, 5, 0, 2 * Math.PI); // circle
+          context.fillStyle = 'black'; 
+          context.fill();
+        }
+        else if (lastKeyPress === directions.left){
+          context.beginPath();
+          context.arc(center.x, center.y, 30, 0.15 * Math.PI, 1.85 * Math.PI); // half circle
+          context.lineTo(center.x, center.y);
+          context.fillStyle = pac_color; 
+          context.fill();
+
+          context.beginPath();
+          context.arc(center.x + 5, center.y - 15, 5, 0, 2 * Math.PI); // circle
+          context.fillStyle = 'black'; 
+          context.fill();
+        }
       }
 
       //food10
@@ -319,11 +400,11 @@ function UpdatePosition() {
   if (score >= 20 && time_elapsed <= 10) {
     pac_color = 'green';
   }
-  if (score == 50) {
-    window.clearInterval(interval);
-    window.alert('Game completed');
-  } else {
-    Draw(keyPressed);
+  // if (score == 50) {
+  //   window.clearInterval(interval);
+  //   window.alert('Game completed');
+  else {
+    Draw();
   }
 }
 
