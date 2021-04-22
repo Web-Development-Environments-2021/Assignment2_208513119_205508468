@@ -201,6 +201,7 @@ function Draw() {
           context.fill();
         }
         else{
+          //start of the game
           context.beginPath();
           context.arc(center.x, center.y, 30, 0.15 * Math.PI, 1.85 * Math.PI); // half circle
           context.lineTo(center.x, center.y);
@@ -308,7 +309,7 @@ function Draw() {
       else if (board[i][j] === 4) { // obstacle
         context.beginPath();
         context.rect(center.x - 30, center.y - 30, 60, 60);
-        context.fillStyle = 'grey'; 
+        context.fillStyle = 'black'; 
         context.fill();
       }
     }
@@ -355,20 +356,14 @@ function UpdatePosition() {
 
   var currentTime = new Date();
   time_elapsed = (currentTime - start_time) / 1000;
-  if (score >= 100 && time_elapsed <= 10) {
-    pac_color = 'green';
+  if(time_elapsed > gameTime){
+    window.clearInterval(interval);
+    window.alert('Game completed');
   }
-  // if (score == 50) {
-  //   window.clearInterval(interval);
-  //   window.alert('Game completed');
   else {
     Draw();
   }
 }
-
-// function rotatePacman(x){
-
-// }
 
 
 // show and hide divs
