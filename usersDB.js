@@ -1,24 +1,24 @@
 const users = [
     {
-        username: "k",
+        user_name: "k",
         password: "k",
-        fullName: "",
+        full_name: "",
         email: "",
-        birthDate: ""
+        birth_date: ""
     },
     {
         username: "roy",
         password: "roy123",
-        fullName: "",
+        full_name: "",
         email: "",
-        birthDate: ""
+        birth_date: ""
     },
     {
         username: "dana",
         password: "dana123",
-        fullName: "",
+        full_name: "",
         email: "",
-        birthDate: ""
+        birth_date: ""
     }
 ];
 
@@ -46,76 +46,107 @@ function logIn() {
     }
 }
 
-function checkValidPassword(psw){
-	// if(psw.length < 6){
-	// 	alert("password not valid - should include at least 6 characters: letters & numbers only"); 
-	// 	return false; 
-	// }
-	var letterNumber = /^(?=.*\d)(?=.*[a-zA-Z]).{6,}$/;
-	if(psw.match(letterNumber)) 
-	 {
-	  return true;
-	 }
-	alert("password not valid - should include at least 6 characters: letters & numbers only"); 
-	return false; 
-	 
+function checkValidPassword(/*psw*/){
+  //dana
+	// var letterNumber = /^(?=.*\d)(?=.*[a-zA-Z]).{6,}$/;
+	// if(psw.match(letterNumber)) 
+	//  {
+	//   return true;
+	//  }
+	// alert("password not valid - should include at least 6 characters: letters & numbers only"); 
+	// return false; 
+
+  //roy
+  // define regex 
+  const upperCase = new RegExp('[A-Z]');
+  const lowerCase = new RegExp('[a-z]');
+  const numbers = new RegExp('[0-9]');
+
+  let pswd = $('#pswReg').val();
+  return pswd.length >= 6 &&
+   pswd.match(upperCase) &&
+    pswd.match(lowerCase) &&
+     pswd.match(numbers);
 }
 
-function checkValidFullName(fullname){
-	let ans = /\d/.test(fullname);
-	if (ans===true){
-		alert("Full Name not valid - should not include numbers"); 
-		return false; 
-	}
-	return true;
+function checkValidFullName(){
+  return !/\d/.test($('#nameReg').val());
 }
 
-function checkValidMail(email){
+function checkValidMail(){
 	const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    let ans = re.test(String(email).toLowerCase());
-	if (ans === false){
-		alert("Mail not Valid - try Again"); 
-		return false; 
-	}
-	return true;
+  let email = String($('#emailReg').val()).toLowerCase();
+  return re.test(email);
 }
+
+function checkRegFieldsNotEmpty() {
+  let fieldNotEmpty = true;
+  $('#registerForm input').each(function(){
+    if($.trim($(this).val()).length == 0){
+      fieldNotEmpty = false;
+    }
+  });
+  return fieldNotEmpty;
+}
+
+function addUserToDB(userName, psw, fullName, eMail, birthDate) {
+  users.push({
+    user_name: userName,
+    password: psw,
+    full_name: fullName,
+    email: eMail,
+    birth_date: birthDate
+  });
+}
+
 
 function registerUser() {
-    let userName = document.getElementById('usernameReg').value;
-    let existUserName = isUserExist(userName);
-    let psw = document.getElementById('pswReg').value;
-    let fullname = document.getElementById('nameReg').value;
-    let mail = document.getElementById('emailReg').value;
-    let birthdate = document.getElementById('dateofbirthReg').value;
-    let validPassword = checkValidPassword(psw);
-    let validFullName = checkValidFullName(fullname);
-    let validMail = checkValidMail(mail);
-    if (existUserName) {
-      if (confirm('UserName already exist ! Do you want to login ? ')) {
-        // login
-        showLogin();
-      } else {
-        // don't start game!
-        showWelcome();
-      }
-      return;
-    }
-    if (validPassword && validFullName && validMail) {
-      users.push({
-        username: userName,
-        password: psw,
-        fullName: fullname,
-        email: mail,
-        birthDate: birthdate,
-      });
-      if (
-        confirm('Registration Succeed ! Do you want to start a game right now ?')
-      ) {
-        // start game
-        showGame();
-      } else {
-        // don't start game!
-        showWelcome();
-      }
-    }
+  // get values from html
+  let userName = document.getElementById('usernameReg').value;
+  let psw = document.getElementById('pswReg').value;
+  let fullName = document.getElementById('nameReg').value;
+  let eMail = document.getElementById('emailReg').value;
+  let birthDate = document.getElementById('dateofbirthReg').value;
+
+  if(!checkRegFieldsNotEmpty()){
+    alert('Some fields are empty!')
+    return false;
   }
+
+  if(!checkValidPassword()){
+    alert("Password is not valid!\nPlease Enter at least 6 characters including 1 UpperCase letter, 1 lowerCase and 1 number!")
+    return false;
+  }
+
+  if(!checkValidFullName()){
+    alert("Full Name is not valid - Should not include numbers");
+    return false;
+  }
+
+  if(!checkValidMail()) {
+    alert("Email is not valid!")
+    return false;
+  }
+
+  let existUserName = isUserExist(userName);
+  if(existUserName) {
+    if (confirm('UserName already exist ! Do you want to login ? ')) {
+      // login
+      showLogin();
+    } else {
+      // don't start game!
+      showWelcome();
+    }
+    return;
+  }
+
+  addUserToDB(userName, psw, fullName, eMail, birthDate);
+  
+  if (confirm('Registration Succeed ! Lets Play ?')) {
+    // start game
+    showGame();
+  } else {
+    // don't start game!
+    showWelcome();
+  }
+}
