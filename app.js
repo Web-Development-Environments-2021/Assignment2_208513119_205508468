@@ -144,11 +144,6 @@ function Draw() {
   lblScore.value = score;
   lblTime.value = time_elapsed;
 
-
-  let pacman_img = new Image();
-  pacman_img.src = '/resources/pacmanLaugh.png'
-  
-
   for (var i = 0; i < 10; i++) {
     for (var j = 0; j < 10; j++) {
       var center = new Object();
@@ -156,76 +151,28 @@ function Draw() {
       center.y = j * 60 + 30;
 
 
-      //pacman
-      // if (board[i][j] === 2) {
-      //   context.beginPath();
-      //   context.arc(center.x, center.y, 30, 0.15 * Math.PI, 1.85 * Math.PI); // half circle
-      //   context.lineTo(center.x, center.y);
-      //   context.fillStyle = pac_color; 
-      //   context.fill();
-
-      //   context.beginPath();
-      //   context.arc(center.x + 5, center.y - 15, 5, 0, 2 * Math.PI); // circle
-      //   context.fillStyle = 'black'; 
-      //   context.fill();
-      // }
-
-
-
-      //pacman
-      if (board[i][j] === 2) {
-        // if (keyPressed === 1) {
-
-        // }
-        // else if (keyPressed === 2){
-
-        // }
-        // else if (keyPressed === 3) {
-
-        // }
-        // else if (keyPressed === 4){
-        //   context.beginPath();
-        //   context.arc(center.x, center.y, 30, 0.15 * Math.PI, 1.85 * Math.PI); // half circle
-        //   context.lineTo(center.x, center.y);
-        //   context.fillStyle = pac_color; 
-        //   context.fill();
-        //   context.beginPath();
-        //   context.arc(center.x + 5, center.y - 15, 5, 0, 2 * Math.PI); // circle
-        //   context.fillStyle = 'black'; 
-        //   context.fill();
-        // }
-        
-        // context.rotate(90 * Math.PI / 180);
-
-
-        // pacman_img.onload = function(){
-        //   let pattern = context.createPattern(this, "repeat");
-        //   context.fillStyle = pattern;
-        //   context.drawImage(pacman_img, center.x - 30, center.y - 30, 60, 60);
-        // } 
-
-        
-        if (lastKeyPress === directions.up) {
+      //pacman 2
+      if (board[i][j] === objEnum.Pacman) {
+        if (lastKeyPress === directions.down) {
           context.beginPath();
-          context.arc(center.x, center.y, 30, 0.15 * Math.PI, 1.85 * Math.PI); // half circle
+          context.arc(center.x, center.y, 30, 0.65 * Math.PI, 0.35 * Math.PI); // half circle
           context.lineTo(center.x, center.y);
           context.fillStyle = pac_color; 
           context.fill();
-
           context.beginPath();
-          context.arc(center.x + 5, center.y - 15, 5, 0, 2 * Math.PI); // circle
+          context.arc(center.x + 15, center.y + 5, 5, 0, 2 * Math.PI); // circle
           context.fillStyle = 'black'; 
           context.fill();
         }
-        else if (lastKeyPress === directions.down){
+        else if (lastKeyPress === directions.up){
           context.beginPath();
-          context.arc(center.x, center.y, 30, 0.15 * Math.PI, 1.85 * Math.PI); // half circle
+          context.arc(center.x, center.y, 30, 1.65 * Math.PI, 1.35 * Math.PI); // half circle
           context.lineTo(center.x, center.y);
           context.fillStyle = pac_color; 
           context.fill();
 
           context.beginPath();
-          context.arc(center.x + 5, center.y - 15, 5, 0, 2 * Math.PI); // circle
+          context.arc(center.x - 15, center.y - 5, 5, 0, 2 * Math.PI); // circle
           context.fillStyle = 'black'; 
           context.fill();
         }
@@ -241,8 +188,21 @@ function Draw() {
           context.arc(center.x + 5, center.y - 15, 5, 0, 2 * Math.PI); // circle
           context.fillStyle = 'black'; 
           context.fill();
+          
         }
         else if (lastKeyPress === directions.left){
+          context.beginPath();
+          context.arc(center.x, center.y, 30, 1.15 * Math.PI, 0.85 * Math.PI); // half circle
+          context.lineTo(center.x, center.y);
+          context.fillStyle = pac_color; 
+          context.fill();
+
+          context.beginPath();
+          context.arc(center.x - 5, center.y - 15, 5, 0, 2 * Math.PI); // circle
+          context.fillStyle = 'black'; 
+          context.fill();
+        }
+        else{
           context.beginPath();
           context.arc(center.x, center.y, 30, 0.15 * Math.PI, 1.85 * Math.PI); // half circle
           context.lineTo(center.x, center.y);
@@ -397,7 +357,7 @@ function UpdatePosition() {
 
   var currentTime = new Date();
   time_elapsed = (currentTime - start_time) / 1000;
-  if (score >= 20 && time_elapsed <= 10) {
+  if (score >= 100 && time_elapsed <= 10) {
     pac_color = 'green';
   }
   // if (score == 50) {
