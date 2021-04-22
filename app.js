@@ -168,10 +168,11 @@ function Draw(keyPressed) {
         // }
         
         // context.rotate(90 * Math.PI / 180);
-        
-       
-        context.drawImage(pacman_img, center.x - 30, center.y - 30, 60, 60);
-        
+        pacman_img.onload = function(){
+          let pattern = context.createPattern(this, "repeat");
+          context.fillStyle = pattern;
+          context.drawImage(pacman_img, center.x - 30, center.y - 30, 60, 60);
+        } 
       }
 
       //food10
