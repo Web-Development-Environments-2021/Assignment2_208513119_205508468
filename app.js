@@ -227,23 +227,93 @@ function Draw() {
 
       //food10
       else if (board[i][j] === 1) {
+        // context.beginPath();
+        // context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle
+        let x1 = center.x-15;
+        let y1 = center.y;
+        let radius1 = 10;
+        let startAngle1 = Math.PI*0.5;
+        let endAngle1 = Math.PI*1.5;
+        let antiClockwise1 = false;
+
+        let x2 = center.x+15;
+        let y2 = center.y;
+        let radius2 = 10;
+        let startAngle2 = Math.PI*1.5;
+        let endAngle2 = Math.PI*0.5;
+        let antiClockwise2 = false;
+
         context.beginPath();
-        context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle
-        context.fillStyle = color10balls; 
+        context.arc(x1, y1, radius1, startAngle1, endAngle1, antiClockwise1);
+        context.arc(x2, y2, radius2, startAngle2, endAngle2, antiClockwise2);
+        context.closePath();
+
+        let my_gradient = context.createLinearGradient(x1, y1 ,x2, y2);
+        my_gradient.addColorStop(0, "white");
+        my_gradient.addColorStop(0.5, color10balls);
+        context.fillStyle = my_gradient;
+      
+        // context.fillStyle = color10balls; 
         context.fill();
       } 
       //food30
       else if (board[i][j] === 3) {
+        // context.beginPath();
+        // context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle
+        let x1 = center.x-15;
+        let y1 = center.y;
+        let radius1 = 10;
+        let startAngle1 = Math.PI*0.5;
+        let endAngle1 = Math.PI*1.5;
+        let antiClockwise1 = false;
+
+        let x2 = center.x+15;
+        let y2 = center.y;
+        let radius2 = 10;
+        let startAngle2 = Math.PI*1.5;
+        let endAngle2 = Math.PI*0.5;
+        let antiClockwise2 = false;
+
         context.beginPath();
-        context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle
-        context.fillStyle = color30balls; 
+        context.arc(x1, y1, radius1, startAngle1, endAngle1, antiClockwise1);
+        context.arc(x2, y2, radius2, startAngle2, endAngle2, antiClockwise2);
+        context.closePath();
+
+        let my_gradient = context.createLinearGradient(x1, y1 ,x2, y2);
+        my_gradient.addColorStop(0, "white");
+        my_gradient.addColorStop(0.5, color30balls);
+        context.fillStyle = my_gradient;
+        // context.fillStyle = color30balls; 
         context.fill();
       } 
       //food60
       else if (board[i][j] === 6) {
+        // context.beginPath();
+        // context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle
+        let x1 = center.x-15;
+        let y1 = center.y;
+        let radius1 = 10;
+        let startAngle1 = Math.PI*0.5;
+        let endAngle1 = Math.PI*1.5;
+        let antiClockwise1 = false;
+
+        let x2 = center.x+15;
+        let y2 = center.y;
+        let radius2 = 10;
+        let startAngle2 = Math.PI*1.5;
+        let endAngle2 = Math.PI*0.5;
+        let antiClockwise2 = false;
+
         context.beginPath();
-        context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle
-        context.fillStyle = color60balls; 
+        context.arc(x1, y1, radius1, startAngle1, endAngle1, antiClockwise1);
+        context.arc(x2, y2, radius2, startAngle2, endAngle2, antiClockwise2);
+        context.closePath();
+
+        let my_gradient = context.createLinearGradient(x1, y1 ,x2, y2);
+        my_gradient.addColorStop(0, "white");
+        my_gradient.addColorStop(0.5, color60balls);
+        context.fillStyle = my_gradient;
+        // context.fillStyle = color60balls; 
         context.fill();
       } 
       else if (board[i][j] === 4) { // obstacle
