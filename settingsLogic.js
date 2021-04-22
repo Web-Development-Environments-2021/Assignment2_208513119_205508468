@@ -17,6 +17,8 @@ function getRandomColor(){
 function setRandomSettings(){
   // let arrowKeysFromUser = 1;
   arrowKeys = 1;
+  let pacColorFromUser = getRandomColor();
+  pacColor = pacColorFromUser;
   numOfBalls = getRandomInt(50,90);
   let ballColor60FromUser = getRandomColor();
   color60balls = ballColor60FromUser;
@@ -26,7 +28,7 @@ function setRandomSettings(){
   color10balls = ballColor10FromUser;
   gameTime = getRandomInt(60,1000);
   numOfMonsters = getRandomInt(1,4);
-  showGame(arrowKeys, numOfBalls, color60balls, color30balls, color10balls, gameTime, numOfMonsters);
+  showGame(pacColor, arrowKeys, numOfBalls, color60balls, color30balls, color10balls, gameTime, numOfMonsters);
 }
 
 function validateGameTime(time){
@@ -46,6 +48,7 @@ function applySettings() {
     arrowKeysFromUser = 0;
   }
   
+  let pacColorFromUser = document.getElementById('set-color-pacman').value;
   let numOfBallsFromUser = document.getElementById('set-range-num').value;
   let ballColor60FromUser = document.getElementById('set-color-picker-60').value;
   color60balls = ballColor60FromUser;
@@ -67,7 +70,7 @@ function applySettings() {
     alert("Minimun Game Time: 60 seconds!")
   }
   else {
-    showGame(arrowKeysFromUser, numOfBallsFromUser, ballColor60FromUser, ballColor30FromUser, ballColor10FromUser, gameTimeFromUser, numOfMonstersFromUser);
+    showGame(pacColorFromUser, arrowKeysFromUser, numOfBallsFromUser, ballColor60FromUser, ballColor30FromUser, ballColor10FromUser, gameTimeFromUser, numOfMonstersFromUser);
   }
   
 }

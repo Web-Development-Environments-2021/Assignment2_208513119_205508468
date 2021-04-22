@@ -1,7 +1,6 @@
 var shape = new Object();
 var board;
 var score;
-var pac_color;
 var start_time;
 var time_elapsed;
 var interval;
@@ -14,7 +13,7 @@ let color30balls;
 let color10balls;
 let gameTime;
 let numOfMonsters;
-
+let pac_color;
 let lastKeyPress;
 
 const context = canvas.getContext('2d');
@@ -36,14 +35,13 @@ $(document).ready(function () {
 
 let is_pacman_on_board;
 
-function Start(arrowKeysFromUser, numOfBalls, ballColor60, ballColor30, ballColor10, gameTime, numOfMonsters) {
+function Start(pacColorFromUser, arrowKeysFromUser, numOfBalls, ballColor60, ballColor30, ballColor10, gameTime, numOfMonsters) {
   board = [];
   score = 0;
-  pac_color = 'yellow';
   is_pacman_on_board = false;
   start_time = new Date();
   arrowKeys = arrowKeysFromUser;
-
+  pac_color = pacColorFromUser;
   let numOfBalls60 = Math.round(0.6 * numOfBalls);
   let numOfBalls30 = Math.round(0.3 * numOfBalls);
   let numOfBalls10 = Math.round(0.1 * numOfBalls);
@@ -144,11 +142,6 @@ function Draw() {
   lblScore.value = score;
   lblTime.value = time_elapsed;
 
-
-  let pacman_img = new Image();
-  pacman_img.src = '/resources/pacmanLaugh.png'
-  
-
   for (var i = 0; i < 10; i++) {
     for (var j = 0; j < 10; j++) {
       var center = new Object();
@@ -156,45 +149,28 @@ function Draw() {
       center.y = j * 60 + 30;
 
 
-      //pacman
-      // if (board[i][j] === 2) {
-      //   context.beginPath();
-      //   context.arc(center.x, center.y, 30, 0.15 * Math.PI, 1.85 * Math.PI); // half circle
-      //   context.lineTo(center.x, center.y);
-      //   context.fillStyle = pac_color; 
-      //   context.fill();
-
-      //   context.beginPath();
-      //   context.arc(center.x + 5, center.y - 15, 5, 0, 2 * Math.PI); // circle
-      //   context.fillStyle = 'black'; 
-      //   context.fill();
-      // }
-
-
-
-      //pacman
-      if (board[i][j] === 2) {
-        if (lastKeyPress === directions.up) {
+      //pacman 2
+      if (board[i][j] === objEnum.Pacman) {
+        if (lastKeyPress === directions.down) {
           context.beginPath();
-          context.arc(center.x, center.y, 30, 0.15 * Math.PI, 1.85 * Math.PI); // half circle
+          context.arc(center.x, center.y, 30, 0.65 * Math.PI, 0.35 * Math.PI); // half circle
           context.lineTo(center.x, center.y);
           context.fillStyle = pac_color; 
           context.fill();
-
           context.beginPath();
-          context.arc(center.x + 5, center.y - 15, 5, 0, 2 * Math.PI); // circle
+          context.arc(center.x + 15, center.y + 5, 5, 0, 2 * Math.PI); // circle
           context.fillStyle = 'black'; 
           context.fill();
         }
-        else if (lastKeyPress === directions.down){
+        else if (lastKeyPress === directions.up){
           context.beginPath();
-          context.arc(center.x, center.y, 30, 0.15 * Math.PI, 1.85 * Math.PI); // half circle
+          context.arc(center.x, center.y, 30, 1.65 * Math.PI, 1.35 * Math.PI); // half circle
           context.lineTo(center.x, center.y);
           context.fillStyle = pac_color; 
           context.fill();
 
           context.beginPath();
-          context.arc(center.x + 5, center.y - 15, 5, 0, 2 * Math.PI); // circle
+          context.arc(center.x - 15, center.y - 5, 5, 0, 2 * Math.PI); // circle
           context.fillStyle = 'black'; 
           context.fill();
         }
@@ -210,8 +186,21 @@ function Draw() {
           context.arc(center.x + 5, center.y - 15, 5, 0, 2 * Math.PI); // circle
           context.fillStyle = 'black'; 
           context.fill();
+          
         }
         else if (lastKeyPress === directions.left){
+          context.beginPath();
+          context.arc(center.x, center.y, 30, 1.15 * Math.PI, 0.85 * Math.PI); // half circle
+          context.lineTo(center.x, center.y);
+          context.fillStyle = pac_color; 
+          context.fill();
+
+          context.beginPath();
+          context.arc(center.x - 5, center.y - 15, 5, 0, 2 * Math.PI); // circle
+          context.fillStyle = 'black'; 
+          context.fill();
+        }
+        else{
           context.beginPath();
           context.arc(center.x, center.y, 30, 0.15 * Math.PI, 1.85 * Math.PI); // half circle
           context.lineTo(center.x, center.y);
@@ -366,7 +355,7 @@ function UpdatePosition() {
 
   var currentTime = new Date();
   time_elapsed = (currentTime - start_time) / 1000;
-  if (score >= 20 && time_elapsed <= 10) {
+  if (score >= 100 && time_elapsed <= 10) {
     pac_color = 'green';
   }
   // if (score == 50) {
@@ -409,10 +398,10 @@ function showAbout() {
   modal.style.display = 'block';
 }
 
-function showGame(arrowKeys, numOfBalls, ballColor60, ballColor30, ballColor10, gameTime, numOfMonsters) {
+function showGame(pacColor, arrowKeys, numOfBalls, ballColor60, ballColor30, ballColor10, gameTime, numOfMonsters) {
   $('#content').children().hide();
   $('#game').show();
-  Start(arrowKeys, numOfBalls, ballColor60, ballColor30, ballColor10, gameTime, numOfMonsters);
+  Start(pacColor, arrowKeys, numOfBalls, ballColor60, ballColor30, ballColor10, gameTime, numOfMonsters);
 }
 
 function closeAbout() {
