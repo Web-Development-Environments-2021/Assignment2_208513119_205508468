@@ -7,14 +7,14 @@ const users = [
         birth_date: ""
     },
     {
-        username: "roy",
+        user_name: "roy",
         password: "roy123",
         full_name: "",
         email: "",
         birth_date: ""
     },
     {
-        username: "dana",
+        user_name: "dana",
         password: "dana123",
         full_name: "",
         email: "",
@@ -23,12 +23,12 @@ const users = [
 ];
 
 function isUserExist(userName) {
-    return users.some((elem) => elem.username === userName);
+    return users.some((elem) => elem.user_name === userName);
 }
 
 
-function isUserValid(username, pswrd){
-    return users.some((elem) => elem.username === username && elem.password === pswrd);
+function isUserValid(userName, pswrd){
+    return users.some((elem) => elem.user_name === userName && elem.password === pswrd);
 }
 
 function logIn() {
@@ -46,17 +46,7 @@ function logIn() {
     }
 }
 
-function checkValidPassword(/*psw*/){
-  //dana
-	// var letterNumber = /^(?=.*\d)(?=.*[a-zA-Z]).{6,}$/;
-	// if(psw.match(letterNumber)) 
-	//  {
-	//   return true;
-	//  }
-	// alert("password not valid - should include at least 6 characters: letters & numbers only"); 
-	// return false; 
-
-  //roy
+function checkValidPassword(){
   // define regex 
   const upperCase = new RegExp('[A-Z]');
   const lowerCase = new RegExp('[a-z]');
@@ -142,9 +132,9 @@ function registerUser() {
 
   addUserToDB(userName, psw, fullName, eMail, birthDate);
   
-  if (confirm('Registration Succeed ! Lets Play ?')) {
+  if (confirm('Registration Succeed ! Do you want to login ?')) {
     // start game
-    showGame();
+    showLogin();
   } else {
     // don't start game!
     showWelcome();
