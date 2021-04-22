@@ -1,7 +1,6 @@
 var shape = new Object();
 var board;
 var score;
-var pac_color;
 var start_time;
 var time_elapsed;
 var interval;
@@ -14,7 +13,7 @@ let color30balls;
 let color10balls;
 let gameTime;
 let numOfMonsters;
-
+let pac_color;
 let lastKeyPress;
 
 const context = canvas.getContext('2d');
@@ -36,14 +35,13 @@ $(document).ready(function () {
 
 let is_pacman_on_board;
 
-function Start(arrowKeysFromUser, numOfBalls, ballColor60, ballColor30, ballColor10, gameTime, numOfMonsters) {
+function Start(pacColorFromUser, arrowKeysFromUser, numOfBalls, ballColor60, ballColor30, ballColor10, gameTime, numOfMonsters) {
   board = [];
   score = 0;
-  pac_color = 'yellow';
   is_pacman_on_board = false;
   start_time = new Date();
   arrowKeys = arrowKeysFromUser;
-
+  pac_color = pacColorFromUser;
   let numOfBalls60 = Math.round(0.6 * numOfBalls);
   let numOfBalls30 = Math.round(0.3 * numOfBalls);
   let numOfBalls10 = Math.round(0.1 * numOfBalls);
@@ -400,10 +398,10 @@ function showAbout() {
   modal.style.display = 'block';
 }
 
-function showGame(arrowKeys, numOfBalls, ballColor60, ballColor30, ballColor10, gameTime, numOfMonsters) {
+function showGame(pacColor, arrowKeys, numOfBalls, ballColor60, ballColor30, ballColor10, gameTime, numOfMonsters) {
   $('#content').children().hide();
   $('#game').show();
-  Start(arrowKeys, numOfBalls, ballColor60, ballColor30, ballColor10, gameTime, numOfMonsters);
+  Start(pacColor, arrowKeys, numOfBalls, ballColor60, ballColor30, ballColor10, gameTime, numOfMonsters);
 }
 
 function closeAbout() {
