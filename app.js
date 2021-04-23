@@ -20,7 +20,7 @@ var score;
 var start_time;
 var time_elapsed;
 var interval;
-
+let pacmanLives = 5;
 let isGameOn = false;
 
 // variables from settings
@@ -56,7 +56,18 @@ $(document).ready(function () {
 
 let is_pacman_on_board;
 
+
 function Start(pacColorFromUser, arrowKeysFromUser, numOfBalls, ballColor60, ballColor30, ballColor10, gameTimeFromUser, numOfMonstersFromUser) {
+  // design settings
+  document.getElementById("pacColor").style.color = pacColorFromUser;
+  document.getElementById("10Color").style.color = ballColor10;
+  document.getElementById("30Color").style.color = ballColor30;
+  document.getElementById("60Color").style.color = ballColor60;
+  document.getElementById("numOfBalls").style.color = numOfBalls;
+  document.getElementById("numOfMonsters").style.color = numOfMonstersFromUser;
+  document.getElementById("gameTime").style.color = gameTimeFromUser;
+
+
   board = [];
   score = 0;
   is_pacman_on_board = false;
@@ -197,6 +208,7 @@ function Draw() {
   canvas.height = document.getElementById('content').offsetHeight;
   lblScore.value = score;
   lblTime.value = time_elapsed;
+  livesRemainInput.value = pacmanLives;
 
   for (var i = 0; i < 10; i++) {
     for (var j = 0; j < 10; j++) {
