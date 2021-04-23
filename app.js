@@ -29,6 +29,7 @@ var time_elapsed;
 var interval;
 let monstersInterval;
 let monstersDrawInterval;
+let checkCollisionInterval;
 let pacmanLives = 5;
 let isGameOn = false;
 
@@ -105,7 +106,6 @@ function Start(pacColorFromUser, arrowKeysFromUser, numOfBalls, ballColor60, bal
   }
 
   placeMonstersOnBoard();
-
   placePacmanOnBoard();
 
   // place all types of food on board
@@ -113,9 +113,11 @@ function Start(pacColorFromUser, arrowKeysFromUser, numOfBalls, ballColor60, bal
   placeFoodOnBoard(numOfBalls30, objEnum.Food30);
   placeFoodOnBoard(numOfBalls10, objEnum.Food10);
 
+
   interval = setInterval(UpdatePosition, 100);
   monstersUpdateInterval = setInterval(updateMonstersPosition, 500);
   monstersDrawInterval = setInterval(drawMonsters, 10);
+  checkCollisionInterval = setInterval(checkCollision, 20);
 }
 
 function findRandomEmptyCell(board) {
@@ -138,14 +140,12 @@ function placeFoodOnBoard(numOfBalls, type) {
 
 function placeMonstersOnBoard() {
   //monster1
-  // board[0][0] = objEnum.mon1;
   monster1.i = 0;
   monster1.j = 0;
   monster1.isActive = true;
 
   //monster2
   if (numOfMonsters > 1) {
-    // board[0][9] =  objEnum.mon2; 
     monster2.i = 0;
     monster2.j = 9;
     monster2.isActive = true;
@@ -153,7 +153,6 @@ function placeMonstersOnBoard() {
 
   //monster3
   if (numOfMonsters > 2) {
-    // board[9][0] =  objEnum.mon3;
     monster3.i = 9;
     monster3.j = 0;
     monster3.isActive = true;
@@ -161,7 +160,6 @@ function placeMonstersOnBoard() {
 
   //monster4
   if (numOfMonsters > 3) {
-    // board[9][9] =  objEnum.mon4;
     monster4.i = 9;
     monster4.j = 9;
     monster4.isActive = true;
@@ -169,6 +167,9 @@ function placeMonstersOnBoard() {
 }
 
 function placePacmanOnBoard() {
+  if(is_pacman_on_board){
+    context.clearRect(pacman.i * 60, pacman.j * 60, 60, 60);
+  }
   let emptyCell = findRandomEmptyCell(board);
   pacman.i = emptyCell[0];
   pacman.j = emptyCell[1];
@@ -394,7 +395,6 @@ function Draw() {
         context.fillStyle = 'black';
         context.fill();
       }
-      
     }
   }
 }
@@ -615,6 +615,19 @@ function drawMonsters() {
       centerOfCell.x = monsters[i].i * 60 + 30;
       centerOfCell.y = monsters[i].j * 60 + 30;
       context.drawImage(monsters[i].img, centerOfCell.x - 30, centerOfCell.y - 30, 60, 60);
+    }
+  }
+}
+
+function checkCollision(){
+  let ind;
+  for(ind = 0; ind < monsters.length; ind++){
+    if(monsters[ind].i === pacman.i && monsters[ind].j === pacman.j){
+      pacmanLives--;
+      score -= 10;
+      board[pacman.i][pacman.j] = objEnum.Nothing;
+      placeMonstersOnBoard();
+      placePacmanOnBoard();
     }
   }
 }
