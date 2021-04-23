@@ -37,9 +37,9 @@ function getUserFullName(username) {
   return users.find(elem => elem.user_name === username).full_name;
 }
 
-function showUserInHeader(currentUser) {
+function showUserInHeader(current_user) {
   let hello = "Welcome Back, ";
-  document.getElementById('header-current-username').innerHTML = hello.concat(currentUser);
+  document.getElementById('header-current-username').innerHTML = hello.concat(current_user);
   document.getElementById('logout-btn').style.display = 'inline';
 }
 
@@ -60,8 +60,8 @@ function logIn() {
 
     // validate details
     if(isUserValid(username, password)){
-      currentUser = getUserFullName(username);
-      showUserInHeader(currentUser);
+      currentUser = username;
+      showUserInHeader(getUserFullName(username));
       showSettings();
     }
     else {

@@ -18,20 +18,25 @@ function getRandomColor(){
 }
 
 function setRandomSettings(){
-  // let arrowKeysFromUser = 1;
-  arrowKeys = 1;
-  let pacColorFromUser = getRandomColor();
-  pacColor = pacColorFromUser;
-  numOfBalls = getRandomInt(50,90);
-  let ballColor60FromUser = getRandomColor();
-  color60balls = ballColor60FromUser;
-  let ballColor30FromUser = getRandomColor();
-  color30balls = ballColor30FromUser;
-  let ballColor10FromUser = getRandomColor();
-  color10balls = ballColor10FromUser;
-  gameTime = getRandomInt(60,1000);
-  numOfMonsters = getRandomInt(1,4);
-  showGame(pacColor, arrowKeys, numOfBalls, color60balls, color30balls, color10balls, gameTime, numOfMonsters);
+  if(currentUser !== null){
+    arrowKeys = 1;
+    let pacColorFromUser = getRandomColor();
+    pacColor = pacColorFromUser;
+    numOfBalls = getRandomInt(50,90);
+    let ballColor60FromUser = getRandomColor();
+    color60balls = ballColor60FromUser;
+    let ballColor30FromUser = getRandomColor();
+    color30balls = ballColor30FromUser;
+    let ballColor10FromUser = getRandomColor();
+    color10balls = ballColor10FromUser;
+    gameTime = getRandomInt(60,70);
+    numOfMonsters = getRandomInt(1,4);
+    showGame(pacColor, arrowKeys, numOfBalls, color60balls, color30balls, color10balls, gameTime, numOfMonsters);
+  }
+  else{
+    alert("You must log in / register first!")
+  }
+  
 }
 
 function validateGameTime(time){
@@ -73,7 +78,13 @@ function applySettings() {
     alert("Minimun Game Time: 60 seconds!")
   }
   else {
-    showGame(pacColorFromUser, arrowKeysFromUser, numOfBallsFromUser, ballColor60FromUser, ballColor30FromUser, ballColor10FromUser, gameTimeFromUser, numOfMonstersFromUser);
+    if(currentUser !== null){
+      showGame(pacColorFromUser, arrowKeysFromUser, numOfBallsFromUser, ballColor60FromUser, ballColor30FromUser, ballColor10FromUser, gameTimeFromUser, numOfMonstersFromUser);
+    }
+    else{
+      alert("You must log in / register first!");
+    }
+    
   }
   
 }

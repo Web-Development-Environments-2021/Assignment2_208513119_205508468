@@ -30,8 +30,9 @@ var interval;
 let monstersInterval;
 let monstersDrawInterval;
 let checkCollisionInterval;
-let pacmanLives = 5;
+let pacmanLives;
 let isGameOn = false;
+let food_remain;
 
 // variables from settings
 let arrowKeys;
@@ -75,9 +76,12 @@ function Start(pacColorFromUser, arrowKeysFromUser, numOfBalls, ballColor60, bal
   document.getElementById("numOfBalls").style.color = numOfBalls;
   document.getElementById("numOfMonsters").style.color = numOfMonstersFromUser;
   document.getElementById("gameTime").style.color = gameTimeFromUser;
+
+  
   
   board = [];
   score = 0;
+  pacmanLives = 5;
   is_pacman_on_board = false;
   start_time = new Date();
   arrowKeys = arrowKeysFromUser;
@@ -85,7 +89,7 @@ function Start(pacColorFromUser, arrowKeysFromUser, numOfBalls, ballColor60, bal
   let numOfBalls60 = Math.round(0.6 * numOfBalls);
   let numOfBalls30 = Math.round(0.3 * numOfBalls);
   let numOfBalls10 = Math.round(0.1 * numOfBalls);
-  var food_remain = numOfBalls60 + numOfBalls30 + numOfBalls10;
+  food_remain = numOfBalls60 + numOfBalls30 + numOfBalls10;
   gameTime = gameTimeFromUser;
   numOfMonsters = numOfMonstersFromUser;
   isGameOn = true;
@@ -426,22 +430,39 @@ function UpdatePosition() {
   // score adding by eating ball
   if (board[pacman.i][pacman.j] === objEnum.Food10) {
     score += 25;
+    food_remain--;
   }
   else if (board[pacman.i][pacman.j] === objEnum.Food30) {
     score += 15;
+    food_remain--;
   }
   else if (board[pacman.i][pacman.j] === objEnum.Food60) {
     score += 5;
+    food_remain--;
   }
+
 
   // move the Pacman 
   board[pacman.i][pacman.j] = 2;
 
   var currentTime = new Date();
   time_elapsed = (currentTime - start_time) / 1000;
-  if (time_elapsed > gameTime) {
-    window.alert('Game completed');
-    stopGame();
+  if(pacmanLives === 0){
+    window.alert("Loser!");
+    resetGame();
+  }
+  else if (time_elapsed >= gameTime) {
+    if(score < 100){
+      window.alert("You are better than ${score} points!")
+    }
+    else {
+      window.alert("Winner!!!")
+    }
+    resetGame();
+  }
+  else if(food_remain === 0){
+    window.alert("Winner!!!")
+    resetGame();
   }
   else {
     Draw();
@@ -525,6 +546,9 @@ function stopGameMusic() {
 function stopGame() {
   if (isGameOn) {
     window.clearInterval(interval);
+    window.clearInterval(monstersUpdateInterval);
+    window.clearInterval(monstersDrawInterval);
+    window.clearInterval(checkCollisionInterval);
     stopGameMusic();
     isGameOn = false;
   }
@@ -632,3 +656,7 @@ function checkCollision(){
   }
 }
 
+function resetGame() {
+  window.clearInterval()
+  showSettings();
+}
