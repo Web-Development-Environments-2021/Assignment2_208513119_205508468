@@ -1,14 +1,27 @@
-var pacman = new Object();
+// create pacman and mosters objects
+let pacman = new Object();
 let monster1 = new Object();
 let monster2 = new Object();
 let monster3 = new Object();
 let monster4 = new Object();
+
+// load mosters images
+let monster1Img = new Image();
+monster1Img.src = "./resources/blueMonster.jpg"
+let monster2Img = new Image();
+monster2Img.src = "./resources/redMonster.jpg"
+let monster3Img = new Image();
+monster3Img.src = "/resources/pinkMonster.jpg"
+let monster4Img = new Image();
+monster4Img.src = "/resources/brownMonster.jpg"
 
 var board;
 var score;
 var start_time;
 var time_elapsed;
 var interval;
+
+let isGameOn = false;
 
 // variables from settings
 let arrowKeys;
@@ -23,6 +36,7 @@ let lastKeyPress;
 
 const context = canvas.getContext('2d');
 const keysDown = {};
+const audio = document.getElementById('gameAudio');
 
 // ENUM DEFINE
 const objEnum = Object.freeze({"Nothing": 0, "Food10" : 1, "Pacman" : 2, "Food30" : 3, "Obstacle" : 4, "Food60" : 6, "mon1":7, "mon2":8,"mon3":9, "mon4":10});
@@ -55,6 +69,9 @@ function Start(pacColorFromUser, arrowKeysFromUser, numOfBalls, ballColor60, bal
   var food_remain = numOfBalls60 + numOfBalls30 + numOfBalls10;
   gameTime = gameTimeFromUser;
   numOfMonsters = numOfMonstersFromUser;
+  isGameOn = true;
+
+  playGameMusic();
 
   // filling the board
   for (var i = 0; i < 10; i++) {
@@ -180,18 +197,6 @@ function Draw() {
   canvas.height = document.getElementById('content').offsetHeight;
   lblScore.value = score;
   lblTime.value = time_elapsed;
-
-  let monster1Img = new Image();
-  monster1Img.src = "./resources/blueMonster.jpg"
-
-  let monster2Img = new Image();
-  monster2Img.src = "./resources/redMonster.jpg"
-
-  let monster3Img = new Image();
-  monster3Img.src = "/resources/pinkMonster.jpg"
-
-  let monster4Img = new Image();
-  monster4Img.src = "/resources/brownMonster.jpg"
 
   for (var i = 0; i < 10; i++) {
     for (var j = 0; j < 10; j++) {
@@ -425,7 +430,7 @@ function UpdatePosition() {
   time_elapsed = (currentTime - start_time)/1000;
   if(time_elapsed > gameTime){
     window.alert('Game completed');
-    window.clearInterval(interval);
+    stopGame();
   }
   else {
     Draw();
@@ -437,27 +442,32 @@ function UpdatePosition() {
 function showRegister() {
   $('#content').children().hide();
   $('#register').show();
+  stopGame();
 }
 
 function showWelcome() {
   $('#content').children().hide();
   $('#welcome').show();
+  stopGame();
 }
 
 function showLogin() {
   $('#content').children().hide();
   $('#login').show();
+  stopGame();
 }
 
 function showSettings() {
   $('#content').children().hide();
   $('#settings').show();
+  stopGame();
 }
 
 function showAbout() {
   $('#content').children().hide();
   let modal = document.getElementById('about');
   modal.style.display = 'block';
+  stopGame();
 }
 
 function showGame(pacColor, arrowKeys, numOfBalls, ballColor60, ballColor30, ballColor10, gameTime, numOfMonsters) {
@@ -491,3 +501,21 @@ document.addEventListener('keydown', (event) => {
     aboutModal.style.display = 'none';
   }
 });
+
+function playGameMusic() {
+  audio.play();
+}
+
+function stopGameMusic() {
+  audio.pause();
+  audio.currentTime = 0;
+}
+
+function stopGame(){
+  if(isGameOn){
+    window.clearInterval(interval);
+    stopGameMusic();
+    isGameOn = false;
+  }
+}
+
