@@ -1,0 +1,35 @@
+ #game {
+    /* display: none; */
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    background-color: brown;
+}
+
+/* #gameBoard{
+    min-height: 600px;
+    min-width: 600px ;
+} */
+
+#gameDetails{
+    display: flex;
+    flex-direction: column;
+    font: normal 18px 'Roboto', cursive;
+    color: #ffffff;
+    text-align: center;
+}
+
+.gameSettingsShow{
+    background:#ecf0f1;
+    border: #ccc 1px solid;
+    border-bottom: #ccc 2px solid;
+    padding: 8px;
+    width:30%;
+    height: 10%;
+    color:#000000;
+    margin-top:10px;
+    font-size:1.4em;
+    border-radius:4px;
+}
