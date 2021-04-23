@@ -15,11 +15,20 @@ monster3Img.src = "./resources/greenMonster.png"
 let monster4Img = new Image();
 monster4Img.src = "./resources/brownMonster.png"
 
+monster1.img = monster1Img;
+monster2.img = monster2Img;
+monster3.img = monster3Img;
+monster4.img = monster4Img;
+
+let monsters = [monster1, monster2, monster3, monster4];
+
 var board;
 var score;
 var start_time;
 var time_elapsed;
 var interval;
+let monstersInterval;
+let monstersDrawInterval;
 
 let isGameOn = false;
 
@@ -27,7 +36,7 @@ let isGameOn = false;
 let arrowKeys;
 let numOfBalls;
 let color60balls;
-let color30balls; 
+let color30balls;
 let color10balls;
 let gameTime;
 let numOfMonsters;
@@ -39,8 +48,8 @@ const keysDown = {};
 const audio = document.getElementById('gameAudio');
 
 // ENUM DEFINE
-const objEnum = Object.freeze({"Nothing": 0, "Food10" : 1, "Pacman" : 2, "Food30" : 3, "Obstacle" : 4, "Food60" : 6, "mon1":7, "mon2":8,"mon3":9, "mon4":10});
-const directions = Object.freeze({"up": 1, "down": 2, "left":3, "right": 4});
+const objEnum = Object.freeze({ "Nothing": 0, "Food10": 1, "Pacman": 2, "Food30": 3, "Obstacle": 4, "Food60": 6, "mon1": 7, "mon2": 8, "mon3": 9, "mon4": 10 });
+const directions = Object.freeze({ "up": 1, "down": 2, "left": 3, "right": 4 });
 
 
 // const directionsAngles = Object.freeze({"up": })
@@ -96,12 +105,14 @@ function Start(pacColorFromUser, arrowKeysFromUser, numOfBalls, ballColor60, bal
   placeFoodOnBoard(numOfBalls10, objEnum.Food10);
 
   interval = setInterval(UpdatePosition, 100);
+  monstersUpdateInterval = setInterval(updateMonstersPosition, 500);
+  monstersDrawInterval = setInterval(drawMonsters, 10);
 }
 
 function findRandomEmptyCell(board) {
   let i = Math.floor(Math.random() * 10);
   let j = Math.floor(Math.random() * 10);
-  while(board[i][j] != objEnum.Nothing){
+  while (board[i][j] != objEnum.Nothing) {
     i = Math.floor(Math.random() * 10);
     j = Math.floor(Math.random() * 10);
   }
@@ -109,39 +120,43 @@ function findRandomEmptyCell(board) {
 }
 
 function placeFoodOnBoard(numOfBalls, type) {
-  while(numOfBalls > 0){
+  while (numOfBalls > 0) {
     let emptyCell = findRandomEmptyCell(board);
     board[emptyCell[0]][emptyCell[1]] = type;
     numOfBalls--;
   }
 }
 
-function placeMonstersOnBoard(){
+function placeMonstersOnBoard() {
   //monster1
-  board[0][0] = objEnum.mon1;
+  // board[0][0] = objEnum.mon1;
   monster1.i = 0;
   monster1.j = 0;
+  monster1.isActive = true;
 
   //monster2
-  if(numOfMonsters > 1){
-    board[0][9] =  objEnum.mon2; 
-    monster1.i = 0;
-    monster1.j = 9;
-  } 
+  if (numOfMonsters > 1) {
+    // board[0][9] =  objEnum.mon2; 
+    monster2.i = 0;
+    monster2.j = 9;
+    monster2.isActive = true;
+  }
 
   //monster3
-  if(numOfMonsters > 2){
-    board[9][0] =  objEnum.mon3;
-    monster1.i = 9;
-    monster1.j = 0;
-  } 
+  if (numOfMonsters > 2) {
+    // board[9][0] =  objEnum.mon3;
+    monster3.i = 9;
+    monster3.j = 0;
+    monster3.isActive = true;
+  }
 
   //monster4
-  if(numOfMonsters > 3){
-    board[9][9] =  objEnum.mon4;
-    monster1.i = 9;
-    monster1.j = 9;
-  } 
+  if (numOfMonsters > 3) {
+    // board[9][9] =  objEnum.mon4;
+    monster4.i = 9;
+    monster4.j = 9;
+    monster4.isActive = true;
+  }
 }
 
 function placePacmanOnBoard() {
@@ -154,7 +169,7 @@ function placePacmanOnBoard() {
 
 
 function GetKeyPressed(typeOfKeys) {
-  if(typeOfKeys === 1){
+  if (typeOfKeys === 1) {
     if (keysDown[38]) {
       lastKeyPress = directions.up;
       return directions.up;
@@ -172,7 +187,7 @@ function GetKeyPressed(typeOfKeys) {
       return directions.right;
     }
   }
-  else if(typeOfKeys === 2) {
+  else if (typeOfKeys === 2) {
     if (keysDown[87]) {
       lastKeyPress = directions.up;
       return directions.up;
@@ -211,23 +226,23 @@ function Draw() {
           context.beginPath();
           context.arc(center.x, center.y, 30, 0.65 * Math.PI, 0.35 * Math.PI); // half circle
           context.lineTo(center.x, center.y);
-          context.fillStyle = pac_color; 
+          context.fillStyle = pac_color;
           context.fill();
           context.beginPath();
           context.arc(center.x + 15, center.y + 5, 5, 0, 2 * Math.PI); // circle
-          context.fillStyle = 'black'; 
+          context.fillStyle = 'black';
           context.fill();
         }
-        else if (lastKeyPress === directions.up){
+        else if (lastKeyPress === directions.up) {
           context.beginPath();
           context.arc(center.x, center.y, 30, 1.65 * Math.PI, 1.35 * Math.PI); // half circle
           context.lineTo(center.x, center.y);
-          context.fillStyle = pac_color; 
+          context.fillStyle = pac_color;
           context.fill();
 
           context.beginPath();
           context.arc(center.x - 15, center.y - 5, 5, 0, 2 * Math.PI); // circle
-          context.fillStyle = 'black'; 
+          context.fillStyle = 'black';
           context.fill();
         }
         else if (lastKeyPress === directions.right) {
@@ -235,38 +250,38 @@ function Draw() {
           context.beginPath();
           context.arc(center.x, center.y, 30, 0.15 * Math.PI, 1.85 * Math.PI); // half circle
           context.lineTo(center.x, center.y);
-          context.fillStyle = pac_color; 
+          context.fillStyle = pac_color;
           context.fill();
 
           context.beginPath();
           context.arc(center.x + 5, center.y - 15, 5, 0, 2 * Math.PI); // circle
-          context.fillStyle = 'black'; 
+          context.fillStyle = 'black';
           context.fill();
-          
+
         }
-        else if (lastKeyPress === directions.left){
+        else if (lastKeyPress === directions.left) {
           context.beginPath();
           context.arc(center.x, center.y, 30, 1.15 * Math.PI, 0.85 * Math.PI); // half circle
           context.lineTo(center.x, center.y);
-          context.fillStyle = pac_color; 
+          context.fillStyle = pac_color;
           context.fill();
 
           context.beginPath();
           context.arc(center.x - 5, center.y - 15, 5, 0, 2 * Math.PI); // circle
-          context.fillStyle = 'black'; 
+          context.fillStyle = 'black';
           context.fill();
         }
-        else{
+        else {
           //start of the game - Pacman Draw
           context.beginPath();
           context.arc(center.x, center.y, 30, 0.15 * Math.PI, 1.85 * Math.PI); // half circle
           context.lineTo(center.x, center.y);
-          context.fillStyle = pac_color; 
+          context.fillStyle = pac_color;
           context.fill();
 
           context.beginPath();
           context.arc(center.x + 5, center.y - 15, 5, 0, 2 * Math.PI); // circle
-          context.fillStyle = 'black'; 
+          context.fillStyle = 'black';
           context.fill();
         }
       }
@@ -275,18 +290,18 @@ function Draw() {
       else if (board[i][j] === objEnum.Food10) {
         // context.beginPath();
         // context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle
-        let x1 = center.x-15;
+        let x1 = center.x - 15;
         let y1 = center.y;
         let radius1 = 10;
-        let startAngle1 = Math.PI*0.5;
-        let endAngle1 = Math.PI*1.5;
+        let startAngle1 = Math.PI * 0.5;
+        let endAngle1 = Math.PI * 1.5;
         let antiClockwise1 = false;
 
-        let x2 = center.x+15;
+        let x2 = center.x + 15;
         let y2 = center.y;
         let radius2 = 10;
-        let startAngle2 = Math.PI*1.5;
-        let endAngle2 = Math.PI*0.5;
+        let startAngle2 = Math.PI * 1.5;
+        let endAngle2 = Math.PI * 0.5;
         let antiClockwise2 = false;
 
         context.beginPath();
@@ -294,30 +309,30 @@ function Draw() {
         context.arc(x2, y2, radius2, startAngle2, endAngle2, antiClockwise2);
         context.closePath();
 
-        let my_gradient = context.createLinearGradient(x1, y1 ,x2, y2);
+        let my_gradient = context.createLinearGradient(x1, y1, x2, y2);
         my_gradient.addColorStop(0, "white");
         my_gradient.addColorStop(0.5, color10balls);
         context.fillStyle = my_gradient;
-      
+
         // context.fillStyle = color10balls; 
         context.fill();
-      } 
+      }
       //food30
       else if (board[i][j] === objEnum.Food30) {
         // context.beginPath();
         // context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle
-        let x1 = center.x-15;
+        let x1 = center.x - 15;
         let y1 = center.y;
         let radius1 = 10;
-        let startAngle1 = Math.PI*0.5;
-        let endAngle1 = Math.PI*1.5;
+        let startAngle1 = Math.PI * 0.5;
+        let endAngle1 = Math.PI * 1.5;
         let antiClockwise1 = false;
 
-        let x2 = center.x+15;
+        let x2 = center.x + 15;
         let y2 = center.y;
         let radius2 = 10;
-        let startAngle2 = Math.PI*1.5;
-        let endAngle2 = Math.PI*0.5;
+        let startAngle2 = Math.PI * 1.5;
+        let endAngle2 = Math.PI * 0.5;
         let antiClockwise2 = false;
 
         context.beginPath();
@@ -325,29 +340,29 @@ function Draw() {
         context.arc(x2, y2, radius2, startAngle2, endAngle2, antiClockwise2);
         context.closePath();
 
-        let my_gradient = context.createLinearGradient(x1, y1 ,x2, y2);
+        let my_gradient = context.createLinearGradient(x1, y1, x2, y2);
         my_gradient.addColorStop(0, "white");
         my_gradient.addColorStop(0.5, color30balls);
         context.fillStyle = my_gradient;
         // context.fillStyle = color30balls; 
         context.fill();
-      } 
+      }
       //food60
       else if (board[i][j] === objEnum.Food60) {
         // context.beginPath();
         // context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle
-        let x1 = center.x-15;
+        let x1 = center.x - 15;
         let y1 = center.y;
         let radius1 = 10;
-        let startAngle1 = Math.PI*0.5;
-        let endAngle1 = Math.PI*1.5;
+        let startAngle1 = Math.PI * 0.5;
+        let endAngle1 = Math.PI * 1.5;
         let antiClockwise1 = false;
 
-        let x2 = center.x+15;
+        let x2 = center.x + 15;
         let y2 = center.y;
         let radius2 = 10;
-        let startAngle2 = Math.PI*1.5;
-        let endAngle2 = Math.PI*0.5;
+        let startAngle2 = Math.PI * 1.5;
+        let endAngle2 = Math.PI * 0.5;
         let antiClockwise2 = false;
 
         context.beginPath();
@@ -355,35 +370,37 @@ function Draw() {
         context.arc(x2, y2, radius2, startAngle2, endAngle2, antiClockwise2);
         context.closePath();
 
-        let my_gradient = context.createLinearGradient(x1, y1 ,x2, y2);
+        let my_gradient = context.createLinearGradient(x1, y1, x2, y2);
         my_gradient.addColorStop(0, "white");
         my_gradient.addColorStop(0.5, color60balls);
         context.fillStyle = my_gradient;
         // context.fillStyle = color60balls; 
         context.fill();
-      } 
-      else if(board[i][j] === objEnum.mon1){
-        context.drawImage(monster1Img, center.x -30, center.y-30, 60, 60);
       }
+      // else if(board[i][j] === objEnum.mon1){
+      //   context.drawImage(monster1Img, center.x -30, center.y-30, 60, 60);
+      // }
 
-      else if(board[i][j] === objEnum.mon2){
-        context.drawImage(monster2Img, center.x -30, center.y-30, 60, 60);
-      }
+      // else if(board[i][j] === objEnum.mon2){
+      //   context.drawImage(monster2Img, center.x -30, center.y-30, 60, 60);
+      // }
 
-      else if(board[i][j] === objEnum.mon3){
-        context.drawImage(monster3Img, center.x -30, center.y-30, 60, 60);
-      }
+      // else if(board[i][j] === objEnum.mon3){
+      //   context.drawImage(monster3Img, center.x -30, center.y-30, 60, 60);
+      // }
 
-      else if(board[i][j] === objEnum.mon4){
-        context.drawImage(monster4Img, center.x -30, center.y-30, 60, 60);
-      }
+      // else if(board[i][j] === objEnum.mon4){
+      //   context.drawImage(monster4Img, center.x -30, center.y-30, 60, 60);
+      // }
+      
 
       else if (board[i][j] === objEnum.Obstacle) { // obstacle
         context.beginPath();
         context.rect(center.x - 30, center.y - 30, 60, 60);
-        context.fillStyle = 'black'; 
+        context.fillStyle = 'black';
         context.fill();
       }
+      
     }
   }
 }
@@ -405,21 +422,21 @@ function UpdatePosition() {
 
   // left
   if (keyPressed === 3 && pacman.i > 0 && board[pacman.i - 1][pacman.j] !== 4) {
-      pacman.i--;
+    pacman.i--;
   }
   // right
   if (keyPressed === 4 && pacman.i < 9 && board[pacman.i + 1][pacman.j] !== 4) {
-      pacman.i++;
+    pacman.i++;
   }
 
-   // score adding by eating ball
-   if (board[pacman.i][pacman.j] === objEnum.Food10) {
+  // score adding by eating ball
+  if (board[pacman.i][pacman.j] === objEnum.Food10) {
     score += 25;
   }
-  else if(board[pacman.i][pacman.j] === objEnum.Food30){
+  else if (board[pacman.i][pacman.j] === objEnum.Food30) {
     score += 15;
   }
-  else if(board[pacman.i][pacman.j] === objEnum.Food60){
+  else if (board[pacman.i][pacman.j] === objEnum.Food60) {
     score += 5;
   }
 
@@ -427,8 +444,8 @@ function UpdatePosition() {
   board[pacman.i][pacman.j] = 2;
 
   var currentTime = new Date();
-  time_elapsed = (currentTime - start_time)/1000;
-  if(time_elapsed > gameTime){
+  time_elapsed = (currentTime - start_time) / 1000;
+  if (time_elapsed > gameTime) {
     window.alert('Game completed');
     stopGame();
   }
@@ -511,11 +528,101 @@ function stopGameMusic() {
   audio.currentTime = 0;
 }
 
-function stopGame(){
-  if(isGameOn){
+function stopGame() {
+  if (isGameOn) {
     window.clearInterval(interval);
     stopGameMusic();
     isGameOn = false;
+  }
+}
+
+function updateMonstersPosition() {
+  let i = 0;
+  for(i=0; i<monsters.length; i++) {
+    if(monsters[i].isActive){
+      let bestMove = monsterBestMoveToPackman(monsters[i]);
+      if (bestMove === directions.up) {
+        monsters[i].j -= 1;
+      }
+      else if (bestMove === directions.down) {
+        monsters[i].j += 1;
+      }
+      else if (bestMove === directions.left) {
+        monsters[i].i -= 1;
+      }
+      else if (bestMove === directions.right) {
+        monsters[i].i += 1;
+      }
+    }
+  }
+  // drawMonsters();
+}
+
+function monsterBestMoveToPackman(monster) {
+  let iDist = Math.abs(pacman.i - monster.i);
+  let jDist = Math.abs(pacman.j - monster.j);
+
+
+  if (iDist >= jDist) {
+    if (pacman.i > monster.i) { // pacman is right to monster
+      // check if there is an obstacle
+      if (board[monster.i + 1][monster.j] === objEnum.Obstacle) {
+        if(Math.random() > 0.5){
+          return directions.down;
+        }
+        else{
+          return directions.up;
+        }
+      }
+      return directions.right;
+    }
+    else if (pacman.i < monster.i) { // pacman is left to monster
+      if (board[monster.i - 1][monster.j] === objEnum.Obstacle) {
+        if(Math.random() > 0.5){
+          return directions.down;
+        }
+        else{
+          return directions.up;
+        }
+      }
+      return directions.left;
+    }
+  }
+  else {
+    if (pacman.j > monster.j) { // pacman is below monster
+      if (board[monster.i][monster.j + 1] === objEnum.Obstacle) {
+        if(Math.random() > 0.5){
+          return directions.right;
+        }
+        else{
+          return directions.left;
+        }
+      }
+      return directions.down;
+    }
+    else if (pacman.j < monster.j) { // pacman is up to monster
+      if (board[monster.i][monster.j - 1] === objEnum.Obstacle) {
+        if(Math.random() > 0.5){
+          return directions.right;
+        }
+        else{
+          return directions.left;
+        }
+      }
+      return directions.up;
+    }
+  }
+}
+
+function drawMonsters() {
+  var centerOfCell = new Object();
+  let i = 0;
+  for(i = 0; i < monsters.length; i++){
+    if(monsters[i].isActive){
+      centerOfCell.x = monsters[i].i * 60 + 30;
+      centerOfCell.y = monsters[i].j * 60 + 30;
+      context.drawImage(monsters[i].img, centerOfCell.x - 30, centerOfCell.y - 30, 60, 60);
+    }
   }
 }
 
