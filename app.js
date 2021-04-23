@@ -7,13 +7,13 @@ let monster4 = new Object();
 
 // load mosters images
 let monster1Img = new Image();
-monster1Img.src = "./resources/blueMonster.jpg"
+monster1Img.src = "./resources/blueMonster.png"
 let monster2Img = new Image();
-monster2Img.src = "./resources/redMonster.jpg"
+monster2Img.src = "./resources/pinkMonster.png"
 let monster3Img = new Image();
-monster3Img.src = "/resources/pinkMonster.jpg"
+monster3Img.src = "./resources/greenMonster.png"
 let monster4Img = new Image();
-monster4Img.src = "/resources/brownMonster.jpg"
+monster4Img.src = "./resources/brownMonster.png"
 
 var board;
 var score;
