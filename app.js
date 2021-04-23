@@ -1,4 +1,9 @@
-var shape = new Object();
+var pacman = new Object();
+let monster1 = new Object();
+let monster2 = new Object();
+let monster3 = new Object();
+let monster4 = new Object();
+
 var board;
 var score;
 var start_time;
@@ -20,7 +25,7 @@ const context = canvas.getContext('2d');
 const keysDown = {};
 
 // ENUM DEFINE
-const objEnum = Object.freeze({"Nothing": 0, "Food10" : 1, "Pacman" : 2, "Food30" : 3, "Obstacle" : 4, "Food60" : 6});
+const objEnum = Object.freeze({"Nothing": 0, "Food10" : 1, "Pacman" : 2, "Food30" : 3, "Obstacle" : 4, "Food60" : 6, "mon1":7, "mon2":8,"mon3":9, "mon4":10});
 const directions = Object.freeze({"up": 1, "down": 2, "left":3, "right": 4});
 
 
@@ -37,7 +42,7 @@ $(document).ready(function () {
 
 let is_pacman_on_board;
 
-function Start(pacColorFromUser, arrowKeysFromUser, numOfBalls, ballColor60, ballColor30, ballColor10, gameTimeFromUser, numOfMonsters) {
+function Start(pacColorFromUser, arrowKeysFromUser, numOfBalls, ballColor60, ballColor30, ballColor10, gameTimeFromUser, numOfMonstersFromUser) {
   board = [];
   score = 0;
   is_pacman_on_board = false;
@@ -49,6 +54,7 @@ function Start(pacColorFromUser, arrowKeysFromUser, numOfBalls, ballColor60, bal
   let numOfBalls10 = Math.round(0.1 * numOfBalls);
   var food_remain = numOfBalls60 + numOfBalls30 + numOfBalls10;
   gameTime = gameTimeFromUser;
+  numOfMonsters = numOfMonstersFromUser;
 
   // filling the board
   for (var i = 0; i < 10; i++) {
@@ -62,6 +68,8 @@ function Start(pacColorFromUser, arrowKeysFromUser, numOfBalls, ballColor60, bal
       }
     }
   }
+
+  placeMonstersOnBoard();
 
   placePacmanOnBoard();
 
@@ -91,10 +99,38 @@ function placeFoodOnBoard(numOfBalls, type) {
   }
 }
 
+function placeMonstersOnBoard(){
+  //monster1
+  board[0][0] = objEnum.mon1;
+  monster1.i = 0;
+  monster1.j = 0;
+
+  //monster2
+  if(numOfMonsters > 1){
+    board[0][9] =  objEnum.mon2; 
+    monster1.i = 0;
+    monster1.j = 9;
+  } 
+
+  //monster3
+  if(numOfMonsters > 2){
+    board[9][0] =  objEnum.mon3;
+    monster1.i = 9;
+    monster1.j = 0;
+  } 
+
+  //monster4
+  if(numOfMonsters > 3){
+    board[9][9] =  objEnum.mon4;
+    monster1.i = 9;
+    monster1.j = 9;
+  } 
+}
+
 function placePacmanOnBoard() {
   let emptyCell = findRandomEmptyCell(board);
-  shape.i = emptyCell[0];
-  shape.j = emptyCell[1];
+  pacman.i = emptyCell[0];
+  pacman.j = emptyCell[1];
   board[emptyCell[0]][emptyCell[1]] = objEnum.Pacman;
   is_pacman_on_board = true;
 }
@@ -144,6 +180,18 @@ function Draw() {
   canvas.height = document.getElementById('content').offsetHeight;
   lblScore.value = score;
   lblTime.value = time_elapsed;
+
+  let monster1Img = new Image();
+  monster1Img.src = "./resources/blueMonster.jpg"
+
+  let monster2Img = new Image();
+  monster2Img.src = "./resources/redMonster.jpg"
+
+  let monster3Img = new Image();
+  monster3Img.src = "./resources/pinkMonster.jpg"
+
+  let monster4Img = new Image();
+  monster4Img.src = "./resources/brownMonster.jpg"
 
   for (var i = 0; i < 10; i++) {
     for (var j = 0; j < 10; j++) {
@@ -204,7 +252,7 @@ function Draw() {
           context.fill();
         }
         else{
-          //start of the game
+          //start of the game - Pacman Draw
           context.beginPath();
           context.arc(center.x, center.y, 30, 0.15 * Math.PI, 1.85 * Math.PI); // half circle
           context.lineTo(center.x, center.y);
@@ -219,7 +267,7 @@ function Draw() {
       }
 
       //food10
-      else if (board[i][j] === 1) {
+      else if (board[i][j] === objEnum.Food10) {
         // context.beginPath();
         // context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle
         let x1 = center.x-15;
@@ -250,7 +298,7 @@ function Draw() {
         context.fill();
       } 
       //food30
-      else if (board[i][j] === 3) {
+      else if (board[i][j] === objEnum.Food30) {
         // context.beginPath();
         // context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle
         let x1 = center.x-15;
@@ -280,7 +328,7 @@ function Draw() {
         context.fill();
       } 
       //food60
-      else if (board[i][j] === 6) {
+      else if (board[i][j] === objEnum.Food60) {
         // context.beginPath();
         // context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle
         let x1 = center.x-15;
@@ -309,7 +357,23 @@ function Draw() {
         // context.fillStyle = color60balls; 
         context.fill();
       } 
-      else if (board[i][j] === 4) { // obstacle
+      else if(board[i][j] === objEnum.mon1){
+        context.drawImage(monster1Img, center.x -30, center.y-30, 60, 60);
+      }
+
+      else if(board[i][j] === objEnum.mon2){
+        context.drawImage(monster2Img, center.x -30, center.y-30, 60, 60);
+      }
+
+      else if(board[i][j] === objEnum.mon3){
+        context.drawImage(monster3Img, center.x -30, center.y-30, 60, 60);
+      }
+
+      else if(board[i][j] === objEnum.mon4){
+        context.drawImage(monster4Img, center.x -30, center.y-30, 60, 60);
+      }
+
+      else if (board[i][j] === objEnum.Obstacle) { // obstacle
         context.beginPath();
         context.rect(center.x - 30, center.y - 30, 60, 60);
         context.fillStyle = 'black'; 
@@ -321,41 +385,41 @@ function Draw() {
 
 function UpdatePosition() {
 
-  board[shape.i][shape.j] = 0;
+  board[pacman.i][pacman.j] = 0;
   var keyPressed = GetKeyPressed(arrowKeys);
 
   // up
-  if (keyPressed === 1 && shape.j > 0 && board[shape.i][shape.j - 1] !== 4) {
-    shape.j--;
+  if (keyPressed === 1 && pacman.j > 0 && board[pacman.i][pacman.j - 1] !== 4) {
+    pacman.j--;
   }
 
   // down
-  if (keyPressed === 2 && shape.j < 9 && board[shape.i][shape.j + 1] !== 4) {
-    shape.j++;
+  if (keyPressed === 2 && pacman.j < 9 && board[pacman.i][pacman.j + 1] !== 4) {
+    pacman.j++;
   }
 
   // left
-  if (keyPressed === 3 && shape.i > 0 && board[shape.i - 1][shape.j] !== 4) {
-      shape.i--;
+  if (keyPressed === 3 && pacman.i > 0 && board[pacman.i - 1][pacman.j] !== 4) {
+      pacman.i--;
   }
   // right
-  if (keyPressed === 4 && shape.i < 9 && board[shape.i + 1][shape.j] !== 4) {
-      shape.i++;
+  if (keyPressed === 4 && pacman.i < 9 && board[pacman.i + 1][pacman.j] !== 4) {
+      pacman.i++;
   }
 
    // score adding by eating ball
-   if (board[shape.i][shape.j] === objEnum.Food10) {
+   if (board[pacman.i][pacman.j] === objEnum.Food10) {
     score += 25;
   }
-  else if(board[shape.i][shape.j] === objEnum.Food30){
+  else if(board[pacman.i][pacman.j] === objEnum.Food30){
     score += 15;
   }
-  else if(board[shape.i][shape.j] === objEnum.Food60){
+  else if(board[pacman.i][pacman.j] === objEnum.Food60){
     score += 5;
   }
 
   // move the Pacman 
-  board[shape.i][shape.j] = 2;
+  board[pacman.i][pacman.j] = 2;
 
   var currentTime = new Date();
   time_elapsed = (currentTime - start_time)/1000;
