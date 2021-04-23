@@ -188,10 +188,10 @@ function Draw() {
   monster2Img.src = "./resources/redMonster.jpg"
 
   let monster3Img = new Image();
-  monster3Img.src = "./resources/pinkMonster.jpg"
+  monster3Img.src = "/resources/pinkMonster.jpg"
 
   let monster4Img = new Image();
-  monster4Img.src = "./resources/brownMonster.jpg"
+  monster4Img.src = "/resources/brownMonster.jpg"
 
   for (var i = 0; i < 10; i++) {
     for (var j = 0; j < 10; j++) {
