@@ -16,14 +16,14 @@ let numOfMonsters;
 let pac_color;
 let lastKeyPress;
 
+const audio = document.getElementById('gameAudio');
+
 const context = canvas.getContext('2d');
 const keysDown = {};
 
 // ENUM DEFINE
 const objEnum = Object.freeze({"Nothing": 0, "Food10" : 1, "Pacman" : 2, "Food30" : 3, "Obstacle" : 4, "Food60" : 6});
 const directions = Object.freeze({"up": 1, "down": 2, "left":3, "right": 4});
-
-
 // const directionsAngles = Object.freeze({"up": })
 // add and remove keys events
 window.onkeydown = (event) => (keysDown[event.keyCode] = true);
@@ -37,7 +37,8 @@ $(document).ready(function () {
 
 let is_pacman_on_board;
 
-function Start(pacColorFromUser, arrowKeysFromUser, numOfBalls, ballColor60, ballColor30, ballColor10, gameTimeFromUser, numOfMonsters) {
+function Start(pacColorFromUser, arrowKeysFromUser, numOfBalls, ballColor60, ballColor30, ballColor10, gameTime, numOfMonsters) {
+  
   board = [];
   score = 0;
   is_pacman_on_board = false;
@@ -48,7 +49,6 @@ function Start(pacColorFromUser, arrowKeysFromUser, numOfBalls, ballColor60, bal
   let numOfBalls30 = Math.round(0.3 * numOfBalls);
   let numOfBalls10 = Math.round(0.1 * numOfBalls);
   var food_remain = numOfBalls60 + numOfBalls30 + numOfBalls10;
-  gameTime = gameTimeFromUser;
 
   // filling the board
   for (var i = 0; i < 10; i++) {
@@ -62,6 +62,8 @@ function Start(pacColorFromUser, arrowKeysFromUser, numOfBalls, ballColor60, bal
       }
     }
   }
+
+  playGameMusic();
 
   placePacmanOnBoard();
 
@@ -204,7 +206,6 @@ function Draw() {
           context.fill();
         }
         else{
-          //start of the game
           context.beginPath();
           context.arc(center.x, center.y, 30, 0.15 * Math.PI, 1.85 * Math.PI); // half circle
           context.lineTo(center.x, center.y);
@@ -312,7 +313,7 @@ function Draw() {
       else if (board[i][j] === 4) { // obstacle
         context.beginPath();
         context.rect(center.x - 30, center.y - 30, 60, 60);
-        context.fillStyle = 'black'; 
+        context.fillStyle = 'grey'; 
         context.fill();
       }
     }
@@ -358,15 +359,18 @@ function UpdatePosition() {
   board[shape.i][shape.j] = 2;
 
   var currentTime = new Date();
-  time_elapsed = (currentTime - start_time)/1000;
-  if(time_elapsed > gameTime){
-    window.alert('Game completed');
-    window.clearInterval(interval);
+  time_elapsed = (currentTime - start_time) / 1000;
+  if (score >= 100 && time_elapsed <= 10) {
+    pac_color = 'green';
   }
+  // if (score == 50) {
+  //   window.clearInterval(interval);
+  //   window.alert('Game completed');
   else {
     Draw();
   }
 }
+
 
 
 // show and hide divs
@@ -427,3 +431,11 @@ document.addEventListener('keydown', (event) => {
     aboutModal.style.display = 'none';
   }
 });
+
+function playGameMusic() {
+  audio.play();
+}
+
+function pauseAudio() {
+  audio.pause();
+}
