@@ -722,10 +722,20 @@ function checkCollision(){
 function checkSyringeCollision(){
   if(syringe.i === pacman.i && syringe.j === pacman.j && syringe.isActive){
     syringe.isActive = false;
+    showSyringeEatenMsg();
   }
 }
 
 function resetGame() {
   window.clearInterval()
   showSettings();
+}
+
+function showSyringeEatenMsg() {
+  document.getElementById('in-game-msg').innerHTML = "+50 Points!!!";
+  
+}
+
+function hideMsgToUser() {
+  document.getElementById('in-game-msg').innerHTML = "";
 }
