@@ -5,17 +5,19 @@ let monster2 = new Object();
 let monster3 = new Object();
 let monster4 = new Object();
 
+let heartImg = new Image();
+heartImg.src = "./resources/heart.png";
 
 
 // load monsters images
 let monster1Img = new Image();
-monster1Img.src = "./resources/blueMonster.png"
+monster1Img.src = "./resources/bat.png"
 let monster2Img = new Image();
 monster2Img.src = "./resources/pinkMonster.png"
 let monster3Img = new Image();
 monster3Img.src = "./resources/greenMonster.png"
 let monster4Img = new Image();
-monster4Img.src = "./resources/brownMonster.png"
+monster4Img.src = "./resources/blueMonster.png"
 
 monster1.img = monster1Img;
 monster2.img = monster2Img;
@@ -70,6 +72,9 @@ let is_pacman_on_board;
 const context = canvas.getContext('2d');
 let keysDown = {};
 const audio = document.getElementById('gameAudio');
+const scaryAudio = document.getElementById('batAudio');
+
+
 
 // ENUM DEFINE
 const objEnum = Object.freeze({ "Nothing": 0, "Food10": 1, "Pacman": 2, "Food30": 3, "Obstacle": 4, "Food60": 6, "mon1": 7, "mon2": 8, "mon3": 9, "mon4": 10, "clock": 11 });
@@ -87,6 +92,16 @@ $(document).ready(function () {
   showWelcome();
 });
 
+function showLivesRemain(numOfLives){
+  let c = document.getElementById("livesCanvas");
+  let ctx = c.getContext("2d");
+  ctx.clearRect(0,0,150,30);
+  let x;
+  for(let i=0 ; i< numOfLives ; i++){
+    x = i * 30 + 15;
+    ctx.drawImage(heartImg, x - 15, 0, 30, 30);
+  }
+}
 
 
 function Start(pacColorFromUser, arrowKeysFromUser, numOfBalls, ballColor60, ballColor30, ballColor10, gameTimeFromUser, numOfMonstersFromUser) {
@@ -100,6 +115,7 @@ function Start(pacColorFromUser, arrowKeysFromUser, numOfBalls, ballColor60, bal
   board = [];
   score = 0;
   pacmanLives = 5;
+  showLivesRemain(pacmanLives);
   is_pacman_on_board = false;
   syringe.isActive = true;
   start_time = new Date();
@@ -261,11 +277,10 @@ function GetKeyPressed(typeOfKeys) {
 }
 
 function Draw() {
-  // canvas.width = canvas.width; //clean board
   canvas.height = document.getElementById('content').offsetHeight;
   lblScore.innerHTML = score;
-  lblTime.innerHTML = time_elapsed;
-  livesRemainInput.innerHTML = pacmanLives;
+  lblTime.innerHTML  = time_elapsed;
+  showLivesRemain(pacmanLives);
   ballsNum.innerHTML = numOfBalls;
   monstersNum.innerHTML = numOfMonsters;
   maxTime.innerHTML = gameTime;
@@ -474,14 +489,17 @@ function UpdatePosition() {
   // score adding by eating ball
   if (board[pacman.i][pacman.j] === objEnum.Food10) {
     score += 25;
+    document.getElementById("lblScore").style.color = getRandomColor();
     food_remain--;
   }
   else if (board[pacman.i][pacman.j] === objEnum.Food30) {
     score += 15;
+    document.getElementById("lblScore").style.color = getRandomColor();
     food_remain--;
   }
   else if (board[pacman.i][pacman.j] === objEnum.Food60) {
     score += 5;
+    document.getElementById("lblScore").style.color = getRandomColor();
     food_remain--;
   }
 
@@ -492,7 +510,7 @@ function UpdatePosition() {
   var currentTime = new Date();
   
   time_elapsed = (currentTime.getTime() - start_time.getTime()) / 1000;
-  if (pacmanLives === 0) {
+  if (pacmanLives <= 0) {
     window.alert("Loser!");
     resetGame();
   }
@@ -587,6 +605,20 @@ function stopGameMusic() {
   audio.pause();
   audio.currentTime = 0;
 }
+
+function playScaryMusic(){
+  audio.pause();
+  scaryAudio.play();
+  audio.pause();
+  audio.play();
+
+}
+
+function stopScaryMusic() {
+  scaryAudio.pause();
+  scaryAudio.currentTime = 0;
+}
+
 
 function stopGame() {
   if (isGameOn) {
@@ -754,10 +786,16 @@ function drawSyringe() {
 
 function checkCollision() {
   let ind;
-  for (ind = 0; ind < monsters.length; ind++) {
-    if (monsters[ind].i === pacman.i && monsters[ind].j === pacman.j) {
+  for(ind = 0; ind < monsters.length; ind++){
+    if(monsters[ind].i === pacman.i && monsters[ind].j === pacman.j){
+      if(ind === 0 ) {
+        playScaryMusic();
+        pacmanLives--;
+        score -= 10;
+      }
       pacmanLives--;
       score -= 10;
+      document.getElementById("lblScore").style.color = getRandomColor();
       board[pacman.i][pacman.j] = objEnum.Nothing;
       placeMonstersOnBoard();
       placePacmanOnBoard();
