@@ -16,7 +16,7 @@
 		<div id="header">
 			<div class="header-brand">
 				<div class="header-logo">
-					<img src="resources/pac-man-x750.jpg" width="70" height="70">
+					<img src="resources/pac-man-x750.jpg" width="70" height="70" onclick="showWelcome()">
 				</div>
 				<div class="header-game-name">
 					DR. Pacman
@@ -177,8 +177,20 @@
 						<span class="closeAbout" onclick="closeAbout()">
 							&times;
 						</span>
-						<p id=aboutText>Hello to you dear Player ! We are Dana Klimenko and Roy Dor and We are 
-							3rd year students in the System Information Software Engineering Department.
+						<p id=aboutText>
+							<h1>Hello to you dear Player! </h1>
+							We are Dana Klimenko and Roy Dor and We are 3rd year students in the System Information Software Engineering Department.
+							<br><br>
+							<h4>Template or Plugin uses:</h4>
+							1. Date picker. <br>
+							2. <br>
+							3. <br>
+							<br>
+							<h4>Difficulties we encountered during the progress:</h4>
+							1. Make the monsters move over the candies. <br>
+							2. Make the monsters move towards the pacman. <br>
+							3. Styling the game. <br>
+							4. This "About" modal dialog.
 						</p>
 					</div>
 				</div>
@@ -234,7 +246,7 @@
 
 						</div>
 						
-						<button class="welcomeBut" id="registerBut" onClick="showSettings()">New Game</button>
+						<button class="welcomeBut" id="registerBut" onClick="resetGame()">New Game</button>
 						<label id="in-game-msg"></label>
 						<label id="in-game-msg"></label>
 					</div>

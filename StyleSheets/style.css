@@ -69,6 +69,10 @@ body {
     justify-content: flex-start;
 }
 
+.header-logo{
+  cursor: pointer;
+}
+
 
 
 /**************** Sidebar ****************/

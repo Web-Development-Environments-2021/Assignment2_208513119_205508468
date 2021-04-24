@@ -121,6 +121,7 @@ function Start(pacColorFromUser, arrowKeysFromUser, numOfBalls, ballColor60, bal
   showLivesRemain(pacmanLives);
   is_pacman_on_board = false;
   syringe.isActive = true;
+  clock.isActive = true;
   start_time = new Date();
   arrowKeys = arrowKeysFromUser;
   pac_color = pacColorFromUser;
