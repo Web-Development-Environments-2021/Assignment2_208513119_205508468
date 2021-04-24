@@ -13,7 +13,6 @@
 	</head>
 
 	<body>
-		
 		<div id="header">
 			<div class="header-brand">
 				<div class="header-logo">
@@ -197,11 +196,19 @@
 						<div id="detailsCurrentGame">
 							Here are the settings of your Game:
 						</div>
-						<label id="in-game-msg"></label>
+						<div>
+							<label id="livesRemain">Lives remain:</label>
+							<canvas id="livesCanvas" height="30" width="150"></canvas>
+							<!-- <label id="livesRemainInput"></label> -->
+						</div>
+
 						<div id="score">
 							<label for="lblScore">Your Score:</label>
-							<label  id="lblScore"> </label>
+							<label id="lblScore"> </label>
 						</div>
+						
+						<label id="in-game-msg"></label>
+						
 						<div id="time">
 							<label for="lblTime">Time:</label>
 							<label id="lblTime"></label>
@@ -226,15 +233,14 @@
 							<label  id="maxTime"></label>
 
 						</div>
-						<div>
-							<label id="livesRemain">Lives remain:</label>
-							<label id="livesRemainInput"></label>
-							
-						</div>
+						
 						<button class="welcomeBut" id="registerBut" onClick="showSettings()">New Game</button>
 					</div>
 					<audio id="gameAudio">
 						<source src="./resources/coronavirusSong.mpeg", type="audio/mpeg">
+					</audio>
+					<audio id="batAudio">
+						<source src="./resources/scaryRoy.mpeg", type="audio/mpeg">
 					</audio>
 				</div>
 			</div>

@@ -2,17 +2,16 @@
     /* display: none; */
     display: flex;
     flex-direction: row;
-    height: 100%;
     width: 100%;
     align-items: center;
-    background-color: rgb(102, 102, 102);
+    background-color: rgb(58, 58, 58);
     justify-content: space-evenly;
 }
 
-/* #gameBoard{
-    min-height: 600px;
-    min-width: 600px ;
-} */
+#canvas{
+    border: 1px solid yellow;
+    height: 600;
+}
 
 #gameDetails{
     display: flex;

@@ -5,6 +5,8 @@ let monster2 = new Object();
 let monster3 = new Object();
 let monster4 = new Object();
 
+let heartImg = new Image();
+heartImg.src = "./resources/heart.png";
 
 // load monsters images
 let monster1Img = new Image();
@@ -79,6 +81,16 @@ $(document).ready(function () {
   showWelcome();
 });
 
+function showLivesRemain(numOfLives){
+  let c = document.getElementById("livesCanvas");
+  let ctx = c.getContext("2d");
+  ctx.clearRect(0,0,150,30);
+  let x;
+  for(let i=0 ; i< numOfLives ; i++){
+    x = i * 30 + 15;
+    ctx.drawImage(heartImg, x - 15, 0, 30, 30);
+  }
+}
 
 
 function Start(pacColorFromUser, arrowKeysFromUser, numOfBalls, ballColor60, ballColor30, ballColor10, gameTimeFromUser, numOfMonstersFromUser) {
@@ -92,6 +104,7 @@ function Start(pacColorFromUser, arrowKeysFromUser, numOfBalls, ballColor60, bal
   board = [];
   score = 0;
   pacmanLives = 5;
+  showLivesRemain(pacmanLives);
   is_pacman_on_board = false;
   syringe.isActive = true;
   start_time = new Date();
@@ -250,7 +263,8 @@ function Draw() {
   canvas.height = document.getElementById('content').offsetHeight;
   lblScore.innerHTML = score;
   lblTime.innerHTML  = time_elapsed;
-  livesRemainInput.innerHTML = pacmanLives;
+  // livesRemainInput.innerHTML = pacmanLives;
+  showLivesRemain(pacmanLives);
   ballsNum.innerHTML = numOfBalls;
   monstersNum.innerHTML = numOfMonsters;
   maxTime.innerHTML = gameTime;
@@ -456,14 +470,17 @@ function UpdatePosition() {
   // score adding by eating ball
   if (board[pacman.i][pacman.j] === objEnum.Food10) {
     score += 25;
+    document.getElementById("lblScore").style.color = getRandomColor();
     food_remain--;
   }
   else if (board[pacman.i][pacman.j] === objEnum.Food30) {
     score += 15;
+    document.getElementById("lblScore").style.color = getRandomColor();
     food_remain--;
   }
   else if (board[pacman.i][pacman.j] === objEnum.Food60) {
     score += 5;
+    document.getElementById("lblScore").style.color = getRandomColor();
     food_remain--;
   }
 
@@ -473,7 +490,7 @@ function UpdatePosition() {
 
   var currentTime = new Date();
   time_elapsed = (currentTime - start_time) / 1000;
-  if(pacmanLives === 0){
+  if(pacmanLives <= 0){
     window.alert("Loser!");
     resetGame();
   }
@@ -570,7 +587,11 @@ function stopGameMusic() {
 }
 
 function playScaryMusic(){
-  scaryAudio.play()
+  audio.pause();
+  scaryAudio.play();
+  audio.pause();
+  audio.play();
+
 }
 
 function stopScaryMusic() {
@@ -723,11 +744,13 @@ function checkCollision(){
   for(ind = 0; ind < monsters.length; ind++){
     if(monsters[ind].i === pacman.i && monsters[ind].j === pacman.j){
       if(ind === 0 ) {
+        playScaryMusic();
         pacmanLives--;
         score -= 10;
       }
       pacmanLives--;
       score -= 10;
+      document.getElementById("lblScore").style.color = getRandomColor();
       board[pacman.i][pacman.j] = objEnum.Nothing;
       placeMonstersOnBoard();
       placePacmanOnBoard();
@@ -741,7 +764,6 @@ function checkSyringeCollision(){
     showSyringeEatenMsg();
   }
 }
-
 function resetGame() {
   window.clearInterval()
   showSettings();
