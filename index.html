@@ -194,25 +194,43 @@
 					</div>
 					
 					<div id="gameDetails">
+						<div id="detailsCurrentGame">
+							Here are the settings of your Game:
+						</div>
 						<div id="score">
 							<label for="lblScore">Your Score:</label>
-							<input class="gameSettingsShow" id="lblScore" type="text" />
+							<label  id="lblScore"> </label>
 						</div>
 						<div id="time">
 							<label for="lblTime">Time:</label>
-							<input class="gameSettingsShow" id="lblTime" type="text" />
+							<label id="lblTime"></label>
 						</div>
+
 						<label id="pacColor">Pacman Color</label>
 						<label id="10Color">10% Balls Color</label>
 						<label id="30Color">30% Balls Color</label>
 						<label id="60Color">60% Balls Color</label>
-						<label id="numOfBalls">Number of balls:</label>
-						<label id="numOfMonsters">Number of monsters:</label>
-						<label id="gameTime">Game maximum Time: </label>
+
+						<div id="balls">
+							<label for="ballsNum">Number of balls:</label>
+							<label id="ballsNum"></label>
+			
+						</div>
+						<div id="monsters">
+							<label for="monstersNum">Number of monsters:</label>
+							<label id="monstersNum"></label>
+						</div>
+						<div id="gameTimeMax">
+							<label for="maxTime">Game Time:</label>
+							<label  id="maxTime"></label>
+
+						</div>
 						<div>
 							<label id="livesRemain">Lives remain:</label>
-							<input class="gameSettingsShow" id="livesRemainInput" type="text" />
+							<label id="livesRemainInput"></label>
+							
 						</div>
+						<button class="welcomeBut" id="registerBut" onClick="showSettings()">New Game</button>
 					</div>
 					<audio id="gameAudio">
 						<source src="./resources/coronavirusSong.mpeg", type="audio/mpeg">

@@ -82,11 +82,6 @@ function Start(pacColorFromUser, arrowKeysFromUser, numOfBalls, ballColor60, bal
   document.getElementById("10Color").style.color = ballColor10;
   document.getElementById("30Color").style.color = ballColor30;
   document.getElementById("60Color").style.color = ballColor60;
-  document.getElementById("numOfBalls").style.color = numOfBalls;
-  document.getElementById("numOfMonsters").style.color = numOfMonstersFromUser;
-  document.getElementById("gameTime").style.color = gameTimeFromUser;
-
-  
   
   board = [];
   score = 0;
@@ -247,9 +242,12 @@ function GetKeyPressed(typeOfKeys) {
 function Draw() {
   // canvas.width = canvas.width; //clean board
   canvas.height = document.getElementById('content').offsetHeight;
-  lblScore.value = score;
-  lblTime.value = time_elapsed;
-  livesRemainInput.value = pacmanLives;
+  lblScore.innerHTML = score;
+  lblTime.innerHTML  = time_elapsed;
+  livesRemainInput.innerHTML = pacmanLives;
+  ballsNum.innerHTML = numOfBalls;
+  monstersNum.innerHTML = numOfMonsters;
+  maxTime.innerHTML = gameTime;
 
   for (var i = 0; i < 10; i++) {
     for (var j = 0; j < 10; j++) {
