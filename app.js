@@ -5,7 +5,8 @@ let monster2 = new Object();
 let monster3 = new Object();
 let monster4 = new Object();
 
-// load mosters images
+
+// load monsters images
 let monster1Img = new Image();
 monster1Img.src = "./resources/blueMonster.png"
 let monster2Img = new Image();
@@ -22,6 +23,13 @@ monster4.img = monster4Img;
 
 let monsters = [monster1, monster2, monster3, monster4];
 
+let syringe = new Object();
+let syringeImg = new Image();
+syringeImg.src = "./resources/syringe.png";
+syringe.img = syringeImg;
+syringe.isActive = false;
+
+
 var board;
 var score;
 var start_time;
@@ -30,6 +38,7 @@ var interval;
 let monstersInterval;
 let monstersDrawInterval;
 let checkCollisionInterval;
+let syringeDrawInterval;
 let pacmanLives;
 let isGameOn = false;
 let food_remain;
@@ -83,6 +92,7 @@ function Start(pacColorFromUser, arrowKeysFromUser, numOfBalls, ballColor60, bal
   score = 0;
   pacmanLives = 5;
   is_pacman_on_board = false;
+  syringe.isActive = true;
   start_time = new Date();
   arrowKeys = arrowKeysFromUser;
   pac_color = pacColorFromUser;
@@ -108,20 +118,21 @@ function Start(pacColorFromUser, arrowKeysFromUser, numOfBalls, ballColor60, bal
       }
     }
   }
-
+  placeSyringe();
   placeMonstersOnBoard();
   placePacmanOnBoard();
-
   // place all types of food on board
   placeFoodOnBoard(numOfBalls60, objEnum.Food60);
   placeFoodOnBoard(numOfBalls30, objEnum.Food30);
   placeFoodOnBoard(numOfBalls10, objEnum.Food10);
 
-
   interval = setInterval(UpdatePosition, 100);
   monstersUpdateInterval = setInterval(updateMonstersPosition, 500);
-  monstersDrawInterval = setInterval(drawMonsters, 10);
+  monstersDrawInterval = setInterval(drawMonsters, 5);
+  syringeUpdateInterval = setInterval(updateSyringePosition, 1000);
+  syringeDrawInterval = setInterval(drawSyringe, 5);
   checkCollisionInterval = setInterval(checkCollision, 20);
+  checkSyringeCollisionIntercal = setInterval(checkSyringeCollision, 20);
 }
 
 function findRandomEmptyCell(board) {
@@ -170,17 +181,29 @@ function placeMonstersOnBoard() {
   }
 }
 
+function isSameCell(obj1,obj2){
+  return (obj1.i === obj2.i && obj1.j === obj2.j && obj2.isActive)
+}
+
 function placePacmanOnBoard() {
   if(is_pacman_on_board){
     context.clearRect(pacman.i * 60, pacman.j * 60, 60, 60);
   }
   let emptyCell = findRandomEmptyCell(board);
+
+  while(isSameCell(pacman, monster1) && isSameCell(pacman, monster2)&& isSameCell(pacman, monster3) && isSameCell(pacman, monster4) && isSameCell(pacman, syringe)){
+    emptyCell = findRandomEmptyCell(board);
+  }
   pacman.i = emptyCell[0];
   pacman.j = emptyCell[1];
   board[emptyCell[0]][emptyCell[1]] = objEnum.Pacman;
   is_pacman_on_board = true;
 }
 
+function placeSyringe(){
+  syringe.i = 4;
+  syringe.j = 4;
+}
 
 function GetKeyPressed(typeOfKeys) {
   if (typeOfKeys === 1) {
@@ -404,8 +427,7 @@ function Draw() {
 }
 
 function UpdatePosition() {
-
-  board[pacman.i][pacman.j] = 0;
+  board[pacman.i][pacman.j] = objEnum.Nothing;
   var keyPressed = GetKeyPressed(arrowKeys);
 
   // up
@@ -554,6 +576,35 @@ function stopGame() {
   }
 }
 
+function updateSyringePosition(){
+  let direction = getRandomInt(1,4);
+  if(direction === directions.up){
+    if(board[syringe.i][syringe.j-1]===objEnum.Obstacle){
+      updateSyringePosition();
+    }
+    syringe.j -= 1;
+  }
+  else if(direction === directions.down){
+    if(board[syringe.i][syringe.j+1]===objEnum.Obstacle){
+      updateSyringePosition();
+    }
+    syringe.j += 1;
+  }
+  else if(direction === directions.left){
+    if(board[syringe.i-1][syringe.j]===objEnum.Obstacle){
+      updateSyringePosition();
+    }
+    syringe.i -= 1;
+  }
+  else if(direction === directions.right){
+    if(board[syringe.i+1][syringe.j]===objEnum.Obstacle){
+      updateSyringePosition();
+    }
+    syringe.i += 1;
+  }
+}
+
+
 function updateMonstersPosition() {
   let i = 0;
   for(i=0; i<monsters.length; i++) {
@@ -632,7 +683,7 @@ function monsterBestMoveToPackman(monster) {
 }
 
 function drawMonsters() {
-  var centerOfCell = new Object();
+  let centerOfCell = new Object();
   let i = 0;
   for(i = 0; i < monsters.length; i++){
     if(monsters[i].isActive){
@@ -641,6 +692,16 @@ function drawMonsters() {
       context.drawImage(monsters[i].img, centerOfCell.x - 30, centerOfCell.y - 30, 60, 60);
     }
   }
+}
+
+function drawSyringe(){
+  let centerCell = new Object();
+  if(syringe.isActive){
+    centerCell.x = syringe.i * 60 + 30;
+    centerCell.y = syringe.j * 60 + 30;
+    context.drawImage(syringe.img, centerCell.x - 30, centerCell.y - 30, 60, 60);
+  }
+
 }
 
 function checkCollision(){
@@ -653,6 +714,12 @@ function checkCollision(){
       placeMonstersOnBoard();
       placePacmanOnBoard();
     }
+  }
+}
+
+function checkSyringeCollision(){
+  if(syringe.i === pacman.i && syringe.j === pacman.j && syringe.isActive){
+    syringe.isActive = false;
   }
 }
 
