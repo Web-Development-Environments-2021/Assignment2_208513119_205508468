@@ -570,6 +570,11 @@ function showAbout() {
   stopGame();
 }
 
+function showInstructions(){
+  $('#content').children().hide();
+  $('#instructions').show();
+}
+
 function showGame(pacColor, arrowKeys, numOfBalls, ballColor60, ballColor30, ballColor10, gameTime, numOfMonsters) {
   $('#content').children().hide();
   $('#game').show();

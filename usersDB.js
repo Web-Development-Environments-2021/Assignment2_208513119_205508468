@@ -62,7 +62,7 @@ function logIn() {
     if(isUserValid(username, password)){
       currentUser = username;
       showUserInHeader(getUserFullName(username));
-      showSettings();
+      showInstructions();
     }
     else {
         alert("Username or Password is not correct!\nPlease Try Again!")
