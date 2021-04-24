@@ -6,6 +6,7 @@ let monster3 = new Object();
 let monster4 = new Object();
 
 
+
 // load monsters images
 let monster1Img = new Image();
 monster1Img.src = "./resources/blueMonster.png"
@@ -29,16 +30,26 @@ syringeImg.src = "./resources/syringe.png";
 syringe.img = syringeImg;
 syringe.isActive = false;
 
+let clock = new Object();
+let clockImg = new Image();
+clockImg.src = "./resources/clock.png";
+clock.img = clockImg;
+clock.i = 5;
+clock.j = 5;
+clock.isActive = true;
+
 
 var board;
 var score;
 var start_time;
 var time_elapsed;
-var interval;
+
+let interval;
 let monstersInterval;
 let monstersDrawInterval;
 let checkCollisionInterval;
 let syringeDrawInterval;
+let checkClockCollisionInterval;
 let pacmanLives;
 let isGameOn = false;
 let food_remain;
@@ -61,7 +72,7 @@ let keysDown = {};
 const audio = document.getElementById('gameAudio');
 
 // ENUM DEFINE
-const objEnum = Object.freeze({ "Nothing": 0, "Food10": 1, "Pacman": 2, "Food30": 3, "Obstacle": 4, "Food60": 6, "mon1": 7, "mon2": 8, "mon3": 9, "mon4": 10 });
+const objEnum = Object.freeze({ "Nothing": 0, "Food10": 1, "Pacman": 2, "Food30": 3, "Obstacle": 4, "Food60": 6, "mon1": 7, "mon2": 8, "mon3": 9, "mon4": 10, "clock": 11 });
 const directions = Object.freeze({ "up": 1, "down": 2, "left": 3, "right": 4 });
 
 
@@ -84,7 +95,7 @@ function Start(pacColorFromUser, arrowKeysFromUser, numOfBalls, ballColor60, bal
   document.getElementById("10Color").style.color = ballColor10;
   document.getElementById("30Color").style.color = ballColor30;
   document.getElementById("60Color").style.color = ballColor60;
-  
+
   keysDown = {}
   board = [];
   score = 0;
@@ -111,11 +122,15 @@ function Start(pacColorFromUser, arrowKeysFromUser, numOfBalls, ballColor60, bal
     for (var j = 0; j < 10; j++) {
       if ((i == 3 && j == 3) || (i == 3 && j == 4) || (i == 3 && j == 5) || (i == 6 && j == 1) || (i == 6 && j == 2)) {
         board[i][j] = objEnum.Obstacle;
-      } else {
+      } else if (i == 5 && j == 5) {
+        board[i][j] = objEnum.clock;
+      }
+      else {
         board[i][j] = objEnum.Nothing;
       }
     }
   }
+
   placeSyringe();
   placeMonstersOnBoard();
   placePacmanOnBoard();
@@ -131,7 +146,10 @@ function Start(pacColorFromUser, arrowKeysFromUser, numOfBalls, ballColor60, bal
   syringeDrawInterval = setInterval(drawSyringe, 5);
   checkCollisionInterval = setInterval(checkCollision, 20);
   checkSyringeCollisionIntercal = setInterval(checkSyringeCollision, 20);
+  checkClockCollisionInterval = setInterval(checkClockCollision, 20);
+
 }
+
 
 function findRandomEmptyCell(board) {
   let i = Math.floor(Math.random() * 10);
@@ -179,17 +197,17 @@ function placeMonstersOnBoard() {
   }
 }
 
-function isSameCell(obj1,obj2){
+function isSameCell(obj1, obj2) {
   return (obj1.i === obj2.i && obj1.j === obj2.j && obj2.isActive)
 }
 
 function placePacmanOnBoard() {
-  if(is_pacman_on_board){
+  if (is_pacman_on_board) {
     context.clearRect(pacman.i * 60, pacman.j * 60, 60, 60);
   }
   let emptyCell = findRandomEmptyCell(board);
 
-  while(isSameCell(pacman, monster1) && isSameCell(pacman, monster2)&& isSameCell(pacman, monster3) && isSameCell(pacman, monster4) && isSameCell(pacman, syringe)){
+  while (isSameCell(pacman, monster1) && isSameCell(pacman, monster2) && isSameCell(pacman, monster3) && isSameCell(pacman, monster4) && isSameCell(pacman, syringe)) {
     emptyCell = findRandomEmptyCell(board);
   }
   pacman.i = emptyCell[0];
@@ -198,7 +216,7 @@ function placePacmanOnBoard() {
   is_pacman_on_board = true;
 }
 
-function placeSyringe(){
+function placeSyringe() {
   syringe.i = 4;
   syringe.j = 4;
 }
@@ -246,7 +264,7 @@ function Draw() {
   // canvas.width = canvas.width; //clean board
   canvas.height = document.getElementById('content').offsetHeight;
   lblScore.innerHTML = score;
-  lblTime.innerHTML  = time_elapsed;
+  lblTime.innerHTML = time_elapsed;
   livesRemainInput.innerHTML = pacmanLives;
   ballsNum.innerHTML = numOfBalls;
   monstersNum.innerHTML = numOfMonsters;
@@ -423,6 +441,9 @@ function Draw() {
         context.fillStyle = 'black';
         context.fill();
       }
+      else if (board[i][j] === objEnum.clock && clock.isActive) {
+        context.drawImage(clock.img, center.x - 30, center.y - 30, 60, 60);
+      }
     }
   }
 }
@@ -469,13 +490,14 @@ function UpdatePosition() {
   board[pacman.i][pacman.j] = 2;
 
   var currentTime = new Date();
-  time_elapsed = (currentTime - start_time) / 1000;
-  if(pacmanLives === 0){
+  
+  time_elapsed = (currentTime.getTime() - start_time.getTime()) / 1000;
+  if (pacmanLives === 0) {
     window.alert("Loser!");
     resetGame();
   }
   else if (time_elapsed >= gameTime) {
-    if(score < 100){
+    if (score < 100) {
       window.alert("You are better than ${score} points!")
     }
     else {
@@ -483,7 +505,7 @@ function UpdatePosition() {
     }
     resetGame();
   }
-  else if(food_remain === 0){
+  else if (food_remain === 0) {
     window.alert("Winner!!!")
     resetGame();
   }
@@ -572,44 +594,69 @@ function stopGame() {
     window.clearInterval(monstersUpdateInterval);
     window.clearInterval(monstersDrawInterval);
     window.clearInterval(checkCollisionInterval);
+    document.getElementById('in-game-msg').innerHTML = "";
     stopGameMusic();
     isGameOn = false;
   }
 }
 
-function updateSyringePosition(){
-  let direction = getRandomInt(1,4);
-  if(direction === directions.up){
-    if(board[syringe.i][syringe.j-1]===objEnum.Obstacle){
-      updateSyringePosition();
+function updateSyringePosition() {
+  let direction = getRandomInt(1, 4);
+  if (direction === directions.up) {
+    if (board[syringe.i][syringe.j - 1] === objEnum.Obstacle) {
+      if (Math.random() > 0.5) {
+        syringe.i--;
+      }
+      else {
+        syringe.i++;
+      }
+      return;
     }
-    syringe.j -= 1;
+    syringe.j--;
   }
-  else if(direction === directions.down){
-    if(board[syringe.i][syringe.j+1]===objEnum.Obstacle){
-      updateSyringePosition();
+  else if (direction === directions.down) {
+    if (board[syringe.i][syringe.j + 1] === objEnum.Obstacle) {
+      if (Math.random() > 0.5) {
+        syringe.i--;
+      }
+      else {
+        syringe.i++;
+      }
+      return;
     }
-    syringe.j += 1;
+    syringe.j++;
   }
-  else if(direction === directions.left){
-    if(board[syringe.i-1][syringe.j]===objEnum.Obstacle){
-      updateSyringePosition();
+  else if (direction === directions.left) {
+    if (board[syringe.i - 1][syringe.j] === objEnum.Obstacle) {
+      if (Math.random() > 0.5) {
+        syringe.j++;
+      }
+      else {
+        syringe.j--;
+      }
+      return;
     }
-    syringe.i -= 1;
+    syringe.i--;
   }
-  else if(direction === directions.right){
-    if(board[syringe.i+1][syringe.j]===objEnum.Obstacle){
-      updateSyringePosition();
+  else if (direction === directions.right) {
+    if (board[syringe.i + 1][syringe.j] === objEnum.Obstacle) {
+      if (Math.random() > 0.5) {
+        syringe.j++;
+      }
+      else {
+        syringe.j--;
+      }
+      return;
     }
-    syringe.i += 1;
+    syringe.i++;
   }
 }
 
 
 function updateMonstersPosition() {
   let i = 0;
-  for(i=0; i<monsters.length; i++) {
-    if(monsters[i].isActive){
+  for (i = 0; i < monsters.length; i++) {
+    if (monsters[i].isActive) {
       let bestMove = monsterBestMoveToPackman(monsters[i]);
       if (bestMove === directions.up) {
         monsters[i].j -= 1;
@@ -627,6 +674,7 @@ function updateMonstersPosition() {
   }
 }
 
+
 function monsterBestMoveToPackman(monster) {
   let iDist = Math.abs(pacman.i - monster.i);
   let jDist = Math.abs(pacman.j - monster.j);
@@ -636,10 +684,10 @@ function monsterBestMoveToPackman(monster) {
     if (pacman.i > monster.i) { // pacman is right to monster
       // check if there is an obstacle
       if (board[monster.i + 1][monster.j] === objEnum.Obstacle) {
-        if(Math.random() > 0.5){
+        if (Math.random() > 0.5) {
           return directions.down;
         }
-        else{
+        else {
           return directions.up;
         }
       }
@@ -647,10 +695,10 @@ function monsterBestMoveToPackman(monster) {
     }
     else if (pacman.i < monster.i) { // pacman is left to monster
       if (board[monster.i - 1][monster.j] === objEnum.Obstacle) {
-        if(Math.random() > 0.5){
+        if (Math.random() > 0.5) {
           return directions.down;
         }
-        else{
+        else {
           return directions.up;
         }
       }
@@ -660,10 +708,10 @@ function monsterBestMoveToPackman(monster) {
   else {
     if (pacman.j > monster.j) { // pacman is below monster
       if (board[monster.i][monster.j + 1] === objEnum.Obstacle) {
-        if(Math.random() > 0.5){
+        if (Math.random() > 0.5) {
           return directions.right;
         }
-        else{
+        else {
           return directions.left;
         }
       }
@@ -671,10 +719,10 @@ function monsterBestMoveToPackman(monster) {
     }
     else if (pacman.j < monster.j) { // pacman is up to monster
       if (board[monster.i][monster.j - 1] === objEnum.Obstacle) {
-        if(Math.random() > 0.5){
+        if (Math.random() > 0.5) {
           return directions.right;
         }
-        else{
+        else {
           return directions.left;
         }
       }
@@ -686,8 +734,8 @@ function monsterBestMoveToPackman(monster) {
 function drawMonsters() {
   let centerOfCell = new Object();
   let i = 0;
-  for(i = 0; i < monsters.length; i++){
-    if(monsters[i].isActive){
+  for (i = 0; i < monsters.length; i++) {
+    if (monsters[i].isActive) {
       centerOfCell.x = monsters[i].i * 60 + 30;
       centerOfCell.y = monsters[i].j * 60 + 30;
       context.drawImage(monsters[i].img, centerOfCell.x - 30, centerOfCell.y - 30, 60, 60);
@@ -695,20 +743,19 @@ function drawMonsters() {
   }
 }
 
-function drawSyringe(){
+function drawSyringe() {
   let centerCell = new Object();
-  if(syringe.isActive){
+  if (syringe.isActive) {
     centerCell.x = syringe.i * 60 + 30;
     centerCell.y = syringe.j * 60 + 30;
     context.drawImage(syringe.img, centerCell.x - 30, centerCell.y - 30, 60, 60);
   }
-
 }
 
-function checkCollision(){
+function checkCollision() {
   let ind;
-  for(ind = 0; ind < monsters.length; ind++){
-    if(monsters[ind].i === pacman.i && monsters[ind].j === pacman.j){
+  for (ind = 0; ind < monsters.length; ind++) {
+    if (monsters[ind].i === pacman.i && monsters[ind].j === pacman.j) {
       pacmanLives--;
       score -= 10;
       board[pacman.i][pacman.j] = objEnum.Nothing;
@@ -718,10 +765,17 @@ function checkCollision(){
   }
 }
 
-function checkSyringeCollision(){
-  if(syringe.i === pacman.i && syringe.j === pacman.j && syringe.isActive){
+function checkSyringeCollision() {
+  if (syringe.i === pacman.i && syringe.j === pacman.j && syringe.isActive) {
     syringe.isActive = false;
     showSyringeEatenMsg();
+  }
+}
+
+function checkClockCollision() {
+  if(pacman.i === clock.i && pacman.j === clock.j){
+    add30SecToGameTime();
+    clock.isActive = false;
   }
 }
 
@@ -732,9 +786,16 @@ function resetGame() {
 
 function showSyringeEatenMsg() {
   document.getElementById('in-game-msg').innerHTML = "+50 Points!!!";
-  
+
 }
 
 function hideMsgToUser() {
   document.getElementById('in-game-msg').innerHTML = "";
+}
+
+function add30SecToGameTime() {
+  if(clock.isActive){
+    gameTime += 30;
+    document.getElementById('in-game-msg').innerHTML = "+30 Seconds!";
+  }
 }
