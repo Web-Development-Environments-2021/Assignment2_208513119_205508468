@@ -53,6 +53,7 @@ body {
 
 #logout-btn{
   display: none;
+  cursor: pointer;
 }
 
 .our-names{
@@ -88,6 +89,7 @@ body {
     color: black;
     padding: 16px;
     text-decoration: none;
+    cursor: pointer;
   }
   
   /* Active/current link */

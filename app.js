@@ -54,8 +54,10 @@ let numOfMonsters;
 let pac_color;
 let lastKeyPress;
 
+let is_pacman_on_board;
+
 const context = canvas.getContext('2d');
-const keysDown = {};
+let keysDown = {};
 const audio = document.getElementById('gameAudio');
 
 // ENUM DEFINE
@@ -74,7 +76,7 @@ $(document).ready(function () {
   showWelcome();
 });
 
-let is_pacman_on_board;
+
 
 function Start(pacColorFromUser, arrowKeysFromUser, numOfBalls, ballColor60, ballColor30, ballColor10, gameTimeFromUser, numOfMonstersFromUser) {
   // design settings
@@ -83,6 +85,7 @@ function Start(pacColorFromUser, arrowKeysFromUser, numOfBalls, ballColor60, bal
   document.getElementById("30Color").style.color = ballColor30;
   document.getElementById("60Color").style.color = ballColor60;
   
+  keysDown = {}
   board = [];
   score = 0;
   pacmanLives = 5;
@@ -718,10 +721,20 @@ function checkCollision(){
 function checkSyringeCollision(){
   if(syringe.i === pacman.i && syringe.j === pacman.j && syringe.isActive){
     syringe.isActive = false;
+    showSyringeEatenMsg();
   }
 }
 
 function resetGame() {
   window.clearInterval()
   showSettings();
+}
+
+function showSyringeEatenMsg() {
+  document.getElementById('in-game-msg').innerHTML = "+50 Points!!!";
+  
+}
+
+function hideMsgToUser() {
+  document.getElementById('in-game-msg').innerHTML = "";
 }
