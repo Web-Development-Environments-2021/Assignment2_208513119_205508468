@@ -8,13 +8,13 @@ let monster4 = new Object();
 
 // load monsters images
 let monster1Img = new Image();
-monster1Img.src = "./resources/blueMonster.png"
+monster1Img.src = "./resources/bat.png"
 let monster2Img = new Image();
 monster2Img.src = "./resources/pinkMonster.png"
 let monster3Img = new Image();
 monster3Img.src = "./resources/greenMonster.png"
 let monster4Img = new Image();
-monster4Img.src = "./resources/brownMonster.png"
+monster4Img.src = "./resources/blueMonster.png"
 
 monster1.img = monster1Img;
 monster2.img = monster2Img;
@@ -59,6 +59,9 @@ let is_pacman_on_board;
 const context = canvas.getContext('2d');
 let keysDown = {};
 const audio = document.getElementById('gameAudio');
+const scaryAudio = document.getElementById('batAudio');
+
+
 
 // ENUM DEFINE
 const objEnum = Object.freeze({ "Nothing": 0, "Food10": 1, "Pacman": 2, "Food30": 3, "Obstacle": 4, "Food60": 6, "mon1": 7, "mon2": 8, "mon3": 9, "mon4": 10 });
@@ -566,6 +569,16 @@ function stopGameMusic() {
   audio.currentTime = 0;
 }
 
+function playScaryMusic(){
+  scaryAudio.play()
+}
+
+function stopScaryMusic() {
+  scaryAudio.pause();
+  scaryAudio.currentTime = 0;
+}
+
+
 function stopGame() {
   if (isGameOn) {
     window.clearInterval(interval);
@@ -709,6 +722,10 @@ function checkCollision(){
   let ind;
   for(ind = 0; ind < monsters.length; ind++){
     if(monsters[ind].i === pacman.i && monsters[ind].j === pacman.j){
+      if(ind === 0 ) {
+        pacmanLives--;
+        score -= 10;
+      }
       pacmanLives--;
       score -= 10;
       board[pacman.i][pacman.j] = objEnum.Nothing;
