@@ -8,6 +8,9 @@ let monster4 = new Object();
 let heartImg = new Image();
 heartImg.src = "./resources/heart.png";
 
+let wallImg = new Image();
+wallImg.src = "./resources/wall.jpg";
+
 
 // load monsters images
 let monster1Img = new Image();
@@ -134,9 +137,9 @@ function Start(pacColorFromUser, arrowKeysFromUser, numOfBalls, ballColor60, bal
   // filling the board
   for (var i = 0; i < 10; i++) {
     board[i] = [];
-    //put obstacles in (i=3,j=3) and (i=3,j=4) and (i=3,j=5), (i=6,j=1) and (i=6,j=2)
+    //put obstacles in ...
     for (var j = 0; j < 10; j++) {
-      if ((i == 3 && j == 3) || (i == 3 && j == 4) || (i == 3 && j == 5) || (i == 6 && j == 1) || (i == 6 && j == 2)) {
+      if ((i == 3 && j == 5) || (i == 3 && j == 6) || (i == 3 && j == 7) || (i == 6 && j == 1) || (i == 6 && j == 2) || (i == 1 && j == 3) || (i == 8 && j == 8)) {
         board[i][j] = objEnum.Obstacle;
       } else if (i == 5 && j == 5) {
         board[i][j] = objEnum.clock;
@@ -451,10 +454,11 @@ function Draw() {
       }
 
       else if (board[i][j] === objEnum.Obstacle) { // obstacle
-        context.beginPath();
-        context.rect(center.x - 30, center.y - 30, 60, 60);
-        context.fillStyle = 'black';
-        context.fill();
+        // context.beginPath();
+        // context.rect(center.x - 30, center.y - 30, 60, 60);
+        // context.fillStyle = 'black';
+        // context.fill();
+        context.drawImage(wallImg, center.x - 30, center.y - 30, 60, 60);
       }
       else if (board[i][j] === objEnum.clock && clock.isActive) {
         context.drawImage(clock.img, center.x - 30, center.y - 30, 60, 60);
