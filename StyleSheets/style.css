@@ -56,6 +56,10 @@ body {
   cursor: pointer;
 }
 
+#header-current-username{
+  width: 300px;
+}
+
 .our-names{
     font-size: 0.9rem;
     font: normal 14px 'Roboto', cursive;
