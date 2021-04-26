@@ -5,28 +5,28 @@ let LeftKey;
 
 
 function presskeyUP(){
-  alert("Please Press on the UP arrow you want for game");
+  alert("Please Press on the UP arrow you want for game (after preesing OK)");
   document.getElementById("key-up").addEventListener('keydown', (even)=>{
     UpKey = even.keyCode;
   });
 }
 
 function presskeyDOWN(){
-  alert("Please Press on the DOWN arrow you want for game");
+  alert("Please Press on the DOWN arrow you want for game (after preesing OK)");
   document.getElementById("key-down").addEventListener('keydown', (even)=>{
     DownKey = even.keyCode;
   });
 }
 
 function presskeyLEFT(){
-  alert("Please Press on the LEFT arrow you want for game");
+  alert("Please Press on the LEFT arrow you want for game (after preesing OK)");
   document.getElementById("key-left").addEventListener('keydown', (even)=>{
     LeftKey = even.keyCode;
   });
 }
 
 function presskeyRIGHT(){
-  alert("Please Press on the RIGHT arrow you want for game");
+  alert("Please Press on the RIGHT arrow you want for game (after preesing OK)");
   document.getElementById("key-right").addEventListener('keydown', (even)=>{
     RightKey = even.keyCode;
   });

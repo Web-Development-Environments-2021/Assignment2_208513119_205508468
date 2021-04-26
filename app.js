@@ -168,7 +168,7 @@ function Start(pacColorFromUser, UPkeyFromUser, DOWNkeyFromUser,RIGHTkeyFromUser
   placeFoodOnBoard(numOfBalls10, objEnum.Food10);
 
   interval = setInterval(UpdatePosition, 100);
-  monstersUpdateInterval = setInterval(updateMonstersPosition, 500);
+  monstersUpdateInterval = setInterval(updateMonstersPosition, 700);
   monstersDrawInterval = setInterval(drawMonsters, 5);
   syringeUpdateInterval = setInterval(updateSyringePosition, 1000);
   syringeDrawInterval = setInterval(drawSyringe, 5);
