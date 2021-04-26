@@ -69,11 +69,12 @@ body {
 
 #header-current-username{
   width: 300px;
+  font-size: 1.5rem;
 }
 
 .our-names{
     font-size: 0.9rem;
-    font: normal 14px 'Roboto', cursive;
+    font: normal 18px 'Roboto', cursive;
     margin-right: 16px;
 }
 
@@ -96,16 +97,19 @@ body {
     margin: 0;
     padding: 0;
     width: 200px;
-    background-color: #f1f1f1;
+    background-color: #F0E68C;
     position: fixed;
     height: calc(100% - 80px - 70px);
     overflow: auto;
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text);
   }
   
   /* Sidebar links */
   #sidebar a {
     display: block;
-    color: black;
     padding: 16px;
     text-decoration: none;
     cursor: pointer;
