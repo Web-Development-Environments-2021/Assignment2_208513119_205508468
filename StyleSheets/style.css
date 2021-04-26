@@ -13,7 +13,7 @@ body {
 
 #mainWindow {
   display: flex;
-  height: calc(100% - 80px - 70px);
+  height: calc(100% - 80px - 40px);
   flex-direction: row;
   
 }
@@ -21,7 +21,6 @@ body {
 #instructions{
   display: flex;
   flex-direction: column;
-  margin-top: 10%;
   align-items: center;
   justify-content: center;
   background-color: rgba(0, 0, 0, 0.9);
@@ -70,11 +69,12 @@ body {
 
 #header-current-username{
   width: 300px;
+  font-size: 1.3em;
 }
 
 .our-names{
     font-size: 0.9rem;
-    font: normal 14px 'Roboto', cursive;
+    font: normal 18px 'Roboto', cursive;
     margin-right: 16px;
 }
 
@@ -97,16 +97,19 @@ body {
     margin: 0;
     padding: 0;
     width: 200px;
-    background-color: #f1f1f1;
+    background-color: #F0E68C;
     position: fixed;
-    height: calc(100% - 80px - 70px);
+    height: calc(100% - 80px - 40px);
     overflow: auto;
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text);
   }
   
   /* Sidebar links */
   #sidebar a {
     display: block;
-    color: black;
     padding: 16px;
     text-decoration: none;
     cursor: pointer;
@@ -167,18 +170,21 @@ body {
       font: bold 16px sans-serif;
       bottom: 0;
       left: 0;
+      margin-bottom: 0;
+      padding-bottom: 0;
       width: 100%;
-      height: 70px;
+      height: 40px;
       background-color: rgb(49, 49, 49);
       font-weight: 700;
       color: #ffffff;
       /* transition: all 0.2s; */
-      letter-spacing: 1px;
+      /* letter-spacing: 1px; */
       font-family: 'Oswald',sans-serif;
       display: flex;
       flex-direction: column;
       align-items: center;
       /* flex-wrap: wrap; */
+      position: fixed;
   }
 
 
@@ -197,11 +203,4 @@ body {
     color:  #ffffff;
     font: normal 12px 'Roboto', cursive;
     padding: 0;
-  }
-  
-  .footer .footer-company-name{
-    color:  #8f9296;
-    font-size: 10px;
-    font-weight: normal;
-    margin-top: 0;
   }

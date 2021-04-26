@@ -115,14 +115,18 @@
 						<h3 id=set-instructions>Please Choose Your preferences</h3>
 						<div class="set-item">
 							<label for="set-arrow-keys" class="set-labels">Arrow Keys:</label>
-							<div>
-								<div>
-									<input type="radio" name="set-arrow-keys" id="set-arrow-keys-arrows" value="arrow-keys">
-									<img src="./resources/arrowKeys.png" alt="arrowKeys" height="70px" width="80px">
+							<div id="press-keys">
+								<div id="set-key-up">
+									<button class="login-btn" onclick="presskeyUP()" id="key-up">Press key up</button>
 								</div>
-								<div>
-									<input type="radio" name="set-arrow-keys" id="set-arrow-keys-wasd" value="wasd-keys">
-									<img src="./resources/wasd.png" alt="wasdKeys" height="100px" width="110px">
+								<div id="set-key-down">
+									<button class="login-btn" onclick="presskeyDOWN()" id="key-down">Press key down</button>
+								</div>
+								<div id="set-key-left">
+									<button class="login-btn" onclick="presskeyLEFT()" id="key-left">Press key left</button>
+								</div>
+								<div id="set-key-right">
+									<button class="login-btn" onclick="presskeyRIGHT()" id="key-right">Press key right</button>
 								</div>
 							</div>
 
@@ -223,9 +227,11 @@
 					<div>
 						Are you ready for the DR Pacman to fight the CoronaVirus?
 					</br>
-						In this game, you need to be focused, fast and careful !
+						In this game, you need to be focused, fast and careful ! You have yo take your everyday pills to survive and gain points !
 					</br>
-					The coronavirus is looking for you everywhere, the Molecules are watching for you.
+						Every pill has it's color and each one gives you different amount of points.
+					</br>
+					The coronavirus is looking for you everywhere, the Molecules are watching you.
 					</div>
 					<div>
 						Oh, the BAT !!! 
@@ -243,7 +249,7 @@
 
 					</div>
 					<div>
-					And last one thing, the clock ! Trust me he will help you and give you +30 seconds for the game of your life.
+					And last one thing, the clock ! Trust me it will help you and give you +30 seconds for the game of your life.
 					</br>
 					</div>
 					<div>
@@ -284,9 +290,9 @@
 						</div>
 
 						<label id="pacColor">Pacman Color</label>
-						<label id="10Color">10% Balls Color</label>
-						<label id="30Color">30% Balls Color</label>
-						<label id="60Color">60% Balls Color</label>
+						<label id="10Color">10% Balls - 25 points</label>
+						<label id="30Color">30% Balls - 15 points</label>
+						<label id="60Color">60% Balls - 5 points</label>
 
 						<div id="balls">
 							<label for="ballsNum">Number of balls:</label>
@@ -325,9 +331,8 @@
 				<a onclick="showAbout()">About</a>
 				·
 				<a onclick="showContactUs()">Contact Us</a>
-			</p>
-			<p class="footer-company-name">
-				DR. Pacman © 2021
+				·
+				<a class="footer-company-name">DR. Pacman © 2021</a>
 			</p>
 		</div>
 		
