@@ -36,6 +36,11 @@
     color: #ffffff;
 }
 
+#press-keys{
+    display: flex;
+    flex-direction: row;
+}
+
 .set-inputs {
     width: 50px;
 }

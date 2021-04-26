@@ -60,7 +60,11 @@ let isGameOn = false;
 let food_remain;
 
 // variables from settings
-let arrowKeys;
+// let arrowKeys;
+let UPkey;
+let DOWNkey;
+let RIGHTkey;
+let LEFTkey;
 let numOfBalls;
 let color60balls;
 let color30balls;
@@ -107,7 +111,7 @@ function showLivesRemain(numOfLives){
 }
 
 
-function Start(pacColorFromUser, arrowKeysFromUser, numOfBalls, ballColor60, ballColor30, ballColor10, gameTimeFromUser, numOfMonstersFromUser) {
+function Start(pacColorFromUser, UPkeyFromUser, DOWNkeyFromUser,RIGHTkeyFromUser, LEFTkeyFromUser, numOfBalls, ballColor60, ballColor30, ballColor10, gameTimeFromUser, numOfMonstersFromUser) {
   // design settings
   document.getElementById("pacColor").style.color = pacColorFromUser;
   document.getElementById("10Color").style.color = ballColor10;
@@ -117,13 +121,13 @@ function Start(pacColorFromUser, arrowKeysFromUser, numOfBalls, ballColor60, bal
   keysDown = {}
   board = [];
   score = 0;
+  
   pacmanLives = 5;
   showLivesRemain(pacmanLives);
   is_pacman_on_board = false;
   syringe.isActive = true;
   clock.isActive = true;
   start_time = new Date();
-  arrowKeys = arrowKeysFromUser;
   pac_color = pacColorFromUser;
   let numOfBalls60 = Math.round(0.6 * numOfBalls);
   let numOfBalls30 = Math.round(0.3 * numOfBalls);
@@ -132,6 +136,10 @@ function Start(pacColorFromUser, arrowKeysFromUser, numOfBalls, ballColor60, bal
   gameTime = gameTimeFromUser;
   numOfMonsters = numOfMonstersFromUser;
   isGameOn = true;
+  UPkey = UPkeyFromUser;
+  DOWNkey = DOWNkeyFromUser;
+  RIGHTkey = RIGHTkeyFromUser;
+  LEFTkey = LEFTkeyFromUser;
 
   playGameMusic();
 
@@ -241,42 +249,22 @@ function placeSyringe() {
   syringe.j = 4;
 }
 
-function GetKeyPressed(typeOfKeys) {
-  if (typeOfKeys === 1) {
-    if (keysDown[38]) {
-      lastKeyPress = directions.up;
-      return directions.up;
-    }
-    if (keysDown[40]) {
-      lastKeyPress = directions.down;
-      return directions.down;
-    }
-    if (keysDown[37]) {
-      lastKeyPress = directions.left;
-      return directions.left;
-    }
-    if (keysDown[39]) {
-      lastKeyPress = directions.right;
-      return directions.right;
-    }
+function GetKeyPressed(keyUpCode, keyDownCode, keyRightCode, keyLeftCode) {
+  if (keysDown[keyUpCode]) {
+    lastKeyPress = directions.up;
+    return directions.up;
   }
-  else if (typeOfKeys === 2) {
-    if (keysDown[87]) {
-      lastKeyPress = directions.up;
-      return directions.up;
-    }
-    if (keysDown[83]) {
-      lastKeyPress = directions.down;
-      return directions.down;
-    }
-    if (keysDown[65]) {
-      lastKeyPress = directions.left;
-      return directions.left;
-    }
-    if (keysDown[68]) {
-      lastKeyPress = directions.right;
-      return directions.right;
-    }
+  if (keysDown[keyDownCode]) {
+    lastKeyPress = directions.down;
+    return directions.down;
+  }
+  if (keysDown[keyLeftCode]) {
+    lastKeyPress = directions.left;
+    return directions.left;
+  }
+  if (keysDown[keyRightCode]) {
+    lastKeyPress = directions.right;
+    return directions.right;
   }
 }
 
@@ -470,7 +458,7 @@ function Draw() {
 
 function UpdatePosition() {
   board[pacman.i][pacman.j] = objEnum.Nothing;
-  var keyPressed = GetKeyPressed(arrowKeys);
+  var keyPressed = GetKeyPressed(UPkey, DOWNkey, RIGHTkey, LEFTkey);
 
   // up
   if (keyPressed === 1 && pacman.j > 0 && board[pacman.i][pacman.j - 1] !== 4) {
@@ -575,10 +563,10 @@ function showInstructions(){
   $('#instructions').show();
 }
 
-function showGame(pacColor, arrowKeys, numOfBalls, ballColor60, ballColor30, ballColor10, gameTime, numOfMonsters) {
+function showGame(pacColor, UPkey, DOWNkey, RIGHTkey, LEFTkey, numOfBalls, ballColor60, ballColor30, ballColor10, gameTime, numOfMonsters) {
   $('#content').children().hide();
   $('#game').show();
-  Start(pacColor, arrowKeys, numOfBalls, ballColor60, ballColor30, ballColor10, gameTime, numOfMonsters);
+  Start(pacColor, UPkey, DOWNkey, RIGHTkey, LEFTkey, numOfBalls, ballColor60, ballColor30, ballColor10, gameTime, numOfMonsters);
 }
 
 function closeAbout() {

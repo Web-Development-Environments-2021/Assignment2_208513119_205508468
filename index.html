@@ -115,14 +115,18 @@
 						<h3 id=set-instructions>Please Choose Your preferences</h3>
 						<div class="set-item">
 							<label for="set-arrow-keys" class="set-labels">Arrow Keys:</label>
-							<div>
-								<div>
-									<input type="radio" name="set-arrow-keys" id="set-arrow-keys-arrows" value="arrow-keys">
-									<img src="./resources/arrowKeys.png" alt="arrowKeys" height="70px" width="80px">
+							<div id="press-keys">
+								<div id="set-key-up">
+									<button class="login-btn" onclick="presskeyUP()" id="key-up">Press key up</button>
 								</div>
-								<div>
-									<input type="radio" name="set-arrow-keys" id="set-arrow-keys-wasd" value="wasd-keys">
-									<img src="./resources/wasd.png" alt="wasdKeys" height="100px" width="110px">
+								<div id="set-key-down">
+									<button class="login-btn" onclick="presskeyDOWN()" id="key-down">Press key down</button>
+								</div>
+								<div id="set-key-left">
+									<button class="login-btn" onclick="presskeyLEFT()" id="key-left">Press key left</button>
+								</div>
+								<div id="set-key-right">
+									<button class="login-btn" onclick="presskeyRIGHT()" id="key-right">Press key right</button>
 								</div>
 							</div>
 
