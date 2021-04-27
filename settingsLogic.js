@@ -8,13 +8,16 @@ function presskeyUP(){
   alert("Please Press on the UP arrow you want for game (after preesing OK)");
   document.getElementById("key-up").addEventListener('keydown', (even)=>{
     UpKey = even.keyCode;
+    alert("UP key accepted");
   });
+
 }
 
 function presskeyDOWN(){
   alert("Please Press on the DOWN arrow you want for game (after preesing OK)");
   document.getElementById("key-down").addEventListener('keydown', (even)=>{
     DownKey = even.keyCode;
+    alert("DOWN key accepted");
   });
 }
 
@@ -22,6 +25,7 @@ function presskeyLEFT(){
   alert("Please Press on the LEFT arrow you want for game (after preesing OK)");
   document.getElementById("key-left").addEventListener('keydown', (even)=>{
     LeftKey = even.keyCode;
+    alert("LEFT key accepted");
   });
 }
 
@@ -29,6 +33,7 @@ function presskeyRIGHT(){
   alert("Please Press on the RIGHT arrow you want for game (after preesing OK)");
   document.getElementById("key-right").addEventListener('keydown', (even)=>{
     RightKey = even.keyCode;
+    alert("RIGHT key accepted");
   });
 }
 
